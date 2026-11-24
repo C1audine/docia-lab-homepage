@@ -1041,6 +1041,155 @@ footer {
   text-decoration:underline;
 }
 
+/* Portraits, personal links and lab moments */
+.profile-art.has-photo {
+  align-self:start;
+  height:auto;
+  aspect-ratio:4/5;
+}
+
+.profile-art.has-photo img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.record-links {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:4px 20px;
+  margin-top:5px;
+}
+
+.alumni-person {
+  display:flex;
+  align-items:center;
+  gap:15px;
+  min-width:0;
+}
+
+.avatar-sm {
+  position:relative;
+  flex:none;
+  display:grid;
+  place-items:center;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#deeee1;
+  border:1px solid #cfe2d6;
+}
+
+.avatar-sm img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.avatar-sm>span {
+  font:italic 1.15rem var(--serif);
+  color:#306954;
+}
+
+.gallery-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+  margin-top:23px;
+}
+
+.gallery-card {
+  margin:0;
+  overflow:hidden;
+  background:#fcfdfa;
+  border:1px solid var(--line);
+  border-radius:7px;
+  transition:border-color .2s,box-shadow .2s;
+}
+
+.gallery-card:hover {
+  border-color:#7eac96;
+  box-shadow:0 3px 12px #1648360b;
+}
+
+.gallery-frame {
+  position:relative;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  background:#e0f0e4;
+}
+
+.gallery-frame img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .4s ease;
+}
+
+.gallery-card:hover .gallery-frame img {
+  transform:scale(1.025);
+}
+
+.gallery-card figcaption {
+  padding:15px 19px 20px;
+}
+
+.gallery-meta {
+  font:600 .7rem var(--mono);
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:#38725e;
+}
+
+.gallery-card h3 {
+  font-family:var(--serif);
+  font-size:1.32rem;
+  letter-spacing:-.035em;
+  margin-top:5px;
+}
+
+.gallery-caption {
+  font-size:.92rem;
+  margin-top:6px;
+}
+
+.gallery-credit {
+  font-size:.8rem;
+  color:#5a766c;
+  margin-top:7px;
+}
+
+.home-moments {
+  padding-block:0 62px;
+}
+
+.empty-state {
+  padding:46px 24px;
+  text-align:center;
+  background:#f9fcf8;
+  border:1px dashed #b9d4c5;
+  border-radius:7px;
+}
+
+.empty-state h2 {
+  font-size:1.6rem;
+}
+
+.empty-state p {
+  margin-top:8px;
+  color:#4b695d;
+  font-size:.96rem;
+}
+
 @media(min-width:1550px) {
   .hero-inner {
     gap:48px;
@@ -1465,6 +1614,50 @@ footer {
   }
   .placement {
     grid-column:auto;
+  }
+}
+
+@media(max-width:1050px) {
+  .gallery-grid {
+    gap:14px;
+  }
+}
+
+@media(max-width:780px) {
+  .gallery-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:13px;
+  }
+  .home-moments {
+    padding-block:0 46px;
+  }
+  .gallery-card figcaption {
+    padding:13px 16px 17px;
+  }
+  .gallery-card h3 {
+    font-size:1.2rem;
+  }
+  .record-links {
+    gap:3px 16px;
+  }
+}
+
+@media(max-width:650px) {
+  .avatar-sm {
+    width:44px;
+    height:44px;
+  }
+  .alumni-person {
+    gap:12px;
+  }
+  .profile-art.has-photo {
+    height:auto;
+  }
+}
+
+@media(max-width:410px) {
+  .gallery-grid {
+    grid-template-columns:1fr;
   }
 }
 

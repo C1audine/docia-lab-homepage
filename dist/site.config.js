@@ -1,4 +1,6 @@
 // Edit this file to maintain DOCIA's public content and experiment defaults.
+// Photos live in the folders listed under `media`. A `photo` value may be a file
+// name relative to that folder ("jie-lu.webp"), a path ("../assets/x.webp") or a URL.
 export const site = {
   brand: "DOCIA Lab",
   name: "Lab of Decision, Optimization, and Control for Intelligent Agents",
@@ -7,8 +9,15 @@ export const site = {
   navigation: [
     { id: "home", label: "Home" }, { id: "research", label: "Research" },
     { id: "publications", label: "Publications" }, { id: "people", label: "People" },
-    { id: "alumni", label: "Alumni" }, { id: "contact", label: "Contact" }
+    { id: "alumni", label: "Alumni" }, { id: "gallery", label: "Moments" },
+    { id: "contact", label: "Contact" }
   ],
+  // Folder links for the photo fields below. Keep the trailing slash.
+  media: {
+    people: "./assets/people/",
+    alumni: "./assets/people/",
+    gallery: "./assets/gallery/"
+  },
   hero: {
     lines: ["Decision, Optimization", "& Control for", "Intelligent Agents"],
     description: "We study how connected agents make decisions together, designing optimization and control algorithms for large-scale networked systems."
@@ -32,11 +41,20 @@ export const site = {
     { id: "constraints", year: 2023, title: "Distributed Optimization with Coupling Constraints", authors: "X. Wu, H. Wang, and J. Lu", venue: "IEEE Transactions on Automatic Control", url: "https://ieeexplore.ieee.org/document/9762539" },
     { id: "proximal", year: 2021, title: "A Second-Order Proximal Algorithm for Consensus Optimization", authors: "X. Wu, Z. Qu, and J. Lu", venue: "IEEE Transactions on Automatic Control", url: "https://ieeexplore.ieee.org/document/9097872" }
   ],
+  // `photo`: leave empty to show the generated initials instead.
+  // `url` is the personal homepage; `urlLabel` overrides the link text.
+  // `email` is shown as a mailto link.
   people: [
-    { name: "Jie Lu", role: "Lab Director · Associate Professor", affiliation: "School of Information Science and Technology", description: "Research interests include distributed optimization, multi-agent decision making, and networked dynamical systems.", url: "https://sist.shanghaitech.edu.cn/lujie_en/main.htm" }
+    { name: "Jie Lu", role: "Lab Director · Associate Professor", affiliation: "School of Information Science and Technology", description: "Research interests include distributed optimization, multi-agent decision making, and networked dynamical systems.", url: "https://sist.shanghaitech.edu.cn/lujie_en/main.htm", urlLabel: "University profile", email: "lujie@shanghaitech.edu.cn", photo: "" }
   ],
+  // Same fields as `people`, plus the graduation details. `source` links the yearbook.
   alumni: [
-    { name: "Xuyang Wu", degree: "PhD", year: 2020, position: "Postdoctoral researcher", destination: "KTH Royal Institute of Technology", location: "Stockholm, Sweden", source: "https://faculty.sist.shanghaitech.edu.cn/office/Share/Entropy-SIST%20Yearbook%2C2020.pdf" }
+    { name: "Xuyang Wu", degree: "PhD", year: 2020, position: "Postdoctoral researcher", destination: "KTH Royal Institute of Technology", location: "Stockholm, Sweden", source: "https://faculty.sist.shanghaitech.edu.cn/office/Share/Entropy-SIST%20Yearbook%2C2020.pdf", url: "", email: "", photo: "" }
+  ],
+  // Group photos, in display order. `photo` is resolved against `media.gallery`.
+  gallery: [
+    // { id: "2026-spring-retreat", photo: "2026-spring-retreat.webp", date: "April 2026",
+    //   title: "Spring retreat", caption: "A weekend of hiking and planning the year ahead.", credit: "" }
   ],
   contact: { name: "Jie Lu", email: "lujie@shanghaitech.edu.cn", office: "Room 1D-201B, SIST Building", street: "393 Huaxia Middle Road", city: "Shanghai 201210, China", school: "School of Information Science and Technology", profile: "https://faculty.sist.shanghaitech.edu.cn/faculty/lujie/", center: "https://star-center.shanghaitech.edu.cn/professors.html" },
   experiment: { topology: "Mesh", initialLoads: [78, 45, 108, 30, 75, 44, 23, 58], capacity: 100, tolerance: 0.1, previewRound: 4 }

@@ -1,4 +1,14 @@
 export const escapeHtml = (value) => String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c]);
+export const initials = (name) => String(name || "").trim().split(/\s+/).filter(Boolean).map(word => word[0]).join("").slice(0, 3).toUpperCase();
+export const mediaUrl = (value, dir) => {
+  const path = String(value ?? "").trim();
+  if (!path) return "";
+  if (/^(https?:)?\/\//i.test(path) || /^(\/|data:|blob:)/.test(path)) return path;
+  const base = String(dir || "").replace(/\/?$/, "/");
+  const relative = path.replace(/^\.\//, "");
+  if (!base) return relative;
+  return base + relative;
+};
 const strokes = {
   network: '<circle cx="5" cy="16" r="2.8"/><circle cx="12" cy="5" r="2.8"/><circle cx="19" cy="16" r="2.8"/><path d="m6.4 13.5 4-6m3.2 0 4 6M8 16h8"/>',
   agents: '<circle cx="12" cy="7" r="3"/><path d="M6 20v-2a6 6 0 0 1 12 0v2M4 8a2.4 2.4 0 1 0 1.4 4.3M2 18a4 4 0 0 1 2.2-3.6M20 8a2.4 2.4 0 1 1-1.4 4.3M22 18a4 4 0 0 0-2.2-3.6"/>',

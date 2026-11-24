@@ -1,6 +1,8 @@
 # DOCIA Lab Homepage
 
-上海科技大学 DOCIA（Lab of Decision, Optimization, and Control for Intelligent Agents）英文课题组主页。访客可以浏览研究方向、成果、成员和校友去向，也可以在首页观察梯度下降过程，并通过八个边缘服务器的负载均衡实验比较网络拓扑。[打开公开 demo](https://docia-lab-atlas.c1audine4alex.chatgpt.site)
+上海科技大学 DOCIA（Lab of Decision, Optimization, and Control for Intelligent Agents）英文课题组主页。访客可以浏览研究方向、成果、成员、校友去向和课题组合影，也可以在首页观察梯度下降过程，并通过八个边缘服务器的负载均衡实验比较网络拓扑。[打开公开 demo](https://docia-lab-atlas.c1audine4alex.chatgpt.site)
+
+> **注**：上面的公开 demo 目前仍部署**上一版本**的页面，尚未包含成员照片、联系方式与 Moments 合影分区；本仓库 `dist/` 中的内容已是新版本，重新部署后才会同步。
 
 **日常维护从 [dist/site.config.js](dist/site.config.js) 开始。** `dist/` 是可直接编辑和部署的完整站点。浏览器原生加载 HTML、CSS 和 JavaScript 模块。发布已有内容只需要一个静态文件服务器，站点运行没有 Node.js、Python 服务或数据库依赖。
 
@@ -26,13 +28,14 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 
 | 页面 | 路径 | 展示内容或操作 |
 | --- | --- | --- |
-| Home | `/` 或 `/#/home` | 实验室介绍、随滚动移动的梯度下降点、网络实验、研究卡片、前两条论文记录 |
+| Home | `/` 或 `/#/home` | 实验室介绍、随滚动移动的梯度下降点、网络实验、研究卡片、前两条论文记录，以及最新三张合影 |
 | Network playground | `/#/simulation` | 跳到首页实验区。切换拓扑、选择节点、调整初始负载，然后运行、暂停或重置实验 |
 | Research | `/#/research` | 查看研究方向，点击卡片进入详情 |
 | Research detail | `/#/research/distributed-optimization` | 示例详情页，包含研究问题、说明与关联论文 |
 | Publications | `/#/publications` | 按配置中的顺序列出论文及外部链接 |
-| People | `/#/people` | 当前成员的职务、单位、研究兴趣和个人主页 |
-| Alumni | `/#/alumni` | 毕业年份、学位及毕业后的首份去向 |
+| People | `/#/people` | 当前成员的照片、职务、单位、研究兴趣、个人主页与邮箱 |
+| Alumni | `/#/alumni` | 毕业年份、学位及毕业后的首份去向，可附照片、个人主页与邮箱 |
+| Moments | `/#/gallery` | 课题组合影分区，按配置顺序展示照片、时间、标题与说明 |
 | Contact | `/#/contact` | 负责人邮箱、办公室和通信地址。邮箱链接唤起访客的邮件客户端 |
 
 浏览器实际向服务器请求 `index.html`，然后根据 `#` 后的片段渲染相应页面。因此复制详情地址、直接打开和刷新都可以共用同一个服务器入口。
@@ -44,17 +47,155 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 | [dist/index.html](dist/index.html) | 修改 HTML 外壳、默认标题、搜索引擎摘要和 favicon 引用。页面通过此处的模块脚本启动 |
 | [dist/site.config.js](dist/site.config.js) | 修改课题组资料、主色、导航标签、研究记录、论文、成员、校友及实验默认值 |
 | [dist/app.js](dist/app.js) | 修改页面结构、首页区块顺序、研究详情和路由。新增一级页面时同时更新 `pageTitles`、`render()` 的页面映射与配置中的 `navigation` |
-| [dist/style.css](dist/style.css) | 修改字号、间距、组件样式及响应式布局。当前导航在 780 px 及以下折叠，实验区在 650 px 及以下变为单栏 |
-| [dist/ui.js](dist/ui.js) | 公用图标、文本转义和小标题组件 |
+| [dist/style.css](dist/style.css) | 修改字号、间距、组件样式及响应式布局。当前导航在 780 px 及以下折叠，实验区在 650 px 及以下变为单栏，合影网格在 780 px 及以下为两列、410 px 及以下为单列 |
+| [dist/ui.js](dist/ui.js) | 公用图标、文本转义、小标题组件，以及姓名缩写和图片路径解析 |
 | [dist/model.js](dist/model.js) | 定义拓扑坐标、邻接边、同步负载交换算法和均方根误差 |
 | [dist/experiment.js](dist/experiment.js) | 定义实验界面、运行和暂停逻辑、对照曲线、节点标签及指标说明 |
 | [dist/terrain.js](dist/terrain.js) | 把页面滚动进度映射到预计算的下降轨迹，并绘制标记和图例 |
 | [tools/render-landscape.py](tools/render-landscape.py) | 修改目标函数、初始点、步长、投影或曲面渲染方式 |
 | [dist/assets](dist/assets) | `mark.svg` 是站点标识，`landscape.webp` 与 `descent.js` 是同一次计算生成的曲面和轨迹 |
+| [dist/assets/people](dist/assets/people) | 成员与校友的照片文件 |
+| [dist/assets/gallery](dist/assets/gallery) | 课题组合影文件 |
 
-### 添加成果或成员
+## 维护手册
 
-在 `site.publications` 数组中复制一条记录，替换以下字段。以下值为填写示例。若要在首页展示，将论文放在数组的前两项之一。
+### 1. 先分清三层：内容、图片、代码
+
+| 层 | 位置 | 存的是什么 | 什么时候动 |
+| --- | --- | --- | --- |
+| 内容 | [dist/site.config.js](dist/site.config.js) | 全部文字：成员、校友、论文、研究方向、合影说明、联系方式、导航标签 | 每次有人加入、毕业、发论文、办活动 |
+| 图片 | [dist/assets/people](dist/assets/people)、[dist/assets/gallery](dist/assets/gallery) | 照片与合影的图片文件本身 | 有新照片时 |
+| 代码 | `dist/*.js`、`dist/style.css` | 页面结构、样式、路由 | 只有改版才需要 |
+
+关于「配置是不是只是个索引」，准确地说：
+
+- **`site.config.js` 不是索引，它仍然是内容的唯一来源。** 文字、条目顺序、链接、日期都写在里面，页面完全按它渲染。
+- **`dist/assets/people/` 只是一排文件夹，页面不会去扫描它。** 图片放进去不等于会上线——必须在 config 的某条记录里用 `photo` 指到它。
+- 两者的关系是**单向引用**：`site.people` 里的一条记录 = 一个人 + 他的文字；`photo` 可选地指向文件夹里的一张图。同一张图可以被多人引用，不被引用的图永远不会被加载。
+- 反过来也做了兜底：config 里写了文件名但文件不存在、或大小写写错时，页面会自动回退成首字母头像，不会出现破图。
+
+一句话：**文字写 config，图片放文件夹，config 里用文件名把两者连起来。**
+
+### 2. 五分钟上手：给一位成员加照片
+
+1. 把照片存成 `dist/assets/people/jie-lu.webp`。
+2. 打开 `dist/site.config.js`，找到这条记录，把 `photo` 填上文件名：
+
+```js
+{
+  name: "Jie Lu",
+  role: "Lab Director · Associate Professor",
+  affiliation: "School of Information Science and Technology",
+  description: "Research interests include distributed optimization, multi-agent decision making, and networked dynamical systems.",
+  url: "https://sist.shanghaitech.edu.cn/lujie_en/main.htm",
+  urlLabel: "University profile",
+  email: "lujie@shanghaitech.edu.cn",
+  photo: "jie-lu.webp"
+}
+```
+
+3. 刷新 <http://127.0.0.1:8000/#/people> 即可看到照片替换了首字母。把 `photo` 改回 `""` 就退回首字母。
+
+### 3. 成员与校友
+
+**成员（`people`）字段**
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `name` | 是 | 英文姓名。首字母头像由它生成（如 Jie Lu → JL），最多取三个词首字母 |
+| `role` | 是 | 职务，显示在姓名上方的小标 |
+| `affiliation` | 是 | 单位，页面上自动追加 `site.university` |
+| `description` | 是 | 研究兴趣，一段话 |
+| `url` | 否 | 个人主页链接；留空则不显示 |
+| `urlLabel` | 否 | 主页链接的文字，缺省为 `Homepage` |
+| `email` | 否 | 邮箱，显示为 `mailto:` 链接 |
+| `photo` | 否 | 照片，留空用首字母头像 |
+
+**校友（`alumni`）字段**
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `name` | 是 | 英文姓名，首字母小圆标由它生成 |
+| `degree` | 是 | `PhD` / `Master` 等，页面上显示为「PhD graduate」 |
+| `year` | 是 | 毕业年份 |
+| `position` | 是 | 毕业后首份职位 |
+| `destination` | 是 | 去向单位，加粗显示 |
+| `location` | 是 | 城市、国家 |
+| `source` | 否 | 佐证链接（如年鉴）；留空则不显示 |
+| `url` / `email` / `photo` | 否 | 同成员字段，显示在姓名下方 |
+
+**新增、删除、排序**
+
+- 新增：在数组里复制一条记录、改字段即可，注意上一条结尾的逗号。
+- 删除：整条记录删掉；图片文件可以留着（不会加载），也可以一并删除。
+- 排序：**数组顺序就是页面顺序**，直接上下移动整条记录。
+
+### 4. 照片：放哪、路径怎么写
+
+照片目录由配置顶部的 `media` 统一指定，改这里就能整体换目录（`people` 与 `alumni` 默认共用同一个）：
+
+```js
+media: {
+  people: "./assets/people/",
+  alumni: "./assets/people/",
+  gallery: "./assets/gallery/"
+}
+```
+
+`photo` 的写法按以下规则解析（以 `media.people` 为 `./assets/people/` 为例）：
+
+| 写法 | 结果 |
+| --- | --- |
+| `""` | 不显示照片，用首字母头像 |
+| `"jie-lu.webp"` | `./assets/people/jie-lu.webp` |
+| `"./jie-lu.webp"` | 同上（开头的 `./` 会被忽略） |
+| `"../shared/group.webp"` | `./assets/shared/group.webp`（相对 `media` 目录往上走） |
+| `"/assets/people/jie-lu.webp"` | 站点根绝对路径；**站点部署在子目录（如 `/docia/`）时不要用这种写法** |
+| `"https://cdn.example.org/x.jpg"` | 直接外链，不拼接目录 |
+
+**图片规范**
+
+- 格式：WebP 或 JPEG；不要用 HEIC。
+- 成员照片：竖版，约 4:5，正方形也能接受。
+- 合影：横版，约 4:3。
+- 体积：单张 300 KB 以内，合影 400 KB 以内；页面用 `loading="lazy"`，不进视口不加载。
+- 命名：小写英文 + 连字符，如 `jie-lu.webp`、`2026-spring-retreat.webp`。**Linux 服务器区分大小写**，`Photo.JPG` 和 `photo.jpg` 是两个文件。
+- 图片缺失或路径写错时会自动回退首字母，但控制台会有 404，发版前建议清一遍。
+
+### 5. 课题组合影
+
+合影写在 `site.gallery`，**数组顺序即展示顺序**，首页取前三张：
+
+```js
+gallery: [
+  {
+    id: "2026-spring-retreat",
+    photo: "2026-spring-retreat.webp",
+    date: "April 2026",
+    title: "Spring retreat",
+    caption: "A weekend of hiking and planning the year ahead.",
+    credit: "Photo: Wei Zhang",
+    alt: "Group photo on the mountain trail"
+  }
+]
+```
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `id` | 是 | 唯一标识，仅用于维护时区分 |
+| `photo` | 是 | 文件名，按 `media.gallery` 拼接 |
+| `date` | 否 | 显示在卡片顶部的小标，如 `April 2026` |
+| `title` | 否 | 卡片标题，缺省为 `Lab moment` |
+| `caption` | 否 | 一句说明 |
+| `credit` | 否 | 摄影者，显示为「Photo: …」 |
+| `alt` | 否 | 图片替代文本，缺省用 `title`，建议填上以便无障碍访问 |
+
+- 相册为空时，`/#/gallery` 显示「Photos coming soon」占位，首页的「Life at DOCIA」区块自动隐藏（不会留空行）。
+- 想把某张合影挪到首页，把它在数组里往前排即可。
+
+### 6. 论文与研究方向
+
+论文写在 `site.publications`，首页只取前两条：
 
 ```js
 {
@@ -67,12 +208,46 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 }
 ```
 
-- **关联研究方向**：将相应 `research` 记录的 `paper` 设置为论文的 `id`。每个研究方向和每篇论文应各自使用稳定、唯一的 `id`。修改研究方向的 `id` 会改变已分享的详情页地址。
-- **在组成员**：向 `people` 添加 `name`、`role`、`affiliation`、`description` 和 `url`。页面自动从英文姓名生成缩写。
-- **校友**：向 `alumni` 添加 `name`、`degree`、`year`、`position`、`destination`、`location` 和 `source`。公开资料记录的是首次去向时，保留这一口径。
-- **品牌与联系**：`brand` 用于站点简称，`name` 用于全称，`hero.lines` 决定首页标题分行。`contact` 集中保存邮箱、地址和外链。`palette` 定义五个主题色；插图本身的色值分别在 SVG 或绘图脚本中。
+研究方向写在 `site.research`，`id` 同时是详情页地址（`/#/research/distributed-optimization`）：
 
-### 实验与梯度下降图
+```js
+{
+  id: "distributed-optimization",
+  title: "Distributed optimization",
+  icon: "network",            // 可选：network / agents / contour
+  short: "卡片上的一句话",
+  question: "详情页的大标题问题",
+  detail: "详情页正文",
+  paper: "stochastic"         // 关联论文的 id，留空则不显示论文
+}
+```
+
+- `id` 一旦对外分享过就不要再改，否则旧链接失效。
+- 新增研究方向会自动出现在 `/#/research` 的卡片区，不需要改代码。
+
+### 7. 导航与页面
+
+`site.navigation` 控制导航的**标签和顺序**（下面是节选）：
+
+```js
+navigation: [
+  { id: "home", label: "Home" },
+  { id: "gallery", label: "Moments" },
+  { id: "contact", label: "Contact" }   // id 为 contact 的项显示为按钮
+]
+```
+
+但页面本身是代码里注册的：`dist/app.js` 的 `pageTitles` 决定标题，`render()` 里的页面映射决定渲染函数。**新增一个一级页面需要同时改配置和 app.js**；只加配置项的话，点进去会回到首页。日常维护（加人、加照片、加合影、加论文）都不需要动代码。
+
+### 8. 首页文案、联系方式、配色
+
+- `hero.lines` 是首页大标题的分行数组，最后一行显示为绿色斜体。
+- `hero.description` 是标题下的介绍段落。
+- `brand` / `name` / `university` 分别用于站点简称、全称和学校名，页脚与页面小标会复用。
+- `contact` 集中保存邮箱、办公室、街道、城市、学院和外链，联系页与论文页共用。
+- `palette` 控制五个主题色；页面里的插图（曲面、网络、等高线）颜色在 SVG 或绘图脚本中，不随 `palette` 变化。
+
+### 9. 实验参数与曲面图
 
 `experiment.initialLoads` 的八个位置依次对应 N01 至 N08。`topology` 支持 `Mesh`、`Ring`、`Star`，`capacity` 是单台服务器的容量，`tolerance` 是 RMS 负载误差阈值，`previewRound` 决定首次显示哪一轮。改变初始负载或切换拓扑会从第 0 轮重新计算。修改算法时从 `simulate()` 开始，修改指标展示时从 `mountExperiment()` 开始。
 
@@ -84,6 +259,27 @@ python3 -m venv .venv
 .venv/bin/python tools/render-landscape.py
 git add tools/render-landscape.py dist/assets/landscape.webp dist/assets/descent.js
 ```
+
+### 10. 改完自检
+
+1. 首页：`/` 打开正常，实验能跑，页脚链接完整。
+2. 成员页：`/#/people` 照片或首字母都正常，主页与邮箱链接可点。
+3. 校友页：`/#/alumni` 头像、去向、年鉴链接正常。
+4. 合影页：`/#/gallery` 顺序正确，首页「Life at DOCIA」同步。
+5. 看控制台（F12）：没有红色报错、没有 404。
+6. 缩窄窗口到手机宽度：导航折叠成汉堡菜单，合影变成两列再到单列。
+
+### 11. 维护时常见的坑
+
+| 现象 | 原因与处理 |
+| --- | --- |
+| 照片不显示，退回首字母 | `photo` 拼写、扩展名或大小写与文件不一致；确认文件在该 `media` 目录下 |
+| 改完刷新没变化 | 浏览器缓存了 ES 模块，用强制刷新（macOS `Cmd+Shift+R`，Windows `Ctrl+F5`） |
+| 整个页面空白 | 配置里少了逗号、引号或括号，看控制台第一条报错 |
+| 新加的导航项点进去是首页 | 该 `id` 没在 `app.js` 的 `pageTitles` 里注册，补上页面标题和渲染函数 |
+| 合影页是「Photos coming soon」 | `gallery` 数组为空，属正常占位 |
+| 首页没有合影区块 | `gallery` 为空时故意不渲染 |
+| 图片在本地正常、上线 404 | 文件名大小写与服务器不一致，或用了 `/` 开头的绝对路径而站点在子目录 |
 
 ## 部署到服务器（Ubuntu / Debian + Nginx）
 
@@ -170,7 +366,7 @@ git worktree remove ../docia-rollback
 - **已有学院服务器**：将 `dist/` 内容上传到管理员提供的静态目录。若挂在 `https://example.edu/docia/`，以 `/docia/#/people` 等形式分享页面，并保留目录地址末尾的 `/`。脚本和图像均使用相对路径。
 - **GitHub Pages**：适用于账号套餐支持的仓库。可用 Actions 上传 `dist/` 作为 Pages artifact，或把 `dist/` 的内容放到专门发布分支的根目录，在 **Settings → Pages** 中选择该分支和 `/(root)`。分支发布可选根目录或 `/docs`。私有仓库发布的 Pages 网站也可能向所有人开放，启用时请单独核对站点访问范围。[GitHub Pages 发布源文档](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 
-## 常见问题
+## 部署与运行常见问题
 
 | 现象 | 优先检查 |
 | --- | --- |
