@@ -1,8 +1,6 @@
 # DOCIA Lab Homepage
 
-上海科技大学 DOCIA（Lab of Decision, Optimization, and Control for Intelligent Agents）课题组主页，提供中文与英文两套界面，右上角按钮可随时切换。访客可以浏览研究方向、成果、成员、校友去向、课题组合影、新闻与荣誉，也可以在首页观察梯度下降过程，并通过八个边缘服务器的负载均衡实验比较网络拓扑。[打开公开 demo](https://docia-lab-atlas.c1audine4alex.chatgpt.site)
-
-> **注**：上面的公开 demo 目前仍部署**上一版本**的页面，尚未包含成员照片、联系方式与 Moments 合影分区；本仓库 `dist/` 中的内容已是新版本，重新部署后才会同步。
+上海科技大学 DOCIA（Lab of Decision, Optimization, and Control for Intelligent Agents）课题组主页，提供中文与英文两套界面，右上角按钮可随时切换。访客可以浏览研究方向、成果、成员、校友去向、课题组合影、新闻与荣誉，也可以在首页观察梯度下降过程，并通过八个边缘服务器的负载均衡实验比较网络拓扑。[打开公开 demo](http://122.228.216.175:8080/)
 
 **日常维护从 [dist/site.config.js](dist/site.config.js) 开始。** `dist/` 是可直接编辑和部署的完整站点。浏览器原生加载 HTML、CSS 和 JavaScript 模块。发布已有内容只需要一个静态文件服务器，站点运行没有 Node.js、Python 服务或数据库依赖。
 
