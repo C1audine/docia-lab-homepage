@@ -1,6 +1,6 @@
 # DOCIA Lab Homepage
 
-上海科技大学 DOCIA（Lab of Decision, Optimization, and Control for Intelligent Agents）英文课题组主页。访客可以浏览研究方向、成果、成员、校友去向和课题组合影，也可以在首页观察梯度下降过程，并通过八个边缘服务器的负载均衡实验比较网络拓扑。[打开公开 demo](https://docia-lab-atlas.c1audine4alex.chatgpt.site)
+上海科技大学 DOCIA（Lab of Decision, Optimization, and Control for Intelligent Agents）课题组主页，提供中文与英文两套界面，右上角按钮可随时切换。访客可以浏览研究方向、成果、成员、校友去向、课题组合影、新闻与荣誉，也可以在首页观察梯度下降过程，并通过八个边缘服务器的负载均衡实验比较网络拓扑。[打开公开 demo](https://docia-lab-atlas.c1audine4alex.chatgpt.site)
 
 > **注**：上面的公开 demo 目前仍部署**上一版本**的页面，尚未包含成员照片、联系方式与 Moments 合影分区；本仓库 `dist/` 中的内容已是新版本，重新部署后才会同步。
 
@@ -36,6 +36,8 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 | People | `/#/people` | 当前成员的照片、职务、单位、研究兴趣、个人主页与邮箱 |
 | Alumni | `/#/alumni` | 毕业年份、学位及毕业后的首份去向，可附照片、个人主页与邮箱 |
 | Moments | `/#/gallery` | 课题组合影分区，按配置顺序展示照片、时间、标题与说明 |
+| News | `/#/news` | 课题组动态：日期加一句话，可带外部链接，不展开详情 |
+| Honors | `/#/honors` | 课题组奖项：年份、奖项名，可选获奖人与说明 |
 | Contact | `/#/contact` | 负责人邮箱、办公室和通信地址。邮箱链接唤起访客的邮件客户端 |
 
 浏览器实际向服务器请求 `index.html`，然后根据 `#` 后的片段渲染相应页面。因此复制详情地址、直接打开和刷新都可以共用同一个服务器入口。
@@ -47,6 +49,7 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 | [dist/index.html](dist/index.html) | 修改 HTML 外壳、默认标题、搜索引擎摘要和 favicon 引用。页面通过此处的模块脚本启动 |
 | [dist/site.config.js](dist/site.config.js) | 修改课题组资料、主色、导航标签、研究记录、论文、成员、校友及实验默认值 |
 | [dist/app.js](dist/app.js) | 修改页面结构、首页区块顺序、研究详情和路由。新增一级页面时同时更新 `pageTitles`、`render()` 的页面映射与配置中的 `navigation` |
+| [dist/i18n.js](dist/i18n.js) | 界面用语的中英文字典（导航、按钮、图表标签、占位提示）与语言切换逻辑。改界面措辞来这里；改内容去 `site.config.js` |
 | [dist/style.css](dist/style.css) | 修改字号、间距、组件样式及响应式布局。当前导航在 780 px 及以下折叠，实验区在 650 px 及以下变为单栏，合影网格在 780 px 及以下为两列、410 px 及以下为单列 |
 | [dist/ui.js](dist/ui.js) | 公用图标、文本转义、小标题组件，以及姓名缩写和图片路径解析 |
 | [dist/model.js](dist/model.js) | 定义拓扑坐标、邻接边、同步负载交换算法和均方根误差 |
@@ -160,7 +163,7 @@ media: {
 - 合影：横版，约 4:3。
 - 体积：单张 300 KB 以内，合影 400 KB 以内；页面用 `loading="lazy"`，不进视口不加载。
 - 命名：小写英文 + 连字符，如 `jie-lu.webp`、`2026-spring-retreat.webp`。**Linux 服务器区分大小写**，`Photo.JPG` 和 `photo.jpg` 是两个文件。
-- 图片缺失或路径写错时会自动回退首字母，但控制台会有 404，发版前建议清一遍。
+- 图片缺失或路径写错时，成员照片会自动回退首字母、合影会显示占位卡片，但控制台仍会有 404，发版前建议清一遍。
 
 ### 5. 课题组合影
 
@@ -174,7 +177,7 @@ gallery: [
     date: "April 2026",
     title: "Spring retreat",
     caption: "A weekend of hiking and planning the year ahead.",
-    credit: "Photo: Wei Zhang",
+    credit: "Wei Zhang",
     alt: "Group photo on the mountain trail"
   }
 ]
@@ -187,13 +190,66 @@ gallery: [
 | `date` | 否 | 显示在卡片顶部的小标，如 `April 2026` |
 | `title` | 否 | 卡片标题，缺省为 `Lab moment` |
 | `caption` | 否 | 一句说明 |
-| `credit` | 否 | 摄影者，显示为「Photo: …」 |
+| `credit` | 否 | 摄影者姓名，页面会自动加上「Photo:」前缀，所以这里**只写人名**，不要再写「Photo:」 |
 | `alt` | 否 | 图片替代文本，缺省用 `title`，建议填上以便无障碍访问 |
 
 - 相册为空时，`/#/gallery` 显示「Photos coming soon」占位，首页的「Life at DOCIA」区块自动隐藏（不会留空行）。
+- 图片文件缺失或路径写错时，卡片会显示「Photo coming soon」斜纹占位，不会出现破图标。
 - 想把某张合影挪到首页，把它在数组里往前排即可。
 
-### 6. 论文与研究方向
+### 6. 新闻与荣誉（News / Honors）
+
+新闻写在 `site.news`，**数组顺序即展示顺序**，把最新的放在最上面。每条只有「日期 + 一句话」，不进入详情页：
+
+```js
+news: [
+  { date: { en: "2023", zh: "2023 年" },
+    text: { en: "“Paper title” is published in IEEE TAC.",
+            zh: "论文《Paper title》发表于 IEEE TAC。" },
+    url: "https://doi.org/10.xxxx/xxxxx" }   // 可选，有链接时整句可点，末尾自动加 ↗
+]
+```
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `date` | 是 | 显示在左列（窄屏时在条目上方），写年份或「2023 年 5 月」 |
+| `text` | 是 | 一句话说明，不要换行，中文里建议用《》引用论文名 |
+| `url` | 否 | 论文页、DOI 或校内新闻链接，新窗口打开 |
+
+荣誉写在 `site.honors`，同样是数组顺序即展示顺序：
+
+```js
+honors: [
+  { year: 2025,
+    title: { en: "Best Paper Award, ICASSP", zh: "ICASSP 最佳论文奖" },
+    recipient: { en: "Jie Lu and the team", zh: "Jie Lu 与课题组" },   // 可选
+    note: { en: "For the paper on decentralised consensus.",
+            zh: "表彰在分散式一致性方面的论文。" } }                   // 可选
+]
+```
+
+- 两个页面的路径分别是 `/#/news` 与 `/#/honors`，导航标签在 `site.navigation` 里改。
+- 数组为空时页面显示占位提示（`No news yet` / `No awards yet`），不会报错，也不会留下空白排版。
+- 首页目前不展示新闻与荣誉；若以后想在首页加「Latest news」区块，在 `dist/app.js` 的 `home()` 里追加一行 `homeNews()` 之类的区块即可。
+
+### 7. 中英文双语维护
+
+站点现在有中文和英文两套界面，右上角（手机上在汉堡菜单顶部）的 `EN / 中` 按钮切换。语言选择记在浏览器 `localStorage` 的 `docia-lang` 里，所以访客下次打开仍是他上次选的语言；也可以直接用 `?lang=zh` 或 `?lang=en` 打开指定语言（例如 `http://127.0.0.1:8000/?lang=zh#/news`）。
+
+维护时只需记住一条规则：**凡是访客会读到的内容，都写成 `{ en: "…", zh: "…" }`**。
+
+```js
+title: { en: "Lab members", zh: "课题组成员" }      // 正确：两种语言都覆盖
+title: "Lab members"                                // 也可以：中文界面会直接显示这段英文
+```
+
+- 界面用语（导航、按钮、图表标签、占位提示、无效链接说明）不在 `site.config.js` 里，而在 `dist/i18n.js` 的字典中；改这些措辞去 `i18n.js`。
+- 内容文案（姓名、角色、研究简介、论文、新闻、荣誉、联系方式）在 `site.config.js` 里，每条都带 `{ en, zh }`。
+- 纯专有名词不必翻译：论文题目、作者、期刊名、人名、学校英文名保持英文字符串即可，中文界面会原样显示（现有论文条目就是这样处理的）。
+- 漏写 `zh` 不会报错，中文界面会回退显示英文原文——这是刻意的降级策略，方便增量补齐。
+- 中文排版已单独处理：`:lang(zh)` 下标题取消西文字距、首页大标题最后一行不加斜体、正文字体回退到系统宋体/黑体。相关规则集中在 `dist/style.css` 末尾的 `Chinese typography` 段落。
+
+### 8. 论文与研究方向
 
 论文写在 `site.publications`，首页只取前两条：
 
@@ -225,21 +281,21 @@ gallery: [
 - `id` 一旦对外分享过就不要再改，否则旧链接失效。
 - 新增研究方向会自动出现在 `/#/research` 的卡片区，不需要改代码。
 
-### 7. 导航与页面
+### 9. 导航与页面
 
-`site.navigation` 控制导航的**标签和顺序**（下面是节选）：
+`site.navigation` 控制导航的**标签和顺序**（下面是节选），目前共九项：
 
 ```js
 navigation: [
-  { id: "home", label: "Home" },
-  { id: "gallery", label: "Moments" },
-  { id: "contact", label: "Contact" }   // id 为 contact 的项显示为按钮
+  { id: "home", label: { en: "Home", zh: "首页" } },
+  { id: "gallery", label: { en: "Moments", zh: "合影" } },
+  { id: "contact", label: { en: "Contact", zh: "联系" } }   // id 为 contact 的项显示为按钮
 ]
 ```
 
-但页面本身是代码里注册的：`dist/app.js` 的 `pageTitles` 决定标题，`render()` 里的页面映射决定渲染函数。**新增一个一级页面需要同时改配置和 app.js**；只加配置项的话，点进去会回到首页。日常维护（加人、加照片、加合影、加论文）都不需要动代码。
+页面标题和引导语在 `site.pages` 里（同样是 `{ en, zh }`），但页面本身是代码里注册的：`dist/app.js` 的 `render()` 页面映射决定渲染函数。**新增一个一级页面需要同时改配置（`navigation` + `pages`）和 app.js**；只加配置项的话，点进去会回到首页。日常维护（加人、加照片、加合影、加论文、加新闻、加荣誉）都不需要动代码。
 
-### 8. 首页文案、联系方式、配色
+### 10. 首页文案、联系方式、配色
 
 - `hero.lines` 是首页大标题的分行数组，最后一行显示为绿色斜体。
 - `hero.description` 是标题下的介绍段落。
@@ -247,7 +303,7 @@ navigation: [
 - `contact` 集中保存邮箱、办公室、街道、城市、学院和外链，联系页与论文页共用。
 - `palette` 控制五个主题色；页面里的插图（曲面、网络、等高线）颜色在 SVG 或绘图脚本中，不随 `palette` 变化。
 
-### 9. 实验参数与曲面图
+### 11. 实验参数与曲面图
 
 `experiment.initialLoads` 的八个位置依次对应 N01 至 N08。`topology` 支持 `Mesh`、`Ring`、`Star`，`capacity` 是单台服务器的容量，`tolerance` 是 RMS 负载误差阈值，`previewRound` 决定首次显示哪一轮。改变初始负载或切换拓扑会从第 0 轮重新计算。修改算法时从 `simulate()` 开始，修改指标展示时从 `mountExperiment()` 开始。
 
@@ -260,16 +316,18 @@ python3 -m venv .venv
 git add tools/render-landscape.py dist/assets/landscape.webp dist/assets/descent.js
 ```
 
-### 10. 改完自检
+### 12. 改完自检
 
 1. 首页：`/` 打开正常，实验能跑，页脚链接完整。
 2. 成员页：`/#/people` 照片或首字母都正常，主页与邮箱链接可点。
 3. 校友页：`/#/alumni` 头像、去向、年鉴链接正常。
 4. 合影页：`/#/gallery` 顺序正确，首页「Life at DOCIA」同步。
-5. 看控制台（F12）：没有红色报错、没有 404。
-6. 缩窄窗口到手机宽度：导航折叠成汉堡菜单，合影变成两列再到单列。
+5. 新闻页 `/#/news`、荣誉页 `/#/honors`：条目顺序正确，日期与文案没有串行。
+6. 点右上角 `中 / EN`：整页（导航、标题、正文、页脚）立刻切换，刷新后仍是上次选的语言。
+7. 看控制台（F12）：没有红色报错、没有 404。
+8. 缩窄窗口到手机宽度（约 390 px）：导航折叠成汉堡菜单、语言按钮出现在菜单顶部，合影变成两列再到单列。
 
-### 11. 维护时常见的坑
+### 13. 维护时常见的坑
 
 | 现象 | 原因与处理 |
 | --- | --- |
@@ -280,6 +338,9 @@ git add tools/render-landscape.py dist/assets/landscape.webp dist/assets/descent
 | 合影页是「Photos coming soon」 | `gallery` 数组为空，属正常占位 |
 | 首页没有合影区块 | `gallery` 为空时故意不渲染 |
 | 图片在本地正常、上线 404 | 文件名大小写与服务器不一致，或用了 `/` 开头的绝对路径而站点在子目录 |
+| 切到中文后某条内容还是英文 | 该字段只写了英文字符串；按第 7 节改成 `{ en, zh }` |
+| 语言按钮点了没反应 | 浏览器控制台看 `i18n.js` 是否 404（部署时漏传了该文件），或 `dist/app.js` 引用的键被删了 |
+| 新闻条目「日期」与「内容」串行 | 每条新闻是独立对象，检查花括号与逗号是否闭合 |
 
 ## 部署到服务器（Ubuntu / Debian + Nginx）
 

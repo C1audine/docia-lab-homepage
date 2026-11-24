@@ -1057,6 +1057,12 @@ footer {
   display:block;
 }
 
+/* The photo replaces the initials; keep them out of layout and screen readers. */
+.profile-art.has-photo>span,
+.avatar-sm.has-photo>span {
+  display:none;
+}
+
 .record-links {
   display:flex;
   flex-wrap:wrap;
@@ -1137,6 +1143,21 @@ footer {
 
 .gallery-card:hover .gallery-frame img {
   transform:scale(1.025);
+}
+
+/* A photo that failed to load leaves a quiet placeholder instead of a broken icon. */
+.gallery-frame.is-missing {
+  display:grid;
+  place-items:center;
+  background:repeating-linear-gradient(135deg,#e2efe6 0 14px,#d8e8de 14px 28px);
+}
+
+.gallery-frame.is-missing::after {
+  content:"Photo coming soon";
+  font:italic 1rem var(--serif);
+  color:#3f6b5b;
+  padding:0 18px;
+  text-align:center;
 }
 
 .gallery-card figcaption {
@@ -1230,10 +1251,7 @@ footer {
   }
 }
 
-@media(max-width:780px) {
-  .container {
-    width:calc(100% - 40px);
-  }
+@media(max-width:1000px) {
   .topbar {
     height:63px;
   }
@@ -1260,8 +1278,8 @@ footer {
     display:none;
     position:absolute;
     top:calc(100% - 1px);
-    left:-20px;
-    right:-20px;
+    left:calc(-0.5 * clamp(48px,9.5vw,152px));
+    right:calc(-0.5 * clamp(48px,9.5vw,152px));
     height:auto;
     padding:9px 20px 18px;
     background:#fbfdf9;
@@ -1286,6 +1304,25 @@ footer {
   }
   nav a[aria-current]::after {
     display:none;
+  }
+  .lang-switch {
+    order:-1;
+    grid-column:1/-1;
+    justify-self:start;
+    margin:0 0 8px -9px;
+  }
+  .lang-switch button {
+    padding:9px 11px;
+  }
+}
+
+@media(max-width:780px) {
+  .container {
+    width:calc(100% - 40px);
+  }
+  nav {
+    left:-20px;
+    right:-20px;
   }
   .hero-inner {
     grid-template-columns:1fr 1fr;
@@ -1658,6 +1695,199 @@ footer {
 @media(max-width:410px) {
   .gallery-grid {
     grid-template-columns:1fr;
+  }
+}
+
+/* Language switch */
+.lang-switch {
+  display:inline-flex;
+  align-items:center;
+  gap:1px;
+  margin-left:-5px;
+}
+
+.lang-switch button {
+  padding:6px 9px;
+  border:0;
+  background:none;
+  cursor:pointer;
+  border-radius:999px;
+  font-family:var(--mono);
+  font-size:.74rem;
+  line-height:1;
+  letter-spacing:.08em;
+  color:#79968a;
+  transition:background .18s,color .18s;
+}
+
+.lang-switch button:hover {
+  background:#eef7f1;
+  color:#14563f;
+}
+
+.lang-switch button[aria-pressed="true"] {
+  background:#e4f1e9;
+  color:#124f3b;
+  font-weight:600;
+}
+
+/* News */
+.news-list {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.news-item {
+  display:grid;
+  grid-template-columns:126px minmax(0,1fr);
+  gap:24px;
+  align-items:baseline;
+  padding:17px 0;
+  border-top:1px solid var(--line);
+}
+
+.news-date {
+  font-family:var(--mono);
+  font-size:.74rem;
+  line-height:1.5;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:#3f7563;
+}
+
+.news-text {
+  margin:0;
+  font-size:1rem;
+  line-height:1.62;
+  color:#294546;
+}
+
+.news-text a {
+  color:#1d604a;
+  transition:color .16s;
+}
+
+.news-text a:hover {
+  color:#134857;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+}
+
+.news-link {
+  color:#1d604a;
+  transition:color .16s;
+}
+
+.news-link:hover {
+  color:#134857;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+}
+
+/* Honors and awards */
+.honors-list {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.honor-item {
+  display:grid;
+  grid-template-columns:92px minmax(0,1fr);
+  gap:24px;
+  padding:20px 0;
+  border-top:1px solid var(--line);
+}
+
+.honor-year {
+  font-family:var(--mono);
+  font-size:.76rem;
+  letter-spacing:.1em;
+  color:#3f7563;
+  padding-top:7px;
+}
+
+.honor-body h3 {
+  font-family:var(--serif);
+  font-size:1.5rem;
+  letter-spacing:-.04em;
+  line-height:1.25;
+}
+
+.honor-body p {
+  margin-top:6px;
+  font-size:.94rem;
+  color:#33524a;
+}
+
+.honor-note {
+  color:#4d6b60;
+}
+
+/* Chinese typography */
+:lang(zh) {
+  --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --sans:"PingFang SC","Noto Sans SC","Source Han Sans SC","Hiragino Sans GB",sans-serif;
+  --mono:"SF Mono",Menlo,monospace;
+}
+
+:lang(zh) h1,:lang(zh) h2,:lang(zh) h3 {
+  letter-spacing:0;
+}
+
+:lang(zh) .hero-copy h1 em {
+  font-style:normal;
+}
+
+:lang(zh) .brand {
+  letter-spacing:-.01em;
+}
+
+:lang(zh) .eyebrow,:lang(zh) .venue,:lang(zh) .figure-label,:lang(zh) .news-date,:lang(zh) .honor-year {
+  letter-spacing:.06em;
+}
+
+:lang(zh) .gallery-frame.is-missing::after {
+  content:"照片即将上线";
+}
+
+@media(max-width:1250px) and (min-width:1001px) {
+  nav {
+    gap:clamp(11px,1.4vw,20px);
+  }
+  nav a {
+    font-size:.87rem;
+  }
+  nav .nav-contact {
+    padding:8px 12px;
+  }
+}
+
+@media(max-width:780px) {
+  .news-item {
+    grid-template-columns:1fr;
+    gap:4px;
+    padding:15px 0;
+  }
+  .honor-item {
+    grid-template-columns:74px minmax(0,1fr);
+    gap:16px;
+  }
+  .honor-body h3 {
+    font-size:1.3rem;
+  }
+}
+
+@media(max-width:410px) {
+  .honor-item {
+    grid-template-columns:1fr;
+    gap:3px;
+  }
+  .honor-year {
+    padding-top:0;
   }
 }
 
