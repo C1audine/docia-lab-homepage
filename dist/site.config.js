@@ -10,6 +10,9 @@ export const site = {
   brand: "DOCIA Lab",
   name: { en: "Lab of Decision, Optimization, and Control for Intelligent Agents", zh: "决策、优化与控制实验室" },
   university: { en: "ShanghaiTech University", zh: "上海科技大学" },
+  // Public production root used for canonical URLs and search-engine metadata.
+  // Include a subdirectory if the site is deployed there (no trailing slash).
+  url: "https://docia.org",
   palette: { paper: "#EEF7F2", mint: "#B9DEC9", green: "#1BA784", sky: "#63BBD0", ink: "#134857" },
   navigation: [
     { id: "home", label: { en: "Home", zh: "首页" } },
@@ -33,7 +36,7 @@ export const site = {
       desc: { en: "Journal articles on distributed optimization, constraints, and consensus.", zh: "关于分布式优化、约束与一致性的期刊论文。" }
     },
     people: {
-      title: { en: "People", zh: "课题组成员" },
+      title: { en: "Our Team", zh: "研究团队" },
       desc: { en: "The researchers behind DOCIA’s work in optimization and control.", zh: "从事优化与控制研究的课题组成员。" }
     },
     alumni: {
@@ -101,8 +104,10 @@ export const site = {
   // `photo`: leave empty to show the generated initials instead.
   // `url` is the personal homepage; `urlLabel` overrides the link text.
   // `email` is shown as a mailto link.
+  // `group` is optional: "pi" (default) or "students". The People page shows
+  // only categories that currently have members.
   people: [
-    { name: "Jie Lu",
+    { name: "Jie Lu", group: "pi",
       role: { en: "Lab Director · Associate Professor", zh: "实验室主任 · 副教授" },
       affiliation: { en: "School of Information Science and Technology", zh: "信息科学与技术学院" },
       description: { en: "Research interests include distributed optimization, multi-agent decision making, and networked dynamical systems.", zh: "研究兴趣包括分布式优化、多智能体决策与网络化动力系统。" },

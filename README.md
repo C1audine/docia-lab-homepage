@@ -4,6 +4,13 @@
 
 **日常维护从 [dist/site.config.js](dist/site.config.js) 开始。** `dist/` 是可直接编辑和部署的完整站点。浏览器原生加载 HTML、CSS 和 JavaScript 模块。发布已有内容只需要一个静态文件服务器，站点运行没有 Node.js、Python 服务或数据库依赖。
 
+## 最近更新（2026-11）
+
+- **站内搜索**：页头放大镜打开双语搜索，覆盖成员、研究方向、论文、新闻、校友、合影、荣誉、页面与联系方式；结果可直接跳到对应条目并短暂高亮，支持 `Cmd/Ctrl+K`、`/`、方向键与 `Enter`。索引在浏览器内生成，不需要后端。
+- **SEO**：补充 canonical、hreflang、Open Graph/Twitter、JSON-LD，以及 `robots.txt`、`sitemap.xml`、`site.webmanifest`、分享图和站点图标；无 JavaScript 时仍有可读的静态简介与栏目链接。生产域名为 `https://docia.org`。
+- **界面改版**：页眉在 DOCIA Lab 旁显示学校名；标题改用 Garamond/Bodoni 风格字体栈并放宽字距；删除首页、People、Alumni、Contact 等页面重复的 eyebrow 小标签；首页主按钮改为「先试实验、再看研究方向」；原 Network playground 改名为 Interactive experiment。
+- **People 分组**：成员按 `group` 字段分为 PI / Students / Alumni，空分类不显示；新增成员时在 `site.people` 里写 `group: "students"` 即可进入学生分组。
+
 ## 组员如何参与
 
 仓库管理员可在 GitHub 的 **Settings → Collaborators → Add people** 邀请组员。接受邀请后，组员可以克隆私有仓库，在单独分支中编辑并提交 Pull Request。下方部署示例采用手动发布：合并到 `main` 后，还要同步 `dist/` 才会更新自建服务器。公开 demo 的部署也独立于 GitHub 提交。
@@ -27,11 +34,11 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 | 页面 | 路径 | 展示内容或操作 |
 | --- | --- | --- |
 | Home | `/` 或 `/#/home` | 实验室介绍、随滚动移动的梯度下降点、网络实验、研究卡片、前两条论文记录，以及最新三张合影 |
-| Network playground | `/#/simulation` | 跳到首页实验区。切换拓扑、选择节点、调整初始负载，然后运行、暂停或重置实验 |
+| Interactive experiment | `/#/simulation` | 跳到首页实验区。切换拓扑、选择节点、调整初始负载，然后运行、暂停或重置实验 |
 | Research | `/#/research` | 查看研究方向，点击卡片进入详情 |
 | Research detail | `/#/research/distributed-optimization` | 示例详情页，包含研究问题、说明与关联论文 |
 | Publications | `/#/publications` | 按配置中的顺序列出论文及外部链接 |
-| People | `/#/people` | 当前成员的照片、职务、单位、研究兴趣、个人主页与邮箱 |
+| People | `/#/people` | 页面标题为 Our Team；按 PI、Students、Alumni 分类展示成员照片、职务、单位、研究兴趣、个人主页与邮箱（当前有内容的分类才显示） |
 | Alumni | `/#/alumni` | 毕业年份、学位及毕业后的首份去向，可附照片、个人主页与邮箱 |
 | Moments | `/#/gallery` | 课题组合影分区，按配置顺序展示照片、时间、标题与说明 |
 | News | `/#/news` | 课题组动态：日期加一句话，可带外部链接，不展开详情 |
@@ -40,16 +47,23 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 
 浏览器实际向服务器请求 `index.html`，然后根据 `#` 后的片段渲染相应页面。因此复制详情地址、直接打开和刷新都可以共用同一个服务器入口。
 
+所有页面右上角都有搜索按钮：可以按人名、论文、新闻、研究方向、合影说明、荣誉或邮箱等关键词查找，中英文都能搜；点结果会跳到对应条目并短暂高亮。也可以按 `Cmd/Ctrl+K` 或 `/` 打开，`Esc` 关闭，`↑` `↓` 选择、`Enter` 打开。搜索在浏览器内完成，不需要后端，新增内容会自动进入索引。
+
 ## 源码入口与维护方法
 
 | 文件 | 何时修改 |
 | --- | --- |
-| [dist/index.html](dist/index.html) | 修改 HTML 外壳、默认标题、搜索引擎摘要和 favicon 引用。页面通过此处的模块脚本启动 |
+| [dist/index.html](dist/index.html) | 修改 HTML 外壳、默认标题/描述、canonical、Open Graph/Twitter、JSON-LD、无 JS 回退和 favicon 引用。页面通过此处的模块脚本启动 |
+| [dist/robots.txt](dist/robots.txt) | 告诉爬虫哪些路径可抓取，并指向 sitemap；换域名或增加禁止目录时改这里 |
+| [dist/sitemap.xml](dist/sitemap.xml) | 提交给搜索引擎的入口清单，含中英文 hreflang；换域名、加栏目或大改内容时更新 `lastmod` |
+| [dist/site.webmanifest](dist/site.webmanifest) | 主屏幕图标、站点名和主题色的 Web App Manifest；换品牌名或图标时同步 |
+| [dist/assets/og-docia.jpg](dist/assets/og-docia.jpg) | 社交分享卡片图（1200×630）。换实验室标语、品牌色或域名时重新生成 |
 | [dist/site.config.js](dist/site.config.js) | 修改课题组资料、主色、导航标签、研究记录、论文、成员、校友及实验默认值 |
-| [dist/app.js](dist/app.js) | 修改页面结构、首页区块顺序、研究详情和路由。新增一级页面时同时更新 `pageTitles`、`render()` 的页面映射与配置中的 `navigation` |
+| [dist/app.js](dist/app.js) | 修改页面结构、首页区块顺序、研究详情和路由。新增一级页面时同时更新 `render()` 的页面映射与配置中的 `navigation` |
+| [dist/search.js](dist/search.js) | 站内搜索：从配置生成索引、匹配与排序、结果弹窗和键盘操作。改搜索范围、权重或快捷键来这里；日常加内容不需要动它 |
 | [dist/i18n.js](dist/i18n.js) | 界面用语的中英文字典（导航、按钮、图表标签、占位提示）与语言切换逻辑。改界面措辞来这里；改内容去 `site.config.js` |
-| [dist/style.css](dist/style.css) | 修改字号、间距、组件样式及响应式布局。当前导航在 780 px 及以下折叠，实验区在 650 px 及以下变为单栏，合影网格在 780 px 及以下为两列、410 px 及以下为单列 |
-| [dist/ui.js](dist/ui.js) | 公用图标、文本转义、小标题组件，以及姓名缩写和图片路径解析 |
+| [dist/style.css](dist/style.css) | 修改字号、间距、组件样式及响应式布局。当前导航在 1000 px 及以下折叠为菜单，实验区在 650 px 及以下变为单栏，合影网格在 780 px 及以下为两列、410 px 及以下为单列 |
+| [dist/ui.js](dist/ui.js) | 公用图标、文本转义、姓名缩写和图片路径解析 |
 | [dist/model.js](dist/model.js) | 定义拓扑坐标、邻接边、同步负载交换算法和均方根误差 |
 | [dist/experiment.js](dist/experiment.js) | 定义实验界面、运行和暂停逻辑、对照曲线、节点标签及指标说明 |
 | [dist/terrain.js](dist/terrain.js) | 把页面滚动进度映射到预计算的下降轨迹，并绘制标记和图例 |
@@ -111,6 +125,7 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 | `urlLabel` | 否 | 主页链接的文字，缺省为 `Homepage` |
 | `email` | 否 | 邮箱，显示为 `mailto:` 链接 |
 | `photo` | 否 | 照片，留空用首字母头像 |
+| `group` | 否 | `"pi"`（默认）或 `"students"`；People 页据此分到 PI 或 Students 分类，空分类不显示 |
 
 **校友（`alumni`）字段**
 
@@ -245,7 +260,8 @@ title: "Lab members"                                // 也可以：中文界面�
 - 内容文案（姓名、角色、研究简介、论文、新闻、荣誉、联系方式）在 `site.config.js` 里，每条都带 `{ en, zh }`。
 - 纯专有名词不必翻译：论文题目、作者、期刊名、人名、学校英文名保持英文字符串即可，中文界面会原样显示（现有论文条目就是这样处理的）。
 - 漏写 `zh` 不会报错，中文界面会回退显示英文原文——这是刻意的降级策略，方便增量补齐。
-- 中文排版已单独处理：`:lang(zh)` 下标题取消西文字距、首页大标题最后一行不加斜体、正文字体回退到系统宋体/黑体。相关规则集中在 `dist/style.css` 末尾的 `Chinese typography` 段落。
+- 中文排版已单独处理：`:lang(zh)` 下标题字距略增、首页大标题最后一行不加斜体、正文字体回退到系统宋体/黑体。相关规则集中在 `dist/style.css` 末尾的 `Chinese typography` 段落。
+- 大标题统一使用 `--display` 字体栈（Bodoni 72 → Didot → Garamond → Baskerville → 系统衬线），中文回退到宋体；首页主标题与栏目页标题的行高、字距也集中由该字体栈附近的 `h1` / `h2` 规则控制，避免中西文各写一套。
 
 ### 8. 论文与研究方向
 
@@ -297,7 +313,8 @@ navigation: [
 
 - `hero.lines` 是首页大标题的分行数组，最后一行显示为绿色斜体。
 - `hero.description` 是标题下的介绍段落。
-- `brand` / `name` / `university` 分别用于站点简称、全称和学校名，页脚与页面小标会复用。
+- `brand` / `name` / `university` 分别用于站点简称、全称和学校名；页脚、页眉品牌旁的学校小字和无 JS 回退都会复用。
+- `url` 是正式域名（当前为 `https://docia.org`，不带末尾斜杠），canonical、hreflang 和分享图都以它为根。换域名或部署到子目录时，除这里外还要同步 `dist/index.html`、`robots.txt` 与 `sitemap.xml`；详见第 14 节。
 - `contact` 集中保存邮箱、办公室、街道、城市、学院和外链，联系页与论文页共用。
 - `palette` 控制五个主题色；页面里的插图（曲面、网络、等高线）颜色在 SVG 或绘图脚本中，不随 `palette` 变化。
 
@@ -323,22 +340,76 @@ git add tools/render-landscape.py dist/assets/landscape.webp dist/assets/descent
 5. 新闻页 `/#/news`、荣誉页 `/#/honors`：条目顺序正确，日期与文案没有串行。
 6. 点右上角 `中 / EN`：整页（导航、标题、正文、页脚）立刻切换，刷新后仍是上次选的语言。
 7. 看控制台（F12）：没有红色报错、没有 404。
-8. 缩窄窗口到手机宽度（约 390 px）：导航折叠成汉堡菜单、语言按钮出现在菜单顶部，合影变成两列再到单列。
+8. 搜索：点右上角放大镜（或 `Cmd/Ctrl+K`、`/`）能打开；搜一个人名、一个论文关键词和一个年份，结果数量合理；点结果能跳到对应条目并短暂高亮；无结果时显示提示；`Esc` 能关闭。
+9. 缩窄窗口到手机宽度（约 390 px）：导航折叠成汉堡菜单、语言按钮出现在菜单顶部，合影变成两列再到单列；搜索弹窗不超出屏幕。
+10. 新版界面：页眉 DOCIA Lab 旁有 ShanghaiTech University / 上海科技大学，各页标题上方不再出现重复的小字标签；首页按钮顺序为 Try the simulation → Explore research；People 页只保留 Our Team 主标题，分类为 PI / Students / Alumni（空分类不显示）。
+11. SEO：查看网页源代码，`<title>`、description、canonical 和 `og:image` 都是绝对地址；`/robots.txt`、`/sitemap.xml`、`/site.webmanifest` 返回 200；在浏览器禁用 JavaScript 后刷新，仍能看到实验室简介、栏目链接和联系方式。
 
-### 13. 维护时常见的坑
+### 13. 站内搜索
+
+搜索入口在页头右侧。索引在第一次打开搜索时由 [dist/search.js](dist/search.js) 从 `site.config.js` 与 `i18n.js` 生成，没有后端请求，也没有单独的数据文件。
+
+- **能搜到什么**：导航页面、首页与实验区、研究方向（标题、简介、问题、详情、关联论文）、论文（标题、年份、期刊、作者）、成员（姓名、职务、单位、简介、邮箱、主页）、校友（姓名、学位、职位、去向、地点、邮箱）、合影（标题、日期、说明、图片替代文本）、新闻（日期、正文、链接）、荣誉（年份、奖项、获奖人、说明）以及联系方式。
+- **中英文**：内容写成 `{ en, zh }` 时，两种语言的关键词都能命中。若界面是英文而用中文搜索，结果摘要会显示命中的那条中文原文，避免出现「有结果却看不到命中词」的情况。
+- **排序**：标题完全匹配最优先，其次是标题开头、标题包含、副标题和正文；同分时按类型（成员、研究方向、论文、新闻、校友、合影、荣誉、页面）再按字母序，最多显示 30 条。
+- **改界面措辞**：按钮、占位符、结果数量、无结果提示、类型名称和键盘提示都在 [dist/i18n.js](dist/i18n.js) 的 `search` 字典里。改搜索字段范围、权重或快捷键则改 [dist/search.js](dist/search.js)。
+- **新增页面**：只加 `navigation` 和 `pages` 时，新页面会出现在搜索的「浏览页面」里；若它还有可跳转的详情条目，按第 9 节同时注册页面渲染函数，并在生成索引时补一条记录。
+- **条目 id 与跳转**：搜索结果的链接形如 `#/people/person-0`、`#/publications/paper-stochastic`。这些 id 由 `app.js` 渲染时用 `targetId()` 生成；调整记录顺序后旧链接可能指向别的条目，但搜索本身会重新生成正确链接。
+
+### 14. 搜索引擎优化（SEO）
+
+这是带 `#` 路由的单页站点，Google 通常只把 `/` 和 `/?lang=zh` 当作两个可索引入口，各栏目共用同一个文档。当前做法是让爬虫拿到完整的首页信息、结构化数据和分享卡片，同时保留站内跳转；如果以后要让每个栏目独立收录，需要把 `#/people` 改成 `/people/` 这样的真实路径并由服务器回退到 `index.html`，那是一次路由改造，不是改文案能完成的。
+
+- **站点地址**：`dist/site.config.js` 的 `url` 是 canonical、hreflang 和分享图的根地址。换域名或部署到子目录时，先改这里，再同步 `dist/index.html`、`robots.txt`、`sitemap.xml` 里写死的 `https://docia.org`。
+- **页面 head**：`dist/index.html` 是爬虫看到的默认版本，含 title、description、canonical、hreflang、Open Graph/Twitter 和 JSON-LD。页面运行后 `dist/app.js` 的 `syncSeo()` 会按当前语言更新 hreflang 和分享信息，并按地址里是否带 `?lang=zh` 更新 canonical；子页标题仍是「栏目 · DOCIA Lab · 上海科技大学」，canonical 仍指向语言入口，避免把 `#` 片段当成不同页面。地址里明确带 `?lang=zh` 时，canonical 才指向 `?lang=zh`；仅由浏览器语言自动检测出的中文仍用根地址，避免同一内容出现两个 canonical。
+- **无 JS 回退**：`<noscript>` 里的 `.seo-fallback` 给禁用脚本的访客和简单爬虫提供实验室简介、研究方向、成员、论文、新闻和联系方式。正常浏览器不会显示它。
+- **robots / sitemap**：`robots.txt` 允许全站抓取并指向 `sitemap.xml`；后者列出英文、中文两个入口及 hreflang。上线后到 Google Search Console 添加 `https://docia.org` 资源并提交 `https://docia.org/sitemap.xml`；Bing 用对应 Webmaster Tools 同样提交。
+- **分享图**：`assets/og-docia.jpg` 是 1200×630 的分享卡片，`assets/logo-512.png` 用于结构化数据和 manifest。换品牌色或标语时同步更新图片；社交平台有缓存，改完用各平台的分享调试工具重新抓取。
+- **改内容时**：新增新闻、成员、论文会进入页面和站内搜索，但不会自动改变 meta description。首页描述来自 `hero.description`，栏目描述来自 `pages[].desc`；要让搜索引擎看到新内容，除了保持文案更新，还要手动更新 `sitemap.xml` 的 `lastmod` 并重新提交。
+- **不要做**：不要堆砌关键词，不要给同一页面写多个 canonical，也不要把 `?lang=zh` 当成独立的语言站群；中英文互指 hreflang 即可。
+
+站内搜索帮助已经进入网站的访客找条目，SEO 帮助搜索引擎找到并理解首页。两者都读取 `site.config.js`，所以日常加内容仍然只需要改这一处。
+
+### 15. 维护时常见的坑
 
 | 现象 | 原因与处理 |
 | --- | --- |
 | 照片不显示，退回首字母 | `photo` 拼写、扩展名或大小写与文件不一致；确认文件在该 `media` 目录下 |
 | 改完刷新没变化 | 浏览器缓存了 ES 模块，用强制刷新（macOS `Cmd+Shift+R`，Windows `Ctrl+F5`） |
 | 整个页面空白 | 配置里少了逗号、引号或括号，看控制台第一条报错 |
-| 新加的导航项点进去是首页 | 该 `id` 没在 `app.js` 的 `pageTitles` 里注册，补上页面标题和渲染函数 |
+| 新加的导航项点进去是首页 | 该 `id` 没在 `app.js` 的 `render()` 页面映射里注册，补上页面标题和渲染函数 |
 | 合影页是「Photos coming soon」 | `gallery` 数组为空，属正常占位 |
 | 首页没有合影区块 | `gallery` 为空时故意不渲染 |
 | 图片在本地正常、上线 404 | 文件名大小写与服务器不一致，或用了 `/` 开头的绝对路径而站点在子目录 |
 | 切到中文后某条内容还是英文 | 该字段只写了英文字符串；按第 7 节改成 `{ en, zh }` |
 | 语言按钮点了没反应 | 浏览器控制台看 `i18n.js` 是否 404（部署时漏传了该文件），或 `dist/app.js` 引用的键被删了 |
 | 新闻条目「日期」与「内容」串行 | 每条新闻是独立对象，检查花括号与逗号是否闭合 |
+
+## 提交代码与发布
+
+本站没有构建步骤，`dist/` 就是线上文件；但 **GitHub 提交不会自动更新 Nginx 上的站点**，两者要分开做。
+
+### 提交前
+
+1. 用「本地运行」的地址完整点一遍：首页、People、Alumni、Contact、搜索、移动端菜单。
+2. 改过页面结构或样式时，按第 12 节自检；改过 SEO 文件时，确认 `/robots.txt`、`/sitemap.xml`、`/site.webmanifest` 都返回 200。
+3. 只提交站点需要的文件，不把本机部署脚本、私钥、缓存或临时测试页带进仓库。
+
+### 提交到 GitHub
+
+```sh
+git status
+git diff --check
+git add README.md dist
+git commit -m "Add site search, SEO metadata, and refresh homepage design"
+git push origin main
+```
+
+提交信息建议一句话说明「改了什么、为什么」，例如上面的提交同时包含站内搜索、SEO 和页眉/排版改版。只改文案时，提交信息可以写成 `Update news and member text`。
+
+### 发布到服务器
+
+`git push` 之后，按下一节的「发布更新与回退」把 `dist/` 同步到线上目录。只提交到 GitHub、不同步 `dist/`，访客看到的仍是旧页面。
 
 ## 部署到服务器（Ubuntu / Debian + Nginx）
 

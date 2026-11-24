@@ -1,5 +1,5 @@
 import {site} from './site.config.js';
-import {icon,eyebrow} from './ui.js';
+import {icon} from './ui.js';
 import {S,fill} from './i18n.js';
 import {layouts,edgesFor,mean,simulate} from './model.js';
 const options=site.experiment;
@@ -8,7 +8,7 @@ const nodeName=i=>'N'+String(i+1).padStart(2,'0');
 export function experiment(){
   const L=S().experiment;
   return `<section class="experiment-section container" id="simulation">
-   <div class="section-head"><div>${eyebrow(S().eyebrow.interactive)}<h2>${L.title}</h2></div><div class="sim-actions"><button id="run" class="btn primary"></button><button id="reset" class="square-btn" aria-label="${L.restart}" title="${L.restart}">${icon('reset')}</button></div></div>
+   <div class="section-head"><div><h2>${L.title}</h2></div><div class="sim-actions"><button id="run" class="btn primary"></button><button id="reset" class="square-btn" aria-label="${L.restart}" title="${L.restart}">${icon('reset')}</button></div></div>
    <p class="section-intro">${L.intro}</p>
    <div class="console"><div class="network-pane">
     <div class="panel-head"><h3>${icon('network',20)}${L.networkTitle}</h3><select id="topology" aria-label="${L.topologyLabel}">${names.map(n=>`<option>${n}</option>`).join('')}</select></div>

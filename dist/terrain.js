@@ -1,5 +1,4 @@
 import {descent} from './assets/descent.js';
-import {icon} from './ui.js';
 import {S} from './i18n.js';
 const first=descent[0], last=descent.at(-1);
 const xy = (p)=>p.slice(0,2).join(',');
@@ -10,7 +9,7 @@ const length=distances.at(-1);
 export function terrain(){
   const samples=[1,3,5,7,10,14,19], L=S().terrain;
   return `<figure class="terrain" aria-label="${L.figureAria}">
-    <div class="figure-field"><div class="figure-label"><span class="tiny-square"></span> ${L.objective}</div>
+    <div class="figure-field">
     <svg class="surface" viewBox="0 0 660 460" role="img" aria-label="${L.surfaceAria}">
       <defs><pattern id="plot-grid" width="23" height="23" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.75" fill="#568f88" opacity=".52"/></pattern></defs>
       <rect x="0" y="0" width="660" height="460" fill="url(#plot-grid)" opacity=".55"/>
@@ -30,11 +29,11 @@ export function terrain(){
         <g class="axis-text"><text x="4" y="139">f(x)</text><text x="154" y="382">x₁</text><text x="494" y="353">x₂</text></g>
       </g>
     </svg></div>
-    <figcaption><span class="fig-key"><i class="path-key"></i>${L.descentPath}</span><span class="fig-key"><i class="opt-key"></i>${L.optimum}</span><span class="scroll-hint">${icon('scroll',14)}<span id="scroll-label">${L.scroll}</span></span></figcaption>
+    <figcaption><span class="fig-key"><i class="path-key"></i>${L.descentPath}</span><span class="fig-key"><i class="opt-key"></i>${L.optimum}</span></figcaption>
   </figure>`;
 }
 export function trackDescent(){
-  const field=document.querySelector('.figure-field'), marker=document.querySelector('#iterate'), label=document.querySelector('#scroll-label'), L=S().terrain;
+  const field=document.querySelector('.figure-field'), marker=document.querySelector('#iterate');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let raf=0;
   function paint(){
@@ -48,7 +47,6 @@ export function trackDescent(){
     const a=descent[Math.max(0,i-1)], b=descent[i], span=distances[i]-(distances[i-1]||0);
     const t=span?(target-distances[i-1])/span:0;
     marker.setAttribute('transform',`translate(${a[0]+(b[0]-a[0])*t},${a[1]+(b[1]-a[1])*t})`);
-    label.textContent=p>=1||reduced?L.atOptimum:L.scroll;
   }
   function update(){if(!raf) raf=requestAnimationFrame(paint);}
   paint(); window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);

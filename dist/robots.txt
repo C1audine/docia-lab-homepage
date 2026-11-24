@@ -1,0 +1,8 @@
+# DOCIA Lab · ShanghaiTech University
+# All public pages and assets may be crawled. The sitemap also lists the
+# English and Chinese entry points; section content is rendered by app.js.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://docia.org/sitemap.xml

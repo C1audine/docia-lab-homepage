@@ -1,18 +1,121 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#eef7f2"><meta name="description" content="Explore distributed optimization, multi-agent coordination, and control at ShanghaiTech University's DOCIA Lab.">
-  <title>DOCIA Lab · ShanghaiTech University</title>
-  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css">
+  <title>DOCIA Lab · Distributed Optimization &amp; Control | ShanghaiTech</title>
+  <meta name="description" content="DOCIA Lab at ShanghaiTech University studies distributed optimization, multi-agent coordination, and control for large-scale networked systems.">
+  <meta name="keywords" content="DOCIA Lab, ShanghaiTech University, distributed optimization, multi-agent systems, optimization algorithms, control theory, 上海科技大学, 分布式优化, 多智能体">
+  <meta name="author" content="DOCIA Lab, ShanghaiTech University">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#eef7f2">
+  <link rel="canonical" id="canonical" href="https://docia.org/">
+  <link rel="alternate" hreflang="en" href="https://docia.org/">
+  <link rel="alternate" hreflang="zh" href="https://docia.org/?lang=zh">
+  <link rel="alternate" hreflang="x-default" href="https://docia.org/">
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="preload" href="./assets/landscape.webp" as="image" type="image/webp">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DOCIA Lab">
+  <meta property="og:title" content="DOCIA Lab · Distributed Optimization &amp; Control">
+  <meta property="og:description" content="Distributed optimization, multi-agent coordination, and control for large-scale networked systems at ShanghaiTech University.">
+  <meta property="og:url" content="https://docia.org/">
+  <meta property="og:image" content="https://docia.org/assets/og-docia.jpg">
+  <meta property="og:image:secure_url" content="https://docia.org/assets/og-docia.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DOCIA Lab at ShanghaiTech University: decision, optimization, and control for intelligent agents.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DOCIA Lab · Distributed Optimization &amp; Control">
+  <meta name="twitter:description" content="Distributed optimization, multi-agent coordination, and control for large-scale networked systems at ShanghaiTech University.">
+  <meta name="twitter:image" content="https://docia.org/assets/og-docia.jpg">
+  <meta name="twitter:image:alt" content="DOCIA Lab at ShanghaiTech University: decision, optimization, and control for intelligent agents.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ResearchOrganization",
+        "@id": "https://docia.org/#organization",
+        "name": "DOCIA Lab",
+        "alternateName": ["Lab of Decision, Optimization, and Control for Intelligent Agents", "决策、优化与控制实验室"],
+        "url": "https://docia.org/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://docia.org/assets/logo-512.png",
+          "width": 512,
+          "height": 512
+        },
+        "image": "https://docia.org/assets/og-docia.jpg",
+        "description": "DOCIA Lab at ShanghaiTech University studies distributed optimization, multi-agent decision making, optimization algorithms, and control for large-scale networked systems.",
+        "email": "lujie@shanghaitech.edu.cn",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "393 Huaxia Middle Road",
+          "addressLocality": "Shanghai",
+          "postalCode": "201210",
+          "addressCountry": "CN"
+        },
+        "parentOrganization": {
+          "@type": "CollegeOrUniversity",
+          "name": "ShanghaiTech University",
+          "url": "https://www.shanghaitech.edu.cn/"
+        },
+        "knowsAbout": ["Distributed optimization", "Multi-agent systems", "Optimization algorithms", "Control theory"],
+        "member": {
+          "@type": "Person",
+          "name": "Jie Lu",
+          "jobTitle": "Lab Director · Associate Professor",
+          "email": "lujie@shanghaitech.edu.cn",
+          "url": "https://faculty.sist.shanghaitech.edu.cn/faculty/lujie/",
+          "affiliation": {"@id": "https://docia.org/#organization"}
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://docia.org/#website",
+        "name": "DOCIA Lab",
+        "alternateName": "决策、优化与控制实验室",
+        "url": "https://docia.org/",
+        "description": "Research, people, publications, news, and lab moments from DOCIA Lab at ShanghaiTech University.",
+        "inLanguage": ["en", "zh-CN"],
+        "publisher": {"@id": "https://docia.org/#organization"}
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="./style.css">
+  <noscript><style>.header-tools{display:none}</style></noscript>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="topbar"><div class="container header-inner"><a class="brand" href="#/home" aria-label="DOCIA Lab home"><img src="./assets/mark.svg" alt=""><span id="brandname">DOCIA Lab</span></a>
-    <button id="menu-toggle" class="menu-button" aria-label="Open navigation" aria-controls="navigation" aria-expanded="false">Menu</button>
+  <header class="topbar"><div class="container header-inner"><a class="brand" href="#/home" aria-label="DOCIA Lab · ShanghaiTech University"><img src="./assets/mark.svg" alt=""><span class="brand-text"><span id="brandname">DOCIA Lab</span><span class="brand-school" id="brandschool">ShanghaiTech University</span></span></a>
     <nav id="navigation" aria-label="Main navigation"></nav>
+    <div class="header-tools">
+      <span class="header-lang" id="header-lang"></span>
+      <button id="search-toggle" class="search-toggle" type="button" aria-label="Search" aria-haspopup="dialog" aria-expanded="false" title="Search"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.6"/><path d="m16 16 4.4 4.4"/></svg></button>
+      <button id="menu-toggle" class="menu-button" aria-label="Open navigation" aria-controls="navigation" aria-expanded="false">Menu</button>
+    </div>
   </div></header>
-  <main id="main" tabindex="-1"></main><footer id="footer"></footer>
-  <noscript>Please enable JavaScript to explore the lab and its interactive simulations.</noscript>
+  <main id="main" tabindex="-1"><noscript>
+    <!-- Static summary for no-JavaScript visitors and simple crawlers. The live site uses app.js. -->
+    <section class="seo-fallback" aria-labelledby="seo-fallback-title">
+      <h1 id="seo-fallback-title">DOCIA Lab — Decision, Optimization, and Control for Intelligent Agents</h1>
+      <p class="seo-cn">决策、优化与控制实验室 · 上海科技大学</p>
+      <p>We study how connected agents make decisions together, designing optimization and control algorithms for large-scale networked systems.</p>
+      <p><strong>Research:</strong> distributed optimization, multi-agent coordination, and optimization algorithms. <a href="#/research">Explore research</a>.</p>
+      <p><strong>People:</strong> Jie Lu, Lab Director and Associate Professor, School of Information Science and Technology. <a href="#/people">Meet the lab</a>.</p>
+      <p><strong>Publications and news:</strong> <a href="#/publications">selected publications</a> and <a href="#/news">lab news</a>.</p>
+      <p><strong>Contact:</strong> <a href="mailto:lujie@shanghaitech.edu.cn">lujie@shanghaitech.edu.cn</a> · Room 1D-201B, SIST Building, 393 Huaxia Middle Road, Shanghai 201210, China.</p>
+      <p>This site works best with JavaScript enabled. Address: <a href="https://docia.org/">docia.org</a>.</p>
+    </section>
+  </noscript></main><footer id="footer"></footer>
   <script type="module" src="./app.js"></script>
 </body></html>

@@ -20,24 +20,14 @@ const ui = {
     language: "Language",
     english: "English",
     chinese: "中文",
-    eyebrow: {
-      researchDirections: "Research directions",
-      researchOutput: "Research output",
-      labMoments: "Lab moments",
-      groupDirectory: "Group directory",
-      graduateDestinations: "Graduate destinations",
-      researchDirection: "Research direction",
-      interactive: "Interactive experiment",
-      news: "Lab news",
-      honors: "Honors and awards"
-    },
     heading: {
       whatWeStudy: "What we study",
       selectedPublications: "Selected publications",
       lifeAtDocia: "Life at DOCIA",
-      labMembers: "Lab members",
       afterDocia: "After DOCIA",
-      formerMembers: "Former members",
+      principalInvestigators: "PI",
+      students: "Students",
+      alumni: "Alumni",
       writeToLab: "Write to the lab",
       findUs: "Find us on campus",
       localUpdates: "Local updates in action",
@@ -90,7 +80,7 @@ const ui = {
       portraitAlt: "{name} portrait"
     },
     experiment: {
-      title: "Network playground",
+      title: "Interactive experiment",
       intro: "Change the topology and see how eight edge servers balance their workloads.",
       run: "Run simulation",
       pause: "Pause",
@@ -121,13 +111,10 @@ const ui = {
       howP3: "RMS imbalance is the root mean square distance from the average load. “Rounds to balance” gives the first round below {tolerance} load units. Efficiency is the mean load divided by the maximum load, assuming identical servers. “Within capacity” counts servers at or below {capacity} units."
     },
     terrain: {
-      figureAria: "Gradient descent on a two-dimensional objective. Scroll to follow the point downhill.",
+      figureAria: "Gradient descent on a two-dimensional objective.",
       surfaceAria: "A green contour surface with two peaks and a descent path into a shared valley",
-      objective: "Objective landscape",
       descentPath: "Descent path",
       optimum: "Optimum",
-      scroll: "Scroll to descend",
-      atOptimum: "At the optimum"
     },
     footer: {
       tagline: "Homepage demo",
@@ -135,6 +122,31 @@ const ui = {
       alumni: "Alumni",
       moments: "Moments",
       contact: "Contact"
+    },
+    search: {
+      button: "Search",
+      dialog: "Search the lab site",
+      inputLabel: "Search news, people, publications, research, moments, and honors",
+      placeholder: "Search news, people, papers, research…",
+      browse: "Browse pages",
+      resultCount: "{count} results",
+      resultCountOne: "1 result",
+      noResults: "No results for “{query}”",
+      noResultsHint: "Try a name, a paper title, a year, or a research topic.",
+      close: "Close search",
+      keyNavigate: "navigate",
+      keyOpen: "open",
+      keyClose: "close",
+      types: {
+        page: "Page",
+        people: "People",
+        research: "Research",
+        publications: "Publication",
+        news: "News",
+        alumni: "Alumni",
+        gallery: "Moments",
+        honors: "Honor"
+      }
     }
   },
 
@@ -147,24 +159,14 @@ const ui = {
     language: "语言",
     english: "English",
     chinese: "中文",
-    eyebrow: {
-      researchDirections: "研究方向",
-      researchOutput: "研究成果",
-      labMoments: "实验室瞬间",
-      groupDirectory: "成员名录",
-      graduateDestinations: "毕业去向",
-      researchDirection: "研究方向",
-      interactive: "交互实验",
-      news: "课题组新闻",
-      honors: "荣誉与获奖"
-    },
     heading: {
       whatWeStudy: "我们在研究什么",
       selectedPublications: "代表性论文",
       lifeAtDocia: "实验室生活",
-      labMembers: "研究团队",
       afterDocia: "毕业之后",
-      formerMembers: "往届成员",
+      principalInvestigators: "PI",
+      students: "学生",
+      alumni: "校友",
       writeToLab: "邮件联系",
       findUs: "到访地址",
       localUpdates: "局部更新如何起作用",
@@ -217,7 +219,7 @@ const ui = {
       portraitAlt: "{name} 的照片"
     },
     experiment: {
-      title: "网络实验场",
+      title: "交互实验",
       intro: "切换网络拓扑，观察八台边缘服务器如何均衡负载。",
       run: "运行模拟",
       pause: "暂停",
@@ -248,13 +250,10 @@ const ui = {
       howP3: "RMS 不均衡度是各服务器负载与平均负载之差的均方根。「均衡所需轮数」指不均衡度首次低于 {tolerance} 个负载单位的那一轮。假设各服务器容量相同，效率等于平均负载除以最大负载。「容量内服务器」统计不超过 {capacity} 个单位的服务器数量。"
     },
     terrain: {
-      figureAria: "二维目标函数上的梯度下降。向下滚动页面，观察点沿坡面下降。",
+      figureAria: "二维目标函数上的梯度下降。",
       surfaceAria: "绿色的等高面、两座山峰，以及一条通向公共谷底的下降路径",
-      objective: "目标函数曲面",
       descentPath: "下降路径",
       optimum: "最优点",
-      scroll: "向下滚动",
-      atOptimum: "已到达最优点"
     },
     footer: {
       tagline: "课题组主页",
@@ -262,6 +261,31 @@ const ui = {
       alumni: "校友",
       moments: "合影",
       contact: "联系"
+    },
+    search: {
+      button: "搜索",
+      dialog: "站内搜索",
+      inputLabel: "搜索新闻、成员、论文、研究方向、合影与荣誉",
+      placeholder: "搜索新闻、成员、论文、研究方向……",
+      browse: "浏览页面",
+      resultCount: "{count} 个结果",
+      resultCountOne: "1 个结果",
+      noResults: "没有找到“{query}”",
+      noResultsHint: "可以试试姓名、论文题目、年份或研究关键词。",
+      close: "关闭搜索",
+      keyNavigate: "选择",
+      keyOpen: "打开",
+      keyClose: "关闭",
+      types: {
+        page: "页面",
+        people: "成员",
+        research: "研究方向",
+        publications: "论文",
+        news: "新闻",
+        alumni: "校友",
+        gallery: "合影",
+        honors: "荣誉"
+      }
     }
   }
 };
