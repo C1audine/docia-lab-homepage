@@ -12,10 +12,6 @@
 - **People 分组**：成员按 `group` 字段分为 PI / Students / Alumni，空分类不显示；新增成员时在 `site.people` 里写 `group: "students"` 即可进入学生分组。
 - **一键部署**：`tools/deploy-server.sh` 面向 Ubuntu / Debian，自动 apt 安装 nginx/rsync、发布 `dist/` 并启用站点；用法见「部署到服务器 → 一键部署」。
 
-## 组员如何参与
-
-仓库管理员可在 GitHub 的 **Settings → Collaborators → Add people** 邀请组员。接受邀请后，组员可以克隆私有仓库，在单独分支中编辑并提交 Pull Request。下方部署示例采用手动发布：合并到 `main` 后，还要同步 `dist/` 才会更新自建服务器。公开 demo 的部署也独立于 GitHub 提交。
-
 ## 本地运行
 
 有仓库读取权限后，在开发电脑上执行以下命令。SSH 克隆使用已关联 GitHub 账号的 SSH 密钥，也可以在仓库的 **Code** 菜单复制 HTTPS 地址。
