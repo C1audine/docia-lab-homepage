@@ -8,8 +8,9 @@
 
 - **站内搜索**：页头放大镜打开双语搜索，覆盖成员、研究方向、论文、新闻、校友、合影、荣誉、页面与联系方式；结果可直接跳到对应条目并短暂高亮，支持 `Cmd/Ctrl+K`、`/`、方向键与 `Enter`。索引在浏览器内生成，不需要后端。
 - **SEO**：补充 canonical、hreflang、Open Graph/Twitter、JSON-LD，以及 `robots.txt`、`sitemap.xml`、`site.webmanifest`、分享图和站点图标；无 JavaScript 时仍有可读的静态简介与栏目链接。生产域名为 `https://docia.org`。
-- **界面改版**：页眉在 DOCIA Lab 旁显示学校名；标题改用 Garamond/Bodoni 风格字体栈并放宽字距；删除首页、People、Alumni、Contact 等页面重复的 eyebrow 小标签；首页主按钮改为「先试实验、再看研究方向」；原 Network playground 改名为 Interactive experiment。
+- **界面改版**：页眉在 DOCIA Lab 旁显示学校名；标题改用 Garamond/Bodoni 风格字体栈并放宽字距；删除首页、People、Alumni、Contact 等页面重复的 eyebrow 小标签；首页主按钮改为「先试实验、再看研究方向」；原 Network playground 改名为 Interactive experiment；页脚去掉「Homepage demo / 课题组主页」等演示后缀。
 - **People 分组**：成员按 `group` 字段分为 PI / Students / Alumni，空分类不显示；新增成员时在 `site.people` 里写 `group: "students"` 即可进入学生分组。
+- **一键部署**：`tools/deploy-server.sh` 面向 Ubuntu / Debian，自动 apt 安装 nginx/rsync、发布 `dist/` 并启用站点；用法见「部署到服务器 → 一键部署」。
 
 ## 组员如何参与
 
@@ -68,6 +69,7 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 | [dist/experiment.js](dist/experiment.js) | 定义实验界面、运行和暂停逻辑、对照曲线、节点标签及指标说明 |
 | [dist/terrain.js](dist/terrain.js) | 把页面滚动进度映射到预计算的下降轨迹，并绘制标记和图例 |
 | [tools/render-landscape.py](tools/render-landscape.py) | 修改目标函数、初始点、步长、投影或曲面渲染方式 |
+| [tools/deploy-server.sh](tools/deploy-server.sh) | 在 Ubuntu / Debian 服务器一键安装 Nginx、发布 `dist/` 并启用站点；改默认目录或站点名时修改脚本头部 |
 | [dist/assets](dist/assets) | `mark.svg` 是站点标识，`landscape.webp` 与 `descent.js` 是同一次计算生成的曲面和轨迹 |
 | [dist/assets/people](dist/assets/people) | 成员与校友的照片文件 |
 | [dist/assets/gallery](dist/assets/gallery) | 课题组合影文件 |
@@ -393,15 +395,15 @@ git add tools/render-landscape.py dist/assets/landscape.webp dist/assets/descent
 
 1. 用「本地运行」的地址完整点一遍：首页、People、Alumni、Contact、搜索、移动端菜单。
 2. 改过页面结构或样式时，按第 12 节自检；改过 SEO 文件时，确认 `/robots.txt`、`/sitemap.xml`、`/site.webmanifest` 都返回 200。
-3. 只提交站点需要的文件，不把本机部署脚本、私钥、缓存或临时测试页带进仓库。
+3. 只提交站点需要的文件，不要把私钥、缓存或临时测试页带进仓库；`tools/deploy-server.sh` 是通用的服务器部署脚本，不包含本机服务器信息。
 
 ### 提交到 GitHub
 
 ```sh
 git status
 git diff --check
-git add README.md dist
-git commit -m "Add site search, SEO metadata, and refresh homepage design"
+git add README.md dist tools/deploy-server.sh
+git commit -m "Update site content and deployment"
 git push origin main
 ```
 
@@ -409,13 +411,56 @@ git push origin main
 
 ### 发布到服务器
 
-`git push` 之后，按下一节的「发布更新与回退」把 `dist/` 同步到线上目录。只提交到 GitHub、不同步 `dist/`，访客看到的仍是旧页面。
+`git push` 之后，按下一节的「一键部署」或「发布更新与回退」把 `dist/` 同步到线上目录。只提交到 GitHub、不同步 `dist/`，访客看到的仍是旧页面。
 
 ## 部署到服务器（Ubuntu / Debian + Nginx）
 
-下面以独立域名 `lab.example.org`、服务器部署用户 `deploy` 为例。将域名和用户名替换为实际值。源码保存在组员电脑或私有仓库，服务器只需接收 `dist/` 的内容。这种方式也适用于没有 GitHub 读权限的服务器。
+下面先给出一键部署脚本，再给出适合已有 Nginx、独立部署用户或需要精细控制的手动步骤。示例域名使用 `lab.example.org`，实际使用时替换即可。
 
-### 1. 准备域名和服务
+### 0. 一键部署（Ubuntu / Debian，推荐）
+
+适合一台 Ubuntu / Debian 服务器，域名可选。脚本会自动安装依赖并把仓库里的 `dist/` 发布到 Nginx：
+
+1. 安装 `nginx` 和 `rsync`（已安装则跳过 apt）。
+2. 把 `dist/` 同步到 `/var/www/docia`。
+3. 生成 `/etc/nginx/sites-available/docia`，启用站点并检查配置。
+4. 停用 Nginx 默认站点（可用 `DISABLE_DEFAULT_SITE=0` 关闭），最后重载服务。
+
+在**服务器**上克隆仓库后执行：
+
+```sh
+git clone https://github.com/C1audine/docia-lab-homepage.git
+cd docia-lab-homepage
+sudo ./tools/deploy-server.sh
+```
+
+默认通过 `http://服务器IP/` 访问。域名 A 记录已经指向服务器时，传入域名：
+
+```sh
+sudo DOMAIN=lab.example.org ./tools/deploy-server.sh
+```
+
+之后要更新线上内容，拉取新提交再执行一次脚本即可；`rsync --delete` 会移除旧版本残留文件：
+
+```sh
+git pull --ff-only
+sudo ./tools/deploy-server.sh
+```
+
+可用环境变量：
+
+| 变量 | 默认值 | 说明 |
+| --- | --- | --- |
+| `WEBROOT` | `/var/www/docia` | 网站根目录；也可以写相对仓库的路径，脚本会解析成绝对路径 |
+| `DOMAIN` | `_` | 域名。共享服务器上请填写自己的域名，避免默认站点冲突 |
+| `SITE_NAME` | `docia` | Nginx 配置文件名，生成 `/etc/nginx/sites-available/docia` |
+| `INSTALL_DEPS` | `1` | `0` 表示不执行 apt；缺 nginx/rsync 时直接退出 |
+| `DISABLE_DEFAULT_SITE` | `1` | `1` 表示停用 Nginx 默认站点，`0` 表示保留 |
+| `FORCE` | `0` | 目标目录非空且不是脚本创建过时，必须显式设为 `1` 才会覆盖 |
+
+脚本只支持 Ubuntu / Debian，并且需要 root 或 sudo。默认会启用 `default_server`；如果服务器上已有其他网站，请设置 `DOMAIN` 或在执行前备份 `/etc/nginx`。HTTPS 仍按下面的 Certbot 步骤配置。
+
+### 1. 准备域名和服务（手动方式）
 
 将域名的 A 记录指向服务器公网 IPv4。使用 IPv6 时也应设置对应的 AAAA 记录。让服务器的入站规则允许 HTTP 80 和 HTTPS 443。在**服务器**执行：
 

@@ -117,7 +117,6 @@ const ui = {
       optimum: "Optimum",
     },
     footer: {
-      tagline: "Homepage demo",
       people: "People",
       alumni: "Alumni",
       moments: "Moments",
@@ -256,7 +255,6 @@ const ui = {
       optimum: "最优点",
     },
     footer: {
-      tagline: "课题组主页",
       people: "成员",
       alumni: "校友",
       moments: "合影",
