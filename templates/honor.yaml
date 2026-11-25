@@ -1,0 +1,27 @@
+# 复制为 content/honors/<荣誉-id>.yaml
+date: "2026-05-01"
+# 可选：页面上显示的时间写法
+# display_date:
+#   en: "2026"
+#   zh: 2026 年
+title:
+  en: <Award or honor>
+  zh: <奖项或荣誉>
+# 可选：获奖成员 ID（content/people/ 下的文件名）
+# recipients:
+#   - <member-id>
+# 可选：校外获奖人/团队名称（成员不在本站时使用）
+# recipient_text:
+#   en: <Name or team>
+#   zh: <姓名或团队>
+# 可选：颁发机构/说明/链接
+# organization:
+#   en: <Organization>
+#   zh: <机构>
+# description:
+#   en: <Short description>
+#   zh: <简短说明>
+# image: <honor-id>/<image-file>.webp   # 放在 assets/honors/<荣誉-id>/ 下
+# link: https://...
+# related_publication: <citation-key>
+order: 10

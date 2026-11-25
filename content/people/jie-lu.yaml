@@ -1,0 +1,35 @@
+# 课题组成员。文件名就是稳定 ID（小写英文/数字/短横线），改名时不要改文件名，
+# 否则站内链接会失效。字段说明见 templates/person.yaml 与 docs/USER-GUIDE.md。
+
+name:
+  en: Jie Lu
+  # zh: 中文姓名（如果确认后可以补上；缺失时网站回退显示英文）
+role: faculty
+status: current
+
+# 可选的显示用头衔；不写时会自动使用 role 对应的“教师/博士后/博士生……”标签
+title:
+  en: Lab Director · Associate Professor
+  zh: 实验室主任 · 副教授
+
+affiliation:
+  en: School of Information Science and Technology
+  zh: 信息科学与技术学院
+
+# 研究兴趣会由构建脚本生成 People 页上的一句“Research interests include …”介绍
+interests:
+  - en: distributed optimization
+    zh: 分布式优化
+  - en: multi-agent decision making
+    zh: 多智能体决策
+  - en: networked dynamical systems
+    zh: 网络化动力系统
+
+email: lujie@shanghaitech.edu.cn
+website: https://sist.shanghaitech.edu.cn/lujie_en/main.htm
+website_label:
+  en: University profile
+  zh: 教师主页
+
+# 排序数字越小越靠前；当前只有一位教师
+order: 1

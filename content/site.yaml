@@ -1,0 +1,50 @@
+# 网站级内容（对所有页面生效）
+#
+# 日常维护只需要改这个文件里的文字，不需要碰任何程序代码。
+# 文字字段写成 { en: "...", zh: "..." }；中文可以暂时省略，网站会回退到英文并给出构建警告。
+# 详细说明见 content/README.md 与 docs/USER-GUIDE.md。
+
+# 网站上显示的短名称（页眉、页脚、浏览器标签页）
+name: DOCIA Lab
+
+# 实验室全名，用于页脚、SEO 与分享卡片
+full_name:
+  en: Lab of Decision, Optimization, and Control for Intelligent Agents
+  zh: 决策、优化与控制实验室
+
+# 正式发布地址；换域名时只改这里（不要以 / 结尾）
+url: https://docia.org
+
+# 页面默认语言：en 或 zh
+default_language: en
+
+# 所属学校，显示在姓名、地址和页脚旁
+university:
+  en: ShanghaiTech University
+  zh: 上海科技大学
+
+# 联系我们页面与页脚使用的信息
+contact:
+  name: Jie Lu
+  email: lujie@shanghaitech.edu.cn
+  school:
+    en: School of Information Science and Technology
+    zh: 信息科学与技术学院
+  office:
+    en: Room 1D-201B, SIST Building
+    zh: 信息学院 1D-201B 室
+  # 地址拆成结构化字段：页面显示与搜索引擎结构化数据都从这里生成
+  address:
+    street:
+      en: 393 Huaxia Middle Road
+      zh: 华夏中路 393 号
+    city:
+      en: Shanghai
+      zh: 上海
+    postal_code: "201210"
+    country: CN
+  profile: https://faculty.sist.shanghaitech.edu.cn/faculty/lujie/
+  center: https://star-center.shanghaitech.edu.cn/professors.html
+
+# 可选：实验室公开社交账号。没有确认前保持为空，不要填写猜测的账号。
+social: {}

@@ -1,0 +1,26 @@
+# 复制为 content/gallery/<相册-id>.yaml
+date: "2026-05-01"
+# 可选：页面上显示的时间写法
+# display_date:
+#   en: "May 2026"
+#   zh: 2026 年 5 月
+title:
+  en: <Album title>
+  zh: <相册标题>
+# 可选：相册说明
+# description:
+#   en: <Description>
+#   zh: <说明>
+# 可选：封面；必须是下面 photos 中的一张，不写则用第一张
+# cover: <相册-id>/<file>.webp
+order: 10
+photos:
+  - file: <相册-id>/<file-1>.webp   # 照片放在 assets/gallery/<相册-id>/ 下
+    alt:
+      en: <What the photo shows>
+      zh: <照片内容>
+    # credit: <Photo credit>
+  - file: <相册-id>/<file-2>.webp
+    alt:
+      en: <What the photo shows>
+      zh: <照片内容>

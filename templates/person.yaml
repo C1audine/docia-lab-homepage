@@ -1,0 +1,47 @@
+# 复制为 content/people/<成员-id>.yaml，例如 content/people/wei-zhang.yaml
+# 文件名即稳定 ID，发布后不要改名。
+
+# 英文姓名必填；中文姓名可选，缺失时中文页显示英文名并提示警告。
+name:
+  en: <Full Name>
+  # zh: <中文姓名>
+
+# role 只能是：faculty | postdoc | phd | master | undergraduate | staff | visitor
+role: phd
+# status 只能是：current | alumni
+status: current
+
+# 可选：显示用头衔（不写则使用 role 对应的默认标签）
+# title:
+#   en: Doctoral student
+#   zh: 博士研究生
+
+# 可选：所属院系/单位（不写则显示学校名）
+# affiliation:
+#   en: School of Information Science and Technology
+#   zh: 信息科学与技术学院
+
+start_year: 2024
+# 可选：毕业年份（status: alumni 时使用）
+# graduation_year: 2027
+
+# 可选：照片文件名，放在 assets/people/ 下；不写则自动寻找 <id>.webp/.jpg/.png，找不到显示默认头像
+# photo: <photo-file-name>.webp
+
+# 可选：研究兴趣；会生成 People 页的一句话介绍
+# interests:
+#   - en: <research interest>
+#     zh: <研究兴趣>
+
+# 可选：联系方式与链接
+# email: <email@example.edu>
+# website: https://...
+# website_label:
+#   en: Personal website
+#   zh: 个人主页
+# google_scholar: https://...
+# orcid: https://...
+# github: https://...
+
+# 可选：同组内排序，数字越小越靠前
+order: 10

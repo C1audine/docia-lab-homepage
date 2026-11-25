@@ -1,0 +1,10 @@
+# 论文的“站内信息”：首页是否精选、与成员/研究方向的关联等。
+# 题目、作者、年份、期刊、DOI、链接一律只写在 publications.bib，不要在这里重复。
+
+selected: true
+order: 2
+members:
+  - jie-lu
+research:
+  - distributed-optimization
+status: published

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "publication-metadata.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "selected": { "type": "boolean" },
+    "order": { "$ref": "common.schema.json#/$defs/order" },
+    "members": {
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/id" }
+    },
+    "research": {
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/id" }
+    },
+    "projects": {
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/id" }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pdf": { "type": "string", "pattern": "^(https?://)" },
+        "code": { "type": "string", "pattern": "^(https?://)" },
+        "project": { "type": "string", "pattern": "^(https?://)" }
+      }
+    },
+    "status": { "enum": ["preprint", "accepted", "published"] }
+  }
+}

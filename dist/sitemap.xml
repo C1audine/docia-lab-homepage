@@ -3,7 +3,6 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://docia.org/</loc>
-    <lastmod>2026-11-24</lastmod>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://docia.org/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://docia.org/?lang=zh"/>
@@ -11,7 +10,6 @@
   </url>
   <url>
     <loc>https://docia.org/?lang=zh</loc>
-    <lastmod>2026-11-24</lastmod>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://docia.org/"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://docia.org/?lang=zh"/>

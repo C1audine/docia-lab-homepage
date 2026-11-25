@@ -34,16 +34,16 @@ function researchArt(type){
   }
   return `<svg class="research-art art-${type}" viewBox="0 0 335 118" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.15">${shapes}</g></svg>`;
 }
-const portraitAlt=person=>fill(S().labels.portraitAlt,{name:person.name});
+const portraitAlt=person=>fill(S().labels.portraitAlt,{name:pick(person.name)});
 function cards(){return `<div class="research-grid">${site.research.map(r=>`<a href="#/research/${e(r.id)}" class="research-card">${researchArt(r.icon)}<div><h3>${e(pick(r.title))}</h3><p>${e(pick(r.short))}</p></div></a>`).join('')}</div>`;}
 function paper(p){return `<article class="paper-row" id="paper-${e(p.id)}"><span class="paper-year">${e(p.year)}</span><div><p class="venue">${e(p.venue)}</p><h3>${external(p.url,p.title,'paper-title')}</h3><p class="authors">${e(p.authors)}</p></div>${external(p.url,S().link.viewPaper,'paper-link')}</article>`;}
 function portrait(person){
   const src=mediaUrl(person.photo,site.media?.people);
-  return `<div class="profile-art${src?' has-photo':''}"${src?'':' aria-hidden="true"'}>${researchArt('contour')}<span aria-hidden="true">${e(initials(person.name))}</span>${src?`<img src="${e(src)}" alt="${e(portraitAlt(person))}" loading="lazy" decoding="async">`:''}</div>`;
+  return `<div class="profile-art${src?' has-photo':''}"${src?'':' aria-hidden="true"'}>${researchArt('contour')}<span aria-hidden="true">${e(initials(pick(person.name)))}</span>${src?`<img src="${e(src)}" alt="${e(portraitAlt(person))}" loading="lazy" decoding="async">`:''}</div>`;
 }
 function avatar(person){
   const src=mediaUrl(person.photo,site.media?.alumni||site.media?.people);
-  return `<span class="avatar-sm${src?' has-photo':''}"${src?'':' aria-hidden="true"'}><span aria-hidden="true">${e(initials(person.name))}</span>${src?`<img src="${e(src)}" alt="${e(portraitAlt(person))}" loading="lazy" decoding="async">`:''}</span>`;
+  return `<span class="avatar-sm${src?' has-photo':''}"${src?'':' aria-hidden="true"'}><span aria-hidden="true">${e(initials(pick(person.name)))}</span>${src?`<img src="${e(src)}" alt="${e(portraitAlt(person))}" loading="lazy" decoding="async">`:''}</span>`;
 }
 function recordLinks(person){
   const links=[];
@@ -57,14 +57,21 @@ function galleryCard(g,index){
 }
 function pageHead(id,title){return `<div class="subhead"><div class="container"><h1>${e(title||pick(site.pages[id].title))}</h1><p>${e(pick(site.pages[id].desc))}</p></div></div>`;}
 function home(){
-  const L=S(), lines=pick(site.hero.lines);
+  const L=S(), lines=pick(site.hero.lines), options=site.home||{};
+  const enabled=(key)=>!options[key]||options[key].enabled!==false;
+  const selected=site.publications.filter(p=>p.selected===true);
+  const hasSelection=site.publications.some(p=>'selected' in p);
+  const homePapers=(hasSelection?selected:site.publications).slice(0,(options.selected_publications&&options.selected_publications.count!=null)?options.selected_publications.count:2);
+  const researchBlock=enabled('research')?`<section class="research-section"><div class="container"><div class="section-head"><div><h2>${e(L.heading.whatWeStudy)}</h2></div><a href="#/research" class="text-link">${e(L.link.exploreAll)}</a></div>${cards()}</div></section>`:'';
+  const papersBlock=(enabled('selected_publications')&&homePapers.length)?`<section class="container home-pubs"><div class="section-head"><div><h2>${e(L.heading.selectedPublications)}</h2></div><a href="#/publications" class="text-link">${e(L.link.allPublications)}</a></div>${homePapers.map(paper).join('')}</section>`:'';
   return `<section class="hero"><div class="container hero-inner"><div class="hero-copy"><h1>${lines.map((l,i)=>i===lines.length-1?`<em>${e(l)}</em>`:`<span>${e(l)}</span>`).join('')}</h1><p>${e(pick(site.hero.description))}</p><div class="hero-actions">${primary('#/simulation',L.link.trySimulation,'network','outline')}${primary('#/research',L.link.exploreResearch,'book')}</div></div>${terrain()}</div></section>
-    ${experiment()}<section class="research-section"><div class="container"><div class="section-head"><div><h2>${e(L.heading.whatWeStudy)}</h2></div><a href="#/research" class="text-link">${e(L.link.exploreAll)}</a></div>${cards()}</div></section>
-    <section class="container home-pubs"><div class="section-head"><div><h2>${e(L.heading.selectedPublications)}</h2></div><a href="#/publications" class="text-link">${e(L.link.allPublications)}</a></div>${site.publications.slice(0,2).map(paper).join('')}</section>${homeMoments()}`;
+    ${enabled('interactive_experiment')?experiment():''}${researchBlock}
+    ${papersBlock}${homeMoments()}`;
 }
 function homeMoments(){
-  const L=S(), items=(site.gallery||[]).slice(0,3);
-  if(!items.length)return '';
+  const L=S(), options=site.home||{}, count=(options.moments&&options.moments.count!=null)?options.moments.count:3;
+  const items=(site.gallery||[]).slice(0,count);
+  if(!items.length||(options.moments&&options.moments.enabled===false))return '';
   return `<section class="container home-moments"><div class="section-head"><div><h2>${e(L.heading.lifeAtDocia)}</h2></div><a href="#/gallery" class="text-link">${e(L.link.viewAllMoments)}</a></div><div class="gallery-grid">${items.map((item,index)=>galleryCard(item,index)).join('')}</div></section>`;
 }
 function gallery(){
@@ -93,11 +100,11 @@ function people(){
   const directory=groups.map(([group,label])=>{
     const members=site.people.map((person,index)=>({person,index})).filter(({person})=>(person.group||'pi')===group);
     if(!members.length)return '';
-    return `<section class="people-group"><h2>${e(label)}</h2>${members.map(({person:p,index})=>`<article class="person-record" id="${e(targetId('person',index))}">${portrait(p)}<div><p class="venue">${e(pick(p.role))}</p><h3>${e(p.name)}</h3><p>${e(pick(p.affiliation))} · ${e(pick(site.university))}</p><p>${e(pick(p.description))}</p>${recordLinks(p)}</div></article>`).join('')}</section>`;
+    return `<section class="people-group"><h2>${e(label)}</h2>${members.map(({person:p,index})=>`<article class="person-record" id="${e(targetId('person',index))}">${portrait(p)}<div><p class="venue">${e(pick(p.role))}</p><h3>${e(pick(p.name))}</h3><p>${e(pick(p.affiliation))} · ${e(pick(site.university))}</p><p>${e(pick(p.description))}</p>${recordLinks(p)}</div></article>`).join('')}</section>`;
   }).join('');
   return pageHead('people')+`<div class="container page-body">${directory}<div class="feature-band people-alumni"><div><h2>${e(L.heading.alumni)}</h2><p>${e(L.text.formerMembers)}</p></div>${primary('#/alumni',L.link.alumniDestinations,'agents','outline')}</div></div>`;
 }
-function alumni(){const L=S();return pageHead('alumni')+`<div class="container page-body"><div class="directory-heading"><h2>${e(L.heading.afterDocia)}</h2></div>${site.alumni.map((a,index)=>`<article class="alumni-row" id="${e(targetId('alumni',index))}"><div class="grad-year">${e(a.year)}<small>${e(L.labels.graduation)}</small></div><div class="alumni-person">${avatar(a)}<div><p class="venue">${e(fill(L.labels.degreeLine,{degree:pick(a.degree)}))}</p><h3>${e(a.name)}</h3>${recordLinks(a)}</div></div><div class="placement"><strong>${e(pick(a.destination))}</strong><p>${e(pick(a.position))} · ${e(pick(a.location))}</p>${a.source?external(a.source,L.link.yearbook):''}</div></article>`).join('')}</div>`;}
+function alumni(){const L=S();return pageHead('alumni')+`<div class="container page-body"><div class="directory-heading"><h2>${e(L.heading.afterDocia)}</h2></div>${site.alumni.map((a,index)=>`<article class="alumni-row" id="${e(targetId('alumni',index))}"><div class="grad-year">${e(a.year)}<small>${e(L.labels.graduation)}</small></div><div class="alumni-person">${avatar(a)}<div><p class="venue">${e(fill(L.labels.degreeLine,{degree:pick(a.degree)}))}</p><h3>${e(pick(a.name))}</h3>${recordLinks(a)}</div></div><div class="placement"><strong>${e(pick(a.destination))}</strong><p>${e(pick(a.position))} · ${e(pick(a.location))}</p>${a.source?external(a.source,L.link.yearbook):''}</div></article>`).join('')}</div>`;}
 function contact(){const c=site.contact,L=S();return pageHead('contact')+`<div class="container page-body contact-grid"><article><span class="contact-icon">${icon('mail',23)}</span><h2>${e(L.heading.writeToLab)}</h2><p>${e(c.name)} · ${e(L.labels.labDirector)}</p><a class="contact-mail" href="mailto:${e(c.email)}">${e(c.email)}</a><p>${external(c.profile,L.link.facultyHomepage)}</p></article><article><span class="contact-icon">${icon('location',23)}</span><h2>${e(L.heading.findUs)}</h2><address>${[c.school,pick(site.university),c.office,c.street,c.city].map(v=>e(pick(v))).join('<br>')}</address>${external(c.center,L.link.starCenter)}</article></div>`;}
 function footer(){const L=S();return `<div class="container footer-content"><div class="footer-brand"><img alt="" src="./assets/mark.svg"><strong>${e(site.brand)}</strong></div><p>${e(pick(site.name))}<br>${e(pick(site.university))}</p><div><a href="#/people">${e(L.footer.people)}</a><a href="#/alumni">${e(L.footer.alumni)}</a><a href="#/gallery">${e(L.footer.moments)}</a><a href="#/contact">${e(L.footer.contact)}</a></div></div>`;}
 document.querySelector('footer').innerHTML=footer();

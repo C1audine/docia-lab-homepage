@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "news.schema.json",
+  "type": "object",
+  "required": ["date", "title"],
+  "additionalProperties": true,
+  "properties": {
+    "date": { "$ref": "common.schema.json#/$defs/date" },
+    "display_date": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "title": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "summary": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "order": { "$ref": "common.schema.json#/$defs/order" },
+    "image": { "$ref": "common.schema.json#/$defs/relativePath" },
+    "featured": { "type": "boolean" },
+    "draft": { "type": "boolean" },
+    "url": { "type": "string", "pattern": "^(https?://|mailto:)" },
+    "related_publications": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

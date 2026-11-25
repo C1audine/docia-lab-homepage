@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "presentation.schema.json",
+  "type": "object",
+  "required": ["palette", "navigation", "pages", "media", "hero", "seo", "experiment"],
+  "additionalProperties": true,
+  "properties": {
+    "palette": {
+      "type": "object",
+      "required": ["paper", "mint", "green", "sky", "ink"],
+      "additionalProperties": false,
+      "properties": {
+        "paper": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "mint": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "green": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "sky": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "ink": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+      }
+    },
+    "navigation": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "additionalProperties": true,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "$ref": "common.schema.json#/$defs/bilingual" }
+        }
+      }
+    },
+    "pages": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["title", "desc"],
+        "additionalProperties": true,
+        "properties": {
+          "title": { "$ref": "common.schema.json#/$defs/bilingual" },
+          "desc": { "$ref": "common.schema.json#/$defs/bilingual" }
+        }
+      }
+    },
+    "media": {
+      "type": "object",
+      "required": ["people", "alumni", "gallery"],
+      "additionalProperties": false,
+      "properties": {
+        "people": { "type": "string" },
+        "alumni": { "type": "string" },
+        "gallery": { "type": "string" }
+      }
+    },
+    "hero": {
+      "type": "object",
+      "required": ["lines", "description"],
+      "additionalProperties": true,
+      "properties": {
+        "lines": {
+          "type": "object",
+          "required": ["en"],
+          "additionalProperties": false,
+          "properties": {
+            "en": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "zh": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+          }
+        },
+        "description": { "$ref": "common.schema.json#/$defs/bilingual" }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "required": ["title", "description", "keywords", "author", "og_title", "og_description", "og_image_alt", "website_description", "organization_description", "knows_about", "parent_organization_url"],
+      "additionalProperties": true,
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "keywords": { "type": "string" },
+        "author": { "type": "string" },
+        "og_title": { "type": "string" },
+        "og_description": { "type": "string" },
+        "og_image_alt": { "type": "string" },
+        "website_description": { "type": "string" },
+        "organization_description": { "type": "string" },
+        "noscript_title": { "type": "string" },
+        "noscript_research": { "type": "string" },
+        "manifest_description": { "type": "string" },
+        "knows_about": { "type": "array", "items": { "type": "string" } },
+        "parent_organization_url": { "type": "string", "pattern": "^https?://" }
+      }
+    },
+    "experiment": {
+      "type": "object",
+      "required": ["topology", "initialLoads", "capacity", "tolerance", "previewRound"],
+      "additionalProperties": false,
+      "properties": {
+        "topology": { "type": "string" },
+        "initialLoads": { "type": "array", "minItems": 2, "items": { "type": "number" } },
+        "capacity": { "type": "number" },
+        "tolerance": { "type": "number", "exclusiveMinimum": 0 },
+        "previewRound": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

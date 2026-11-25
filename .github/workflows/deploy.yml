@@ -1,0 +1,53 @@
+name: Deploy built site (manual)
+
+# 手动发布：先构建并校验，再通过 rsync 同步 dist/。
+# 需要仓库 Secrets：DEPLOY_HOST、DEPLOY_USER、DEPLOY_PATH、SSH_PRIVATE_KEY；
+# DEPLOY_PORT 可选（默认 22）。没有配置 Secrets 时本工作流会失败，不会影响 PR 检查。
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 输入 deploy 以确认发布到生产静态目录
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: build-and-rsync
+    if: inputs.confirm == 'deploy'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate content
+        run: npm run validate:content
+      - name: Build full site
+        run: npm run build
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "${{ secrets.DEPLOY_PORT || '22' }}" -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+      - name: Rsync dist to static web root
+        run: |
+          rsync -az --delete --chmod=D755,F644 \
+            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.DEPLOY_PORT || '22' }}" \
+            dist/ "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/"
+      - name: Record release
+        run: echo "Released commit ${{ github.sha }} at $(date -u +%Y-%m-%dT%H:%M:%SZ)"

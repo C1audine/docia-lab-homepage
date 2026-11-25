@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "site.schema.json",
+  "type": "object",
+  "required": ["name", "full_name", "url", "default_language"],
+  "additionalProperties": true,
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "full_name": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "url": { "type": "string", "pattern": "^https?://[^\\s]+$" },
+    "default_language": { "enum": ["en", "zh"] },
+    "university": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "contact": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" },
+        "school": { "$ref": "common.schema.json#/$defs/bilingual" },
+        "office": { "$ref": "common.schema.json#/$defs/bilingual" },
+        "address": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "street": { "$ref": "common.schema.json#/$defs/bilingual" },
+            "city": { "$ref": "common.schema.json#/$defs/bilingual" },
+            "postal_code": { "type": "string" },
+            "country": { "type": "string" }
+          }
+        },
+        "profile": { "type": "string" },
+        "center": { "type": "string" }
+      }
+    },
+    "social": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

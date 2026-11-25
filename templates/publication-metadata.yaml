@@ -1,0 +1,24 @@
+# 复制为 content/publications/metadata/<引用键>.yaml，文件名必须与 BibTeX 引用键完全一致。
+# 这里只写“站内信息”；题目/作者/年份/期刊/DOI/链接不要重复。
+
+# 是否在首页“代表性论文”展示
+selected: false
+# 同一年的排序；数字越小越靠前
+order: 10
+
+# 关联成员：写 content/people/ 下的文件名（不含 .yaml）
+members:
+  - <member-id>
+
+# 关联研究方向：写 content/research/ 下的文件名（不含 .md）
+research:
+  - <research-id>
+
+# 可选：预印本/录用/已发表
+# status: published
+
+# 可选：补充链接（PDF/代码/项目页）
+# links:
+#   pdf: https://...
+#   code: https://...
+#   project: https://...

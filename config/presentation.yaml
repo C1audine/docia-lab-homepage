@@ -1,0 +1,122 @@
+# 表现层配置：配色、导航、页面标题、首屏文案、交互实验参数、SEO 文案。
+#
+# 这些内容属于“网站外观与固定界面”，不是可日常更新的课题组资料，
+# 因此单独放在 config/ 而不是 content/。日常维护通常不需要修改本文件。
+# 字段说明见 docs/DEVELOPER-GUIDE.md。
+
+palette:
+  paper: "#EEF7F2"
+  mint: "#B9DEC9"
+  green: "#1BA784"
+  sky: "#63BBD0"
+  ink: "#134857"
+
+navigation:
+  - id: home
+    label: { en: Home, zh: 首页 }
+  - id: research
+    label: { en: Research, zh: 研究方向 }
+  - id: publications
+    label: { en: Publications, zh: 论文 }
+  - id: people
+    label: { en: People, zh: 成员 }
+  - id: alumni
+    label: { en: Alumni, zh: 校友 }
+  - id: gallery
+    label: { en: Moments, zh: 合影 }
+  - id: news
+    label: { en: News, zh: 新闻 }
+  - id: honors
+    label: { en: Honors, zh: 荣誉 }
+  - id: contact
+    label: { en: Contact, zh: 联系 }
+
+pages:
+  research:
+    title: { en: Research, zh: 研究方向 }
+    desc:
+      en: How can a network solve a problem when each agent sees only a part of it?
+      zh: 当每个智能体只看到问题的一部分时，网络如何求解？
+  publications:
+    title: { en: Selected publications, zh: 代表性论文 }
+    desc:
+      en: Journal articles on distributed optimization, constraints, and consensus.
+      zh: 关于分布式优化、约束与一致性的期刊论文。
+  people:
+    title: { en: Our Team, zh: 研究团队 }
+    desc:
+      en: The researchers behind DOCIA’s work in optimization and control.
+      zh: 从事优化与控制研究的课题组成员。
+  alumni:
+    title: { en: Alumni destinations, zh: 校友去向 }
+    desc:
+      en: Selected first appointments after graduation from the lab.
+      zh: 毕业生离校后的首份去向（节选）。
+  gallery:
+    title: { en: Lab moments, zh: 实验室瞬间 }
+    desc:
+      en: Gatherings, retreats, and everyday life in the lab.
+      zh: 课题组活动、集体出游与日常生活。
+  news:
+    title: { en: News, zh: 课题组新闻 }
+    desc:
+      en: Graduations, accepted papers, and other lab updates.
+      zh: 毕业、论文录用以及课题组的其他消息。
+  honors:
+    title: { en: Honors and awards, zh: 荣誉与获奖 }
+    desc:
+      en: Awards and recognitions received by the lab.
+      zh: 课题组获得的奖项与荣誉。
+  contact:
+    title: { en: Contact, zh: 联系我们 }
+    desc:
+      en: Contact the lab about research, collaboration, and graduate study.
+      zh: 欢迎就科研合作、招生等事宜联系实验室。
+
+media:
+  people: ./assets/people/
+  alumni: ./assets/people/
+  gallery: ./assets/gallery/
+
+hero:
+  lines:
+    en:
+      - Decision, Optimization
+      - "& Control for"
+      - Intelligent Agents
+    zh:
+      - 决策、优化与控制
+      - 面向智能体系统
+  description:
+    en: We study how connected agents make decisions together, designing optimization and control algorithms for large-scale networked systems.
+    zh: 研究互联的智能体如何共同决策，并为大规模网络化系统设计优化与控制算法。
+
+# 供构建脚本生成 <head> 中的 SEO / 分享卡片 / JSON-LD，不参与页面可见文字
+seo:
+  title: DOCIA Lab · Distributed Optimization & Control | ShanghaiTech
+  description: DOCIA Lab at ShanghaiTech University studies distributed optimization, multi-agent coordination, and control for large-scale networked systems.
+  keywords: DOCIA Lab, ShanghaiTech University, distributed optimization, multi-agent systems, optimization algorithms, control theory, 上海科技大学, 分布式优化, 多智能体
+  author: DOCIA Lab, ShanghaiTech University
+  og_title: DOCIA Lab · Distributed Optimization & Control
+  og_description: Distributed optimization, multi-agent coordination, and control for large-scale networked systems at ShanghaiTech University.
+  og_image_alt: "DOCIA Lab at ShanghaiTech University: decision, optimization, and control for intelligent agents."
+  website_description: Research, people, publications, news, and lab moments from DOCIA Lab at ShanghaiTech University.
+  organization_description: DOCIA Lab at ShanghaiTech University studies distributed optimization, multi-agent decision making, optimization algorithms, and control for large-scale networked systems.
+  # noscript 静态摘要文案（与旧版 SEO 文本保持一致）
+  noscript_title: DOCIA Lab — Decision, Optimization, and Control for Intelligent Agents
+  noscript_research: distributed optimization, multi-agent coordination, and optimization algorithms
+  manifest_description: Distributed optimization, multi-agent coordination, and control for large-scale networked systems.
+  knows_about:
+    - Distributed optimization
+    - Multi-agent systems
+    - Optimization algorithms
+    - Control theory
+  parent_organization_url: https://www.shanghaitech.edu.cn/
+
+# 首页交互实验的默认参数（算法实现见 src/model.js，不要把它当成内容数据）
+experiment:
+  topology: Mesh
+  initialLoads: [78, 45, 108, 30, 75, 44, 23, 58]
+  capacity: 100
+  tolerance: 0.1
+  previewRound: 4

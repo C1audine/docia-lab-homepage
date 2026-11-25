@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "honor.schema.json",
+  "type": "object",
+  "required": ["date", "title"],
+  "additionalProperties": true,
+  "properties": {
+    "date": { "$ref": "common.schema.json#/$defs/date" },
+    "display_date": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "title": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "recipients": {
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/id" }
+    },
+    "recipient_text": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "organization": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "description": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "image": { "$ref": "common.schema.json#/$defs/relativePath" },
+    "related_publication": { "type": "string" },
+    "link": { "type": "string", "pattern": "^(https?://)" },
+    "order": { "$ref": "common.schema.json#/$defs/order" },
+    "draft": { "type": "boolean" }
+  }
+}

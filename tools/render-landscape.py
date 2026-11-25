@@ -5,7 +5,7 @@ import numpy as np
 import contourpy
 from PIL import Image, ImageDraw
 
-OUTPUT = Path(__file__).resolve().parents[1] / "dist" / "assets"
+OUTPUT = Path(__file__).resolve().parents[1] / "src" / "assets"
 SCALE = 3
 WIDTH, HEIGHT = 600, 420
 bounds = (-1.55, 1.55, -1.4, 1.4)

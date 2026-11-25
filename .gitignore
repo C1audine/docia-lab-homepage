@@ -1,0 +1,8 @@
+node_modules/
+.build-tmp/
+.venv/
+.DS_Store
+*.log
+
+# dist/ is generated but intentionally tracked: the current static deployment
+# serves the committed files, so a release commit must include the built site.

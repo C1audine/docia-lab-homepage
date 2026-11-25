@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "research.schema.json",
+  "type": "object",
+  "required": ["title", "summary"],
+  "additionalProperties": true,
+  "properties": {
+    "title": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "order": { "$ref": "common.schema.json#/$defs/order" },
+    "icon": { "type": "string" },
+    "summary": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "question": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "image": { "$ref": "common.schema.json#/$defs/relativePath" },
+    "draft": { "type": "boolean" }
+  }
+}

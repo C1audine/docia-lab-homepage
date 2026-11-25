@@ -1,0 +1,27 @@
+# 首页各区块的显示开关与数量
+#
+# 这里只控制“显示什么、显示多少”，不存放重复的新闻或论文正文。
+# 新闻、论文、成员等内容仍然只在各自的文件里维护一份。
+#
+# P0 只实现当前首页已有的区块：
+#   research               研究方向卡片
+#   selected_publications  精选论文（读取 publications 的 metadata selected: true）
+#   interactive_experiment 交互实验（算法参数在 config/presentation.yaml）
+#   moments                合影（读取 gallery，按日期从新到旧）
+#
+# latest_news / people / join_us 属于 P1（首页复用新闻、成员、招生信息），
+# 当前网站没有这些首页区块，因此本文件暂不接受这些键。
+
+research:
+  enabled: true
+
+selected_publications:
+  enabled: true
+  count: 2
+
+interactive_experiment:
+  enabled: true
+
+moments:
+  enabled: true
+  count: 3

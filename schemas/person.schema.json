@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "person.schema.json",
+  "type": "object",
+  "required": ["name", "role", "status"],
+  "additionalProperties": true,
+  "properties": {
+    "name": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "role": {
+      "enum": ["faculty", "postdoc", "phd", "master", "undergraduate", "staff", "visitor"]
+    },
+    "status": { "enum": ["current", "alumni"] },
+    "title": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "affiliation": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "start_year": { "type": "integer", "minimum": 1900, "maximum": 2200 },
+    "graduation_year": { "type": "integer", "minimum": 1900, "maximum": 2200 },
+    "degree": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "position": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "destination": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "location": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "source": { "type": "string", "pattern": "^(https?://|mailto:)" },
+    "photo": { "$ref": "common.schema.json#/$defs/relativePath" },
+    "interests": { "$ref": "common.schema.json#/$defs/bilingualArray" },
+    "email": { "type": "string", "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" },
+    "website": { "type": "string", "pattern": "^(https?://|mailto:)" },
+    "website_label": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "google_scholar": { "type": "string", "pattern": "^(https?://)" },
+    "orcid": { "type": "string" },
+    "github": { "type": "string", "pattern": "^(https?://)" },
+    "order": { "$ref": "common.schema.json#/$defs/order" },
+    "draft": { "type": "boolean" }
+  }
+}

@@ -1,0 +1,21 @@
+# 已毕业成员仍放在 content/people/ 下，只改 status 和毕业信息，不要移动/重命名文件。
+name:
+  en: <Full Name>
+  # zh: <中文姓名>
+role: phd
+status: alumni
+graduation_year: 2026
+
+position:
+  en: <First position after graduation>
+  zh: <毕业后首份工作>
+destination:
+  en: <University / company>
+  zh: <学校 / 公司>
+# 可选
+# location:
+#   en: <City, Country>
+#   zh: <城市，国家>
+# source: https://<公开来源链接>
+# photo: <photo-file-name>.webp
+order: 10

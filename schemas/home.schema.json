@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "home.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "research": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "enabled": { "type": "boolean" } }
+    },
+    "selected_publications": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "interactive_experiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "enabled": { "type": "boolean" } }
+    },
+    "moments": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "count": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gallery.schema.json",
+  "type": "object",
+  "required": ["date", "title", "photos"],
+  "additionalProperties": true,
+  "properties": {
+    "date": { "$ref": "common.schema.json#/$defs/date" },
+    "display_date": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "title": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "description": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "cover": { "$ref": "common.schema.json#/$defs/relativePath" },
+    "order": { "$ref": "common.schema.json#/$defs/order" },
+    "draft": { "type": "boolean" },
+    "photos": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["file"],
+        "additionalProperties": true,
+        "properties": {
+          "file": { "$ref": "common.schema.json#/$defs/relativePath" },
+          "alt": { "$ref": "common.schema.json#/$defs/bilingual" },
+          "credit": { "type": "string" }
+        }
+      }
+    }
+  }
+}

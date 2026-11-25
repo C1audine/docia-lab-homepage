@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "recruitment.schema.json",
+  "type": "object",
+  "required": ["title", "updated"],
+  "additionalProperties": true,
+  "properties": {
+    "title": { "$ref": "common.schema.json#/$defs/bilingual" },
+    "updated": { "$ref": "common.schema.json#/$defs/date" },
+    "draft": { "type": "boolean" }
+  }
+}
