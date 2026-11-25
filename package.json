@@ -12,7 +12,9 @@
     "build:content": "node scripts/build-content.js",
     "build": "node scripts/build.js",
     "dev": "node scripts/dev.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "deploy:server": "bash tools/deploy-server.sh",
+    "deploy:remote": "bash tools/deploy-remote.sh"
   },
   "dependencies": {
     "@retorquere/bibtex-parser": "14.0.8",

@@ -7,7 +7,7 @@
 - 迁移前基线提交：`a99269d5f6d955816ff64298aa765f0fd0260547`
 - 迁移分支：`modularization-p0`
 - 生产站点：`https://docia.org`（本次**未执行生产发布**，原因见 §6）
-- 回归证据目录：仓库外 `../migration-evidence/`（基线截图、after 截图、像素 diff、交互探针）
+- 回归证据：仓库外部的回归证据目录（基线截图、after 截图、像素 diff、交互探针）
 
 ## 1. Phase 0：现状审计
 
@@ -57,8 +57,8 @@
 
 - `https://docia.org` 返回 Nginx 静态页；线上 `index.html` 与 `site.config.js` 与 `a99269d` 的 `dist/`
   逐字节一致，说明提交到 `main` 的 `dist/` 就是线上内容。
-- 工作区 `.deploy-key/` 中的 SSH 主机 `122.228.216.175:2222` 上存在一份较旧副本，但**无法确认它是
-  docia.org 的生产源**；因此本次不把它当作生产发布目标，也不声称已完成自动部署。
+- 曾在一台独立测试服务器上核实过一份较旧的站点副本，但**无法确认它是 docia.org 的生产源**；
+  因此本次不把它当作生产发布目标，也不声称已完成自动部署。
 - 现有 `tools/deploy-server.sh` 保留，作为原有一键初始化/部署脚本。
 
 ## 2. Phase 1：内容层与构建替换
@@ -129,7 +129,7 @@ content/ + config/presentation.yaml
 - `docs/DEVELOPER-GUIDE.md`：架构、数据模型、加载器/适配器、排序、校验等级、构建原子替换、
   兼容层改动、扩展方式与 P0 限制。
 - `docs/DEPLOYMENT.md`：现有 Nginx/静态目录事实、手动发布、可选 GitHub Actions 手动部署、
-  回滚、生产主机不确定性与安全注意事项。
+  回滚、安全注意事项与已知限制。
 - `.github/workflows/validate-content.yml`：PR/push 执行 `npm ci`、校验、测试、完整构建，上传 artifact；
   **不在 PR 中部署生产**。
 - `.github/workflows/deploy.yml`：仅 `workflow_dispatch` 手动触发，需输入 `deploy`，使用仓库 Secrets；
@@ -214,7 +214,7 @@ npm test
 - 生成的 head meta/link 34/34 与旧站一致，JSON-LD 解析后一致，noscript 正文逐字节一致；
 - CSS 与实验算法文件未改；`src/app.js` 仅做首页区块开关/精选过滤/姓名 `pick()` 的最小改动。
 
-独立回归审计（`../migration-evidence/REGRESSION.md`，状态 **COMPLETE — PASS**）：
+独立回归审计（报告位于仓库外部的回归证据目录，状态 **COMPLETE — PASS**）：
 
 - 基线 11 张 + 额外 ZH/移动端/research 详情截图；审计员用独立 Chromium 对 21 个页面状态、
   9 条路由 + 3 个研究方向详情 + `#/simulation`、EN/ZH、搜索、交互实验、移动端、无 JS、
@@ -233,7 +233,7 @@ npm test
 | P1：论文筛选、引用复制、关联展示、前端组件拆分、首页新闻 | 未开始 | 按用户要求暂不实施，除非作为 P0 必需依赖 |
 | P2：Issue 表单/CMS、项目页、更多 SEO | 未开始 | 仅保留目录与说明 |
 | 真实 GitHub 网页 PR 演练 | 未执行 | 无仓库写权限/PR 环境；本地已用等价文件操作验证内容流程 |
-| 生产发布与回滚演练 | 未执行 | 生产主机归属和凭据未确认；未向 docia.org 或 SSH 主机发布 |
+| 生产发布与回滚演练 | 未执行 | 生产主机归属和凭据未确认；未向 docia.org 或独立测试服务器发布 |
 | 荣誉/相册真实数据 | 无数据 | 旧站为空；未编造，schema/适配器已就绪 |
 | 中文成员名、准确新闻日期、合作者成员记录 | 待内容确认 | 需管理员提供已确认信息后补充 |
 
@@ -250,4 +250,4 @@ npm test
 - 生成产物：`dist/`
 - CI：`.github/workflows/validate-content.yml`、`deploy.yml`
 - 文档：`README.md`、`docs/USER-GUIDE.md`、`docs/DEVELOPER-GUIDE.md`、`docs/DEPLOYMENT.md`、本报告
-- 回归证据：仓库外 `../migration-evidence/`
+- 回归证据：仓库外部的回归证据目录

@@ -6,3 +6,9 @@ node_modules/
 
 # dist/ is generated but intentionally tracked: the current static deployment
 # serves the committed files, so a release commit must include the built site.
+
+# 本地部署配置（含真实主机信息，绝不提交；示例见 tools/deploy.env.example）
+tools/deploy.env
+
+# 仓库根目录可能存在的部署配置（同样不提交）
+.deploy.env
