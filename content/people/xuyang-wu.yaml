@@ -25,4 +25,10 @@ location:
 # 毕业年份的公开来源（学校年鉴）；如有更合适的公开链接可替换
 source: https://faculty.sist.shanghaitech.edu.cn/office/Share/Entropy-SIST%20Yearbook%2C2020.pdf
 
+# 个人主页（2026-11 核对）
+website: https://xuyangwu.github.io
+website_label:
+  en: Homepage
+  zh: 个人主页
+
 order: 1

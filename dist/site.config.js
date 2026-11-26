@@ -255,6 +255,96 @@ export const site = {
   ],
   "publications": [
     {
+      "id": "deng2026exact",
+      "year": 2026,
+      "title": "Exact Convergence Analysis for Primal Solutions of Dual First-Order Methods: A Numerical Approach",
+      "authors": "Z. Deng and J. Lu",
+      "venue": "IEEE Control Systems Letters",
+      "url": "https://doi.org/10.1109/LCSYS.2026.3706922",
+      "selected": false
+    },
+    {
+      "id": "liu2026unified",
+      "year": 2026,
+      "title": "A Unified Dual-Consensus Approach to Distributed Optimization With Globally Coupled Constraints",
+      "authors": "Z. Liu, X. Wu, D. Wang, and J. Lu",
+      "venue": "IEEE Transactions on Control of Network Systems",
+      "url": "https://doi.org/10.1109/TCNS.2025.3649114",
+      "selected": false
+    },
+    {
+      "id": "ou2026robust",
+      "year": 2026,
+      "title": "Robust Distributed Nonconvex Optimization Enabling Communication Acceleration and Privacy Protection",
+      "authors": "Z. Ou and J. Lu",
+      "venue": "2026 American Control Conference (ACC)",
+      "url": "https://arxiv.org/abs/2602.22670",
+      "selected": false
+    },
+    {
+      "id": "wang2026globally",
+      "year": 2026,
+      "title": "Globally Constrained Decentralized Optimization With Variable Coupling",
+      "authors": "D. Wang, X. Wu, Z. Ou, and J. Lu",
+      "venue": "IEEE Transactions on Automatic Control",
+      "url": "https://doi.org/10.1109/TAC.2025.3629001",
+      "selected": false
+    },
+    {
+      "id": "deng2025delay",
+      "year": 2025,
+      "title": "A Delay-Free Adaptive Stepsize for the Incremental Aggregated Gradient Method",
+      "authors": "Z. Deng, X. Wu, and J. Lu",
+      "venue": "IEEE Control Systems Letters",
+      "url": "https://doi.org/10.1109/LCSYS.2025.3650105",
+      "selected": false
+    },
+    {
+      "id": "zhu2025deep",
+      "year": 2025,
+      "title": "A Deep Reinforcement Learning Approach to Efficient Distributed Optimization",
+      "authors": "D. Zhu, T. Xu, and J. Lu",
+      "venue": "IEEE Transactions on Control of Network Systems",
+      "url": "https://doi.org/10.1109/TCNS.2025.3587331",
+      "selected": false
+    },
+    {
+      "id": "hu2024design",
+      "year": 2024,
+      "title": "Design and Control of a Transformable Quadrotor",
+      "authors": "B. Hu, X. Song, Z. Ou, X. Liu, and J. Lu",
+      "venue": "2024 43rd Chinese Control Conference (CCC)",
+      "url": "https://doi.org/10.23919/CCC63176.2024.10662840",
+      "selected": false
+    },
+    {
+      "id": "ou2024mixing",
+      "year": 2024,
+      "title": "A Mixing-Accelerated Primal-Dual Proximal Algorithm for Distributed Nonconvex Optimization",
+      "authors": "Z. Ou, C. Qiu, D. Wang, and J. Lu",
+      "venue": "2024 American Control Conference (ACC)",
+      "url": "https://doi.org/10.23919/ACC60939.2024.10644289",
+      "selected": false
+    },
+    {
+      "id": "wang2024distributed",
+      "year": 2024,
+      "title": "Distributed Task Offloading in Cooperative Mobile Edge Computing Networks",
+      "authors": "D. Wang, H. Zhu, C. Qiu, Y. Zhou, and J. Lu",
+      "venue": "IEEE Transactions on Vehicular Technology",
+      "url": "https://doi.org/10.1109/TVT.2024.3363034",
+      "selected": false
+    },
+    {
+      "id": "wang2024zeroth",
+      "year": 2024,
+      "title": "A Zeroth-Order Proximal Algorithm for Consensus Optimization",
+      "authors": "C. Wang, Z. Ou, and J. Lu",
+      "venue": "2024 IEEE 63rd Conference on Decision and Control (CDC)",
+      "url": "https://doi.org/10.1109/CDC56724.2024.10886308",
+      "selected": false
+    },
+    {
       "id": "stochastic",
       "year": 2023,
       "title": "A Stochastic Second-Order Proximal Method for Distributed Optimization",
@@ -266,11 +356,65 @@ export const site = {
     {
       "id": "constraints",
       "year": 2023,
-      "title": "Distributed Optimization with Coupling Constraints",
+      "title": "Distributed Optimization With Coupling Constraints",
       "authors": "X. Wu, H. Wang, and J. Lu",
       "venue": "IEEE Transactions on Automatic Control",
       "url": "https://ieeexplore.ieee.org/document/9762539",
       "selected": true
+    },
+    {
+      "id": "wang2023distributed-buffering",
+      "year": 2023,
+      "title": "A Distributed Buffering Drift-Plus-Penalty Algorithm for Coupling Constrained Optimization",
+      "authors": "D. Wang, D. Zhu, Z. Ou, and J. Lu",
+      "venue": "IEEE Control Systems Letters",
+      "url": "https://doi.org/10.1109/LCSYS.2023.3345694",
+      "selected": false
+    },
+    {
+      "id": "wang2023distributed-online",
+      "year": 2023,
+      "title": "Distributed Online Optimization with Coupled Inequality Constraints Over Unbalanced Directed Networks",
+      "authors": "D. Wang, D. Zhu, K. C. Sou, and J. Lu",
+      "venue": "2023 62nd IEEE Conference on Decision and Control (CDC)",
+      "url": "https://doi.org/10.1109/CDC49753.2023.10383341",
+      "selected": false
+    },
+    {
+      "id": "wu2023fenchel",
+      "year": 2023,
+      "title": "A Fenchel dual gradient method enabling regularization for nonsmooth distributed optimization over time-varying networks",
+      "authors": "X. Wu, K. C. Sou, and J. Lu",
+      "venue": "Optimization Methods and Software",
+      "url": "https://doi.org/10.1080/10556788.2023.2189713",
+      "selected": false
+    },
+    {
+      "id": "wu2023unifying",
+      "year": 2023,
+      "title": "A Unifying Approximate Method of Multipliers for Distributed Composite Optimization",
+      "authors": "X. Wu and J. Lu",
+      "venue": "IEEE Transactions on Automatic Control",
+      "url": "https://doi.org/10.1109/TAC.2022.3173171",
+      "selected": false
+    },
+    {
+      "id": "gao2022learning",
+      "year": 2022,
+      "title": "Learning-based Local Path Planning for UAV in Unknown Environments",
+      "authors": "L. Gao, X. Song, X. Liu, and J. Lu",
+      "venue": "2022 European Control Conference (ECC)",
+      "url": "https://doi.org/10.23919/ECC55457.2022.9837997",
+      "selected": false
+    },
+    {
+      "id": "sou2022relaxed",
+      "year": 2022,
+      "title": "Relaxed Connected Dominating Set Problem for Power System Cyber–Physical Security",
+      "authors": "K. C. Sou and J. Lu",
+      "venue": "IEEE Transactions on Control of Network Systems",
+      "url": "https://doi.org/10.1109/TCNS.2022.3165088",
+      "selected": false
     },
     {
       "id": "proximal",
@@ -280,12 +424,148 @@ export const site = {
       "venue": "IEEE Transactions on Automatic Control",
       "url": "https://ieeexplore.ieee.org/document/9097872",
       "selected": false
+    },
+    {
+      "id": "wang2021decentralized",
+      "year": 2021,
+      "title": "Decentralized Statistical Inference with Unrolled Graph Neural Networks",
+      "authors": "H. Wang, Y. Shen, Z. Wang, D. Li, J. Zhang, K. B. Letaief, and J. Lu",
+      "venue": "2021 60th IEEE Conference on Decision and Control (CDC)",
+      "url": "https://doi.org/10.1109/CDC45484.2021.9682857",
+      "selected": false
+    },
+    {
+      "id": "wei2021decentralized",
+      "year": 2021,
+      "title": "Decentralized Approximate Newton Methods for Convex Optimization on Networked Systems",
+      "authors": "H. Wei, Z. Qu, X. Wu, H. Wang, and J. Lu",
+      "venue": "IEEE Transactions on Control of Network Systems",
+      "url": "https://doi.org/10.1109/TCNS.2021.3070663",
+      "selected": false
+    },
+    {
+      "id": "wang2020inexact",
+      "year": 2020,
+      "title": "An Inexact Fenchel Dual Gradient Algorithm for Distributed Optimization",
+      "authors": "H. Wang and J. Lu",
+      "venue": "2020 IEEE 16th International Conference on Control & Automation (ICCA)",
+      "url": "https://doi.org/10.1109/ICCA51439.2020.9264365",
+      "selected": false
+    },
+    {
+      "id": "wu2020distributed-optimization",
+      "year": 2020,
+      "title": "Distributed Optimization Over Time-Varying Networks With Minimal Connectivity",
+      "authors": "X. Wu and J. Lu",
+      "venue": "IEEE Control Systems Letters",
+      "url": "https://doi.org/10.1109/LCSYS.2020.2971835",
+      "selected": false
+    },
+    {
+      "id": "wu2020distributed-proximal",
+      "year": 2020,
+      "title": "A Distributed Proximal Primal-Dual Algorithm for Nonsmooth Optimization with Coupling Constraints",
+      "authors": "X. Wu, H. Wang, and J. Lu",
+      "venue": "2020 59th IEEE Conference on Decision and Control (CDC)",
+      "url": "https://doi.org/10.1109/CDC42340.2020.9303937",
+      "selected": false
+    },
+    {
+      "id": "qu2019finite",
+      "year": 2019,
+      "title": "Finite-Time-Consensus-Based Methods for Distributed optimization",
+      "authors": "Z. Qu, X. Wu, and J. Lu",
+      "venue": "2019 Chinese Control Conference (CCC)",
+      "url": "https://doi.org/10.23919/ChiCC.2019.8865722",
+      "selected": false
+    },
+    {
+      "id": "wu2019fenchel",
+      "year": 2019,
+      "title": "Fenchel Dual Gradient Methods for Distributed Convex Optimization Over Time-Varying Networks",
+      "authors": "X. Wu and J. Lu",
+      "venue": "IEEE Transactions on Automatic Control",
+      "url": "https://doi.org/10.1109/TAC.2019.2901829",
+      "selected": false
+    },
+    {
+      "id": "wu2019improved",
+      "year": 2019,
+      "title": "Improved Convergence Rates of P-EXTRA for Non-smooth Distributed optimization",
+      "authors": "X. Wu and J. Lu",
+      "venue": "2019 IEEE 15th International Conference on Control and Automation (ICCA)",
+      "url": "https://doi.org/10.1109/ICCA.2019.8899909",
+      "selected": false
+    },
+    {
+      "id": "lu2018distributed",
+      "year": 2018,
+      "title": "A Distributed Algorithm for Solving Positive Definite Linear Equations Over Networks With Membership Dynamics",
+      "authors": "J. Lu and C. Y. Tang",
+      "venue": "IEEE Transactions on Control of Network Systems",
+      "url": "https://doi.org/10.1109/TCNS.2016.2594487",
+      "selected": false
+    },
+    {
+      "id": "wei2018approximately",
+      "year": 2018,
+      "title": "An Approximately-Zero-Gradient-Sum Algorithm for Consensus Optimization",
+      "authors": "H. Wei, Z. Qu, X. Wu, H. Wang, and J. Lu",
+      "venue": "2018 15th International Conference on Control, Automation, Robotics and Vision (ICARCV)",
+      "url": "https://doi.org/10.1109/ICARCV.2018.8581380",
+      "selected": false
+    },
+    {
+      "id": "wu2018distributed",
+      "year": 2018,
+      "title": "Distributed Fenchel Dual Gradient Methods Enabling a Smoothing Technique for Nonsmooth Optimization",
+      "authors": "X. Wu, K. C. Sou, and J. Lu",
+      "venue": "2018 IEEE Conference on Decision and Control (CDC)",
+      "url": "https://doi.org/10.1109/CDC.2018.8619031",
+      "selected": false
+    },
+    {
+      "id": "sou2017relaxed",
+      "year": 2017,
+      "title": "Relaxed connected dominating set problem with application to secure power network design",
+      "authors": "K. C. Sou and J. Lu",
+      "venue": "2017 American Control Conference (ACC)",
+      "url": "https://doi.org/10.23919/ACC.2017.7963674",
+      "selected": false
+    },
+    {
+      "id": "wu2017deterministic",
+      "year": 2017,
+      "title": "Deterministic coordinate descent algorithms for smooth convex optimization",
+      "authors": "X. Wu and J. Lu",
+      "venue": "2017 IEEE 56th Annual Conference on Decision and Control (CDC)",
+      "url": "https://doi.org/10.1109/CDC.2017.8263744",
+      "selected": false
+    },
+    {
+      "id": "wu2017fenchel",
+      "year": 2017,
+      "title": "Fenchel dual gradient methods for distributed convex optimization over time-varying networks",
+      "authors": "X. Wu and J. Lu",
+      "venue": "2017 IEEE 56th Annual Conference on Decision and Control (CDC)",
+      "url": "https://doi.org/10.1109/CDC.2017.8264079",
+      "selected": false
+    },
+    {
+      "id": "yang2017distributed",
+      "year": 2017,
+      "title": "A Distributed Algorithm for Economic Dispatch Over Time-Varying Directed Networks With Delays",
+      "authors": "T. Yang, J. Lu, D. Wu, J. Wu, G. Shi, Z. Meng, and K. H. Johansson",
+      "venue": "IEEE Transactions on Industrial Electronics",
+      "url": "https://doi.org/10.1109/TIE.2016.2617832",
+      "selected": false
     }
   ],
   "people": [
     {
       "name": {
-        "en": "Jie Lu"
+        "en": "Jie Lu",
+        "zh": "陆疌"
       },
       "group": "pi",
       "role": {
@@ -297,8 +577,8 @@ export const site = {
         "zh": "信息科学与技术学院"
       },
       "description": {
-        "en": "Research interests include distributed optimization, multi-agent decision making, and networked dynamical systems.",
-        "zh": "研究兴趣包括分布式优化、多智能体决策与网络化动力系统。"
+        "en": "Research interests include distributed and large-scale optimization algorithms, multi-agent decision and control, and applications of optimization, control, and learning.",
+        "zh": "研究兴趣包括分布式及大规模优化算法、多智能体决策与控制与优化、控制与学习的应用。"
       },
       "url": "https://sist.shanghaitech.edu.cn/lujie_en/main.htm",
       "urlLabel": {
@@ -306,6 +586,32 @@ export const site = {
         "zh": "教师主页"
       },
       "email": "lujie@shanghaitech.edu.cn",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Zichong Ou",
+        "zh": "欧子翀"
+      },
+      "group": "students",
+      "role": {
+        "en": "Doctoral student",
+        "zh": "博士研究生"
+      },
+      "affiliation": {
+        "en": "School of Information Science and Technology",
+        "zh": "信息科学与技术学院"
+      },
+      "description": {
+        "en": "Research interests include distributed optimization.",
+        "zh": "研究兴趣包括分布式优化。"
+      },
+      "url": "",
+      "urlLabel": {
+        "en": "Personal website",
+        "zh": "个人主页"
+      },
+      "email": "",
       "photo": ""
     }
   ],
@@ -333,13 +639,24 @@ export const site = {
         "zh": "瑞典 · 斯德哥尔摩"
       },
       "source": "https://faculty.sist.shanghaitech.edu.cn/office/Share/Entropy-SIST%20Yearbook%2C2020.pdf",
-      "url": "",
+      "url": "https://xuyangwu.github.io",
       "email": "",
       "photo": ""
     }
   ],
   "gallery": [],
   "news": [
+    {
+      "date": {
+        "en": "Dec 2024",
+        "zh": "2024 年 12 月"
+      },
+      "text": {
+        "en": "PhD student Zichong Ou gives an oral presentation of “A Zeroth-Order Proximal Algorithm for Consensus Optimization”, joint work with labmate Chengan Wang, at the 63rd IEEE Conference on Decision and Control in Milan.",
+        "zh": "博士生欧子翀在意大利米兰举行的第 63 届 IEEE 决策与控制会议（CDC）上，口头报告了与同课题组王成安合作完成的论文《A Zeroth-Order Proximal Algorithm for Consensus Optimization》。"
+      },
+      "url": "https://sist.shanghaitech.edu.cn/2025/0307/c2864a1108005/page.htm"
+    },
     {
       "date": {
         "en": "2023",
@@ -382,9 +699,69 @@ export const site = {
         "en": "Xuyang Wu completes his PhD and joins KTH Royal Institute of Technology as a postdoctoral researcher.",
         "zh": "吴旭阳通过博士论文答辩，加入瑞典皇家理工学院（KTH）从事博士后研究。"
       }
+    },
+    {
+      "date": {
+        "en": "Dec 2018",
+        "zh": "2018 年 12 月"
+      },
+      "text": {
+        "en": "PhD student Xuyang Wu presents the invited paper “Distributed Fenchel Dual Gradient Methods Enabling a Smoothing Technique for Nonsmooth Optimization” at the 57th IEEE Conference on Decision and Control in Miami, in a session chaired by Jie Lu.",
+        "zh": "博士生吴旭阳在美国迈阿密举行的第 57 届 IEEE 决策与控制会议（CDC）上宣讲邀请论文《Distributed Fenchel Dual Gradient Methods Enabling a Smoothing Technique for Nonsmooth Optimization》，陆疌担任该分会场主席。"
+      },
+      "url": "http://sist.shanghaitech.edu.cn/2018/1227/c2864a38419/page.htm"
+    },
+    {
+      "date": {
+        "en": "May 2016",
+        "zh": "2016 年 5 月"
+      },
+      "text": {
+        "en": "Jie Lu is selected for the 2016 Shanghai Pujiang Talent Program.",
+        "zh": "陆疌荣获 2016 年度上海市浦江人才计划资助。"
+      },
+      "url": "http://sist.shanghaitech.edu.cn/2016/0520/c2858a23843/page.htm"
+    },
+    {
+      "date": {
+        "en": "Apr 2015",
+        "zh": "2015 年 4 月"
+      },
+      "text": {
+        "en": "Jie Lu joins the School of Information Science and Technology at ShanghaiTech University full time, after postdoctoral research at KTH Royal Institute of Technology and Chalmers University of Technology.",
+        "zh": "陆疌全职加入上海科技大学信息科学与技术学院。此前在瑞典皇家理工学院（KTH）与查尔姆斯理工大学从事博士后研究。"
+      },
+      "url": "https://hr.shanghaitech.edu.cn/2015/0420/c3812a40380/page.htm"
     }
   ],
-  "honors": [],
+  "honors": [
+    {
+      "year": 2019,
+      "title": {
+        "en": "Best Student Paper Finalist, IEEE ICCA 2019",
+        "zh": "IEEE ICCA 2019 最佳学生论文奖入围"
+      },
+      "recipient": {
+        "en": "Xuyang Wu, Jie Lu",
+        "zh": "吴旭阳、陆疌"
+      },
+      "note": {
+        "en": "For “Improved Convergence Rates of P-EXTRA for Non-smooth Distributed Optimization”, Edinburgh.",
+        "zh": "论文《Improved Convergence Rates of P-EXTRA for Non-smooth Distributed Optimization》，英国爱丁堡。"
+      }
+    },
+    {
+      "year": 2016,
+      "title": {
+        "en": "Shanghai Pujiang Talent Program",
+        "zh": "上海市浦江人才计划资助"
+      },
+      "recipient": {
+        "en": "Jie Lu",
+        "zh": "陆疌"
+      }
+    }
+  ],
   "contact": {
     "name": "Jie Lu",
     "email": "lujie@shanghaitech.edu.cn",

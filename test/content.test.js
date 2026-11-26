@@ -11,12 +11,12 @@ test('真实内容通过校验', () => {
   assert.equal(report.errors.length, 0, report.format());
 });
 
-test('公开记录数量与既有站点一致', () => {
-  assert.equal(model.public.people.length, 2);
-  assert.equal(model.public.publications.length, 3);
+test('公开记录数量与内容目录一致', () => {
+  assert.equal(model.public.people.length, 3);
+  assert.equal(model.public.publications.length, 34);
   assert.equal(model.public.research.length, 3);
-  assert.equal(model.public.news.length, 4);
-  assert.equal(model.public.honors.length, 0);
+  assert.equal(model.public.news.length, 8);
+  assert.equal(model.public.honors.length, 2);
   assert.equal(model.public.gallery.length, 0);
 });
 
@@ -26,16 +26,19 @@ test('草稿招生页被标记且不进入公开数据', () => {
 });
 
 test('论文按年份降序并保留精选与关联', () => {
-  assert.deepEqual(model.public.publications.map(item => item.key), ['stochastic', 'constraints', 'proximal']);
-  assert.deepEqual(model.public.publications.map(item => item.selected), [true, true, false]);
+  const years = model.public.publications.map(item => item.year);
+  assert.deepEqual(years, [...years].sort((a, b) => b - a));
+  const legacyKeys = model.public.publications.map(item => item.key).filter(key => ['stochastic', 'constraints', 'proximal'].includes(key));
+  assert.deepEqual(legacyKeys, ['stochastic', 'constraints', 'proximal']);
+  assert.deepEqual(model.public.publications.filter(item => item.selected).map(item => item.key), ['stochastic', 'constraints']);
   assert.deepEqual(model.indexes.publicationsByResearch.get('optimization-algorithms'), ['stochastic']);
   assert.deepEqual(model.indexes.publicationsByMember.get('jie-lu'), ['stochastic', 'constraints', 'proximal']);
 });
 
-test('成员中文缺失时回退英文但不伪造', () => {
+test('成员中英文姓名按来源填写', () => {
   const jie = model.public.people.find(person => person.id === 'jie-lu');
   assert.equal(jie.name.en, 'Jie Lu');
-  assert.equal(jie.name.zh, undefined);
+  assert.equal(jie.name.zh, '陆疌');
   const xuyang = model.public.people.find(person => person.id === 'xuyang-wu');
   assert.equal(xuyang.name.zh, '吴旭阳');
   assert.equal(xuyang.status, 'alumni');

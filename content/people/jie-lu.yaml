@@ -3,7 +3,7 @@
 
 name:
   en: Jie Lu
-  # zh: 中文姓名（如果确认后可以补上；缺失时网站回退显示英文）
+  zh: 陆疌
 role: faculty
 status: current
 
@@ -16,14 +16,15 @@ affiliation:
   en: School of Information Science and Technology
   zh: 信息科学与技术学院
 
+# 研究兴趣取自学院主页与 STAR Center 官方页面（2026-11 核对）
 # 研究兴趣会由构建脚本生成 People 页上的一句“Research interests include …”介绍
 interests:
-  - en: distributed optimization
-    zh: 分布式优化
-  - en: multi-agent decision making
-    zh: 多智能体决策
-  - en: networked dynamical systems
-    zh: 网络化动力系统
+  - en: distributed and large-scale optimization algorithms
+    zh: 分布式及大规模优化算法
+  - en: multi-agent decision and control
+    zh: 多智能体决策与控制
+  - en: applications of optimization, control, and learning
+    zh: 优化、控制与学习的应用
 
 email: lujie@shanghaitech.edu.cn
 website: https://sist.shanghaitech.edu.cn/lujie_en/main.htm

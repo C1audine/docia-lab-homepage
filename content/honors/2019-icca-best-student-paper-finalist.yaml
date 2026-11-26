@@ -1,0 +1,14 @@
+# 来源：陆疌教师主页论文列表标注 “Best Student Paper Finalist”
+# https://faculty.sist.shanghaitech.edu.cn/faculty/lujie/
+date: "2019-07-16"
+title:
+  en: Best Student Paper Finalist, IEEE ICCA 2019
+  zh: IEEE ICCA 2019 最佳学生论文奖入围
+recipients:
+  - xuyang-wu
+  - jie-lu
+description:
+  en: For “Improved Convergence Rates of P-EXTRA for Non-smooth Distributed Optimization”, Edinburgh.
+  zh: 论文《Improved Convergence Rates of P-EXTRA for Non-smooth Distributed Optimization》，英国爱丁堡。
+related_publication: wu2019improved
+order: 10
