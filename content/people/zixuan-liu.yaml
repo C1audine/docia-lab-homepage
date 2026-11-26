@@ -1,0 +1,18 @@
+# 放宽规则收录（2026-11）：上科大本科 2022、硕士 2025，与陆疌合作论文 2 篇及预印本。
+# 来源：arXiv 2511.02283 作者简介（现为格罗宁根大学 ENTEG 系统与控制方向博士生）。
+# 导师关系与中文姓名未在官方页面核实。
+name:
+  en: Zixuan Liu
+role: master
+status: alumni
+graduation_year: 2025
+position:
+  en: PhD student in systems and control
+  zh: 系统与控制方向博士生
+destination:
+  en: University of Groningen
+  zh: 荷兰格罗宁根大学
+location:
+  en: Groningen, the Netherlands
+  zh: 荷兰 · 格罗宁根
+order: 21

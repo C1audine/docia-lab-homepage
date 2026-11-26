@@ -613,6 +613,91 @@ export const site = {
       },
       "email": "",
       "photo": ""
+    },
+    {
+      "name": {
+        "en": "Daokuan Zhu"
+      },
+      "group": "students",
+      "role": {
+        "en": "Master’s student",
+        "zh": "硕士研究生"
+      },
+      "affiliation": {
+        "en": "School of Information Science and Technology",
+        "zh": "信息科学与技术学院"
+      },
+      "url": "",
+      "urlLabel": {
+        "en": "Personal website",
+        "zh": "个人主页"
+      },
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Tianqi Xu"
+      },
+      "group": "students",
+      "role": {
+        "en": "Master’s student",
+        "zh": "硕士研究生"
+      },
+      "affiliation": {
+        "en": "School of Information Science and Technology",
+        "zh": "信息科学与技术学院"
+      },
+      "url": "",
+      "urlLabel": {
+        "en": "Personal website",
+        "zh": "个人主页"
+      },
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Chengan Wang",
+        "zh": "王成安"
+      },
+      "group": "students",
+      "role": {
+        "en": "Student",
+        "zh": "学生"
+      },
+      "affiliation": {
+        "en": "School of Information Science and Technology",
+        "zh": "信息科学与技术学院"
+      },
+      "url": "",
+      "urlLabel": {
+        "en": "Personal website",
+        "zh": "个人主页"
+      },
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Zhicheng Deng"
+      },
+      "group": "students",
+      "role": {
+        "en": "Student",
+        "zh": "学生"
+      },
+      "affiliation": {
+        "en": "School of Information Science and Technology",
+        "zh": "信息科学与技术学院"
+      },
+      "url": "",
+      "urlLabel": {
+        "en": "Personal website",
+        "zh": "个人主页"
+      },
+      "email": "",
+      "photo": ""
     }
   ],
   "alumni": [
@@ -640,6 +725,85 @@ export const site = {
       },
       "source": "https://faculty.sist.shanghaitech.edu.cn/office/Share/Entropy-SIST%20Yearbook%2C2020.pdf",
       "url": "https://xuyangwu.github.io",
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Dandan Wang"
+      },
+      "degree": {
+        "en": "PhD",
+        "zh": "博士"
+      },
+      "year": 2025,
+      "source": "",
+      "url": "",
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Zixuan Liu"
+      },
+      "degree": {
+        "en": "Master’s",
+        "zh": "硕士"
+      },
+      "year": 2025,
+      "position": {
+        "en": "PhD student in systems and control",
+        "zh": "系统与控制方向博士生"
+      },
+      "destination": {
+        "en": "University of Groningen",
+        "zh": "荷兰格罗宁根大学"
+      },
+      "location": {
+        "en": "Groningen, the Netherlands",
+        "zh": "荷兰 · 格罗宁根"
+      },
+      "source": "",
+      "url": "",
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Chenyang Qiu"
+      },
+      "degree": {
+        "en": "Former student",
+        "zh": "曾在组学生"
+      },
+      "source": "",
+      "url": "",
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "He Wang"
+      },
+      "degree": {
+        "en": "Former student",
+        "zh": "曾在组学生"
+      },
+      "source": "",
+      "url": "",
+      "email": "",
+      "photo": ""
+    },
+    {
+      "name": {
+        "en": "Zhihai Qu"
+      },
+      "degree": {
+        "en": "Former student",
+        "zh": "曾在组学生"
+      },
+      "source": "",
+      "url": "",
       "email": "",
       "photo": ""
     }

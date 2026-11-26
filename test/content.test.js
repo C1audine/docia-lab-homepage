@@ -12,7 +12,7 @@ test('真实内容通过校验', () => {
 });
 
 test('公开记录数量与内容目录一致', () => {
-  assert.equal(model.public.people.length, 3);
+  assert.equal(model.public.people.length, 12);
   assert.equal(model.public.publications.length, 34);
   assert.equal(model.public.research.length, 3);
   assert.equal(model.public.news.length, 8);

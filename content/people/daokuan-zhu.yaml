@@ -1,0 +1,10 @@
+# 放宽规则收录（2026-11）：上科大本科 2021，硕士在读（arXiv 2311.08827 作者简介），
+# 与陆疌合作论文 3 篇（2023–2025）。毕业时间、导师关系与中文姓名未核实。
+name:
+  en: Daokuan Zhu
+role: master
+status: current
+affiliation:
+  en: School of Information Science and Technology
+  zh: 信息科学与技术学院
+order: 30

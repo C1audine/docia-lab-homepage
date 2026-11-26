@@ -293,7 +293,11 @@ nav .nav-contact[aria-current] {
   display:none;
 }
 
-.round,.paper-year,.venue,.grad-year small {
+.round,.paper-year,.venue,.grad-year-unknown {
+  color:#9ab5a8;
+}
+
+.grad-year small {
   font-family:var(--mono);
   font-size:.75rem;
   line-height:1.35;

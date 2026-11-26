@@ -1,0 +1,13 @@
+# 放宽规则收录（2026-11）：与陆疌合作 IEEE L-CSS 2025、2026 论文及 2025 预印本，署名单位上科大。
+# 学位类型未公开，role 仅为占位；页面显示 title“学生”。导师关系与中文姓名未核实。
+name:
+  en: Zhicheng Deng
+role: phd
+title:
+  en: Student
+  zh: 学生
+status: current
+affiliation:
+  en: School of Information Science and Technology
+  zh: 信息科学与技术学院
+order: 33
