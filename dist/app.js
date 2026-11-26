@@ -17,6 +17,10 @@ menu.onclick=()=>{if(nav.classList.contains('open')){closeMenu();return;}nav.cla
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&nav.classList.contains('open')){closeMenu();menu.focus();}});
 document.addEventListener('click',ev=>{if(!ev.composedPath().includes(menu)&&!ev.composedPath().includes(nav))closeMenu();});
 skip.onclick=ev=>{ev.preventDefault();main.focus();main.scrollIntoView();};
+// A soft shadow under the sticky header once the page has scrolled.
+const topbar=document.querySelector('.topbar');
+const syncTopbar=()=>topbar.classList.toggle('is-scrolled',window.scrollY>4);
+window.addEventListener('scroll',syncTopbar,{passive:true});syncTopbar();
 for(const [key,value] of Object.entries(site.palette))document.documentElement.style.setProperty('--'+key,value);
 document.querySelector('#brandname').textContent=site.brand;
 brandschool.textContent=pick(site.university);
