@@ -129,6 +129,21 @@ location:
 
 > 如果某位外部作者不是本站成员，不要为了显示而新建成员记录；正文/引用里保留其姓名即可。
 
+### 5.3 在页面上筛选论文
+
+Publications 页面顶部有四个下拉框，选项全部由已有数据自动生成，日常维护不需要改前端：
+
+- **Year**：来自 BibTeX 的 `year`；
+- **Author**：分“Lab members”和“Co-authors”两组，分别对应本站成员和外部合作者（按 BibTeX 作者匹配）；
+- **Research area**：来自论文 metadata 的 `research`；
+- **Type**：期刊论文（`journal`）或会议论文（`booktitle`）。
+
+多个条件同时生效（AND），右侧显示“Showing X of Y”；点击 **Reset filters** 清空。
+筛选状态不写进 URL，刷新页面回到全部论文，中英文切换会保留当前筛选。
+从搜索或深链接打开某一篇论文时，页面会自动清除筛选并把该论文滚动到可见位置。
+新增论文或成员后重新构建，下拉选项会自动更新；若某研究方向不出现，检查对应
+metadata 的 `research` 是否写了该方向 ID。
+
 ## 6. 添加新闻
 
 1. 复制 `templates/news.md`。

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { loadContent } from '../scripts/lib/content.js';
 import { Report } from '../scripts/lib/report.js';
 import { toLegacySite, renderSiteConfig } from '../scripts/adapters/legacy-config.js';
+import { formatAuthorName } from '../scripts/loaders/bibtex.js';
 
 const report = new Report();
 const model = await loadContent({ report });
@@ -70,4 +71,147 @@ test('生成配置带只读警示且可重复', () => {
   assert.match(a, /AUTO-GENERATED/);
   assert.match(a, /DO NOT EDIT/);
   assert.match(a, /export const site = \{/);
+});
+
+test('旧前端论文带筛选字段且作者引用有效', () => {
+  const legacy = toLegacySite(model);
+  const personIds = new Set(model.public.people.map(person => person.id));
+  assert.equal(legacy.publications.length, 34);
+  for (const item of legacy.publications) {
+    assert.equal(typeof item.kind, 'string');
+    assert.ok(Array.isArray(item.research), `${item.id} 的 research 不是数组`);
+    assert.ok(Array.isArray(item.members), `${item.id} 的 members 不是数组`);
+    assert.ok(Array.isArray(item.authorList), `${item.id} 的 authorList 不是数组`);
+    assert.ok(item.authorList.length > 0, `${item.id} 缺少作者`);
+    for (const author of item.authorList) {
+      assert.equal(typeof author.name, 'string');
+      assert.ok(author.name.trim(), `${item.id} 的作者名不能为空`);
+      if ('member' in author) assert.ok(personIds.has(author.member), `${item.id} 的作者 member 无效：${author.member}`);
+    }
+    for (const memberId of item.members) {
+      assert.ok(personIds.has(memberId), `${item.id} 的 members 含无效 ID：${memberId}`);
+    }
+  }
+});
+
+test('authorList 与 BibTeX 作者数量、顺序一致', () => {
+  const legacy = toLegacySite(model);
+  const legacyById = new Map(legacy.publications.map(item => [item.id, item]));
+  for (const entry of model.public.publications) {
+    const item = legacyById.get(entry.key);
+    assert.ok(item, `缺少旧前端论文：${entry.key}`);
+    assert.equal(item.authorList.length, entry.authorNames.length);
+    assert.deepEqual(
+      item.authorList.map(author => author.name),
+      entry.authorNames.map(name => formatAuthorName(name))
+    );
+    assert.deepEqual(item.research, entry.researchIds);
+  }
+});
+
+test('成员与校友数据带唯一 id 并与内容模型一致', () => {
+  const legacy = toLegacySite(model);
+  const ids = [...legacy.people, ...legacy.alumni].map(person => person.id);
+  assert.equal(new Set(ids).size, ids.length, '成员 ID 有重复');
+  const currentIds = model.public.people.filter(person => person.status === 'current').map(person => person.id).sort();
+  const alumniIds = model.public.people.filter(person => person.status === 'alumni').map(person => person.id).sort();
+  assert.deepEqual(legacy.people.map(person => person.id).sort(), currentIds);
+  assert.deepEqual(legacy.alumni.map(person => person.id).sort(), alumniIds);
+});
+
+test('三篇站内元数据论文保留 research 与成员', () => {
+  const legacy = toLegacySite(model);
+  const byId = new Map(legacy.publications.map(item => [item.id, item]));
+  const expected = {
+    stochastic: ['optimization-algorithms'],
+    constraints: ['distributed-optimization'],
+    proximal: ['multi-agent-control']
+  };
+  for (const [id, research] of Object.entries(expected)) {
+    const item = byId.get(id);
+    assert.ok(item, `缺少旧前端论文：${id}`);
+    assert.deepEqual(item.research, research);
+    assert.ok(item.members.includes('jie-lu'), `${id} 缺少显式成员 jie-lu`);
+  }
+});
+
+test('论文 kind 是 BibTeX 类型的子集且包含会议论文', () => {
+  const legacy = toLegacySite(model);
+  const bibTypes = new Set(model.public.publications.map(entry => entry.type));
+  for (const item of legacy.publications) {
+    assert.ok(bibTypes.has(item.kind), `${item.id} 的 kind 不在 BibTeX 类型中：${item.kind}`);
+  }
+  assert.ok(legacy.publications.some(item => item.kind === 'inproceedings'), '缺少会议论文');
+});
+
+test('作者按首字母加姓氏匹配到成员并覆盖全部 12 人', () => {
+  const legacy = toLegacySite(model);
+  const byId = new Map(legacy.publications.map(item => [item.id, item]));
+  const stochastic = byId.get('stochastic');
+  assert.deepEqual(
+    stochastic.authorList.find(author => author.name === 'J. Lu'),
+    { name: 'J. Lu', member: 'jie-lu' }
+  );
+  const matchedIds = new Set(
+    legacy.publications.flatMap(item => item.authorList.map(author => author.member).filter(Boolean))
+  );
+  assert.deepEqual([...matchedIds].sort(), model.public.people.map(person => person.id).sort());
+});
+
+test('同名键有歧义时不猜测作者成员', () => {
+  const person = (id, en, status) => ({
+    id,
+    name: { en, zh: en },
+    role: 'phd',
+    status,
+    graduation_year: status === 'alumni' ? 2020 : undefined
+  });
+  const miniModel = {
+    site: {
+      name: 'Lab',
+      full_name: { en: 'Lab', zh: '实验室' },
+      university: { en: 'University', zh: '大学' },
+      url: 'https://example.com',
+      contact: null
+    },
+    presentation: { palette: {}, navigation: [], pages: {}, media: {}, hero: {}, experiment: {} },
+    home: {
+      research: { enabled: true },
+      selected_publications: { enabled: true, count: 2 },
+      interactive_experiment: { enabled: true },
+      moments: { enabled: true, count: 3 }
+    },
+    public: {
+      people: [
+        person('jie-lu', 'Jie Lu', 'current'),
+        person('jia-lu', 'Jia Lu', 'alumni'),
+        person('xuyang-wu', 'Xuyang Wu', 'alumni')
+      ],
+      publications: [{
+        key: 'ambiguous',
+        type: 'article',
+        year: 2024,
+        title: 'Ambiguous Authors',
+        authors: 'J. Lu and X. Wu',
+        venue: 'Journal',
+        url: '',
+        doi: '',
+        selected: false,
+        researchIds: [],
+        members: ['jie-lu'],
+        authorNames: [
+          { firstName: 'J.', lastName: 'Lu' },
+          { firstName: 'X.', lastName: 'Wu' }
+        ]
+      }],
+      research: [],
+      gallery: [],
+      news: [],
+      honors: []
+    }
+  };
+  const [item] = toLegacySite(miniModel).publications;
+  assert.deepEqual(item.authorList[0], { name: 'J. Lu' });
+  assert.deepEqual(item.authorList[1], { name: 'X. Wu', member: 'xuyang-wu' });
+  assert.deepEqual(item.members, ['jie-lu', 'xuyang-wu']);
 });

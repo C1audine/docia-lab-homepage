@@ -27,6 +27,8 @@ content/ + config/presentation.yaml
 - **唯一前端源码**：`src/`。`dist/` 是生成物，不手改。
 - **兼容层**：`src/app.js`、`src/search.js`、`src/i18n.js` 仍按旧的 `site` 对象渲染；
   适配器负责把新模型映射成旧结构，避免一次性重写页面。
+- **筛选逻辑**：`src/publication-filters.js` 是不碰 DOM 的纯函数模块，从兼容数据生成
+  年份/作者/研究方向/类型选项并执行筛选；`src/app.js` 只负责渲染面板和事件。
 - **表现层配置**：配色、导航、页面标题、首屏、SEO 文案、交互实验默认参数在
   `config/presentation.yaml`。它们不是日常内容，因此不放在 `content/site.yaml`。
 
@@ -131,16 +133,23 @@ content/ + config/presentation.yaml
 ## 7. 与旧前端的兼容层
 
 `scripts/adapters/legacy-config.js` 输出旧 `site` 对象，键与原 `dist/site.config.js` 一致，
-新增 `site.home` 控制首页区块。当前迁移后的差异只有：
+新增 `site.home` 控制首页区块。当前迁移后兼容数据的主要差异：
 
 - `publications[].selected`：新增字段，首页据此筛选精选论文；
+- `publications[].kind` / `research` / `members` / `authorList`：论文筛选用结构化字段。
+  `kind` 是 BibTeX 类型，`research` 是研究方向 ID 数组，`members` 是本站成员 ID
+  （metadata 显式声明与作者匹配结果的并集），`authorList` 按 BibTeX 顺序给出
+  `{name, member?}`；`member` 通过“姓 + 名首字母”与全部人物（含校友）匹配，重名时不猜。
 - `people[].name` / `alumni[].name`：从字符串变为 `{en, zh}`，由 `app.js` 的 `pick()` 读取。
 
 `src/app.js` 的改动保持最小：
 
 - 姓名在 `initials()` / `escapeHtml()` 之前先 `pick()`；
 - 首页根据 `site.home` 的开关/条数渲染：research、selected_publications、interactive_experiment、moments；
-- 精选论文在存在 `selected` 字段时只取 `selected: true`；没有该字段时保持旧行为（全部）。
+- 精选论文在存在 `selected` 字段时只取 `selected: true`；没有该字段时保持旧行为（全部）；
+- Publications 筛选：`publicationFilterPanel()` 用 `buildPublicationFacets()` 生成四个下拉框，
+  `change` 事件委托写入模块级 `pubFilters`，`syncPublicationList()` 重绘列表、结果计数和
+  空状态；语言切换保留筛选，打开单篇论文深链接时清空筛选以便定位目标。
 
 `src/search.js` 仍按数组索引生成深链接（`#/people/person-0` 等）。因此排序必须稳定；
 新增/删除记录会改变后续索引，这是 P0 保留的既有行为（P1 再改为 ID 深链接）。
@@ -189,6 +198,9 @@ npm run build
 - 新图片目录：在 `content.js` 校验路径，在 `collectMedia()` 加入复制规则。
 - 新首页区块：在 `home.yaml` 增加开关/条数，`app.js` 读取 `site.home`，并同步文档。
 - 新增字段：更新 schema、模板、用户手册；如果是展示字段，再改适配器。
+- 新增论文筛选维度：适配器先输出所需字段，再扩展 `src/publication-filters.js` 的
+  `buildPublicationFacets()` / `filterPublications()`，在 `app.js` 的 `publicationFilterPanel()`
+  加下拉框，并同步 i18n 文案与测试。选项必须从数据推导，不要写死。
 - **不要**把内容写回 `src/i18n.js`；UI 文案才属于 i18n。
 - **不要**在 `dist/` 手改；下一次构建会覆盖。
 
@@ -197,7 +209,7 @@ npm run build
 - 前端仍是单页 hash 路由，未拆成 `src/pages/components/layouts` 组件树（P1）。
 - 搜索深链接仍使用数组索引，不是稳定内容 ID（P1）。
 - 首页不自动展示新闻、不自动选择精选论文（P1）。
-- 论文列表无筛选/引用复制（P1）。
+- 论文列表已支持按年份、作者、研究方向、类型筛选；BibTeX/引用复制仍未做（P1）。
 - 荣誉/相册页当前无真实数据；页面代码保留，添加记录后即可显示。
 - 项目页、CMS、Issue 表单、更多 SEO 属于 P2，未实施。
 - 生产部署仍需手动同步 `dist/`；部署入口、环境要求与回滚步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。

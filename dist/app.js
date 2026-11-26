@@ -4,12 +4,13 @@ import {terrain,trackDescent} from './terrain.js';
 import {experiment,mountExperiment} from './experiment.js';
 import {LANGS,LABEL,S,pick,currentLang,useLang,initialLang,rememberLang,fill} from './i18n.js';
 import {mountSearch,syncSearchChrome} from './search.js';
+import {authorValue,buildPublicationFacets,emptyFilters,filterPublications,hasActiveFilters,memberValue} from './publication-filters.js';
 
 const main=document.querySelector('main'), nav=document.querySelector('nav'), headerLang=document.querySelector('#header-lang'), brandschool=document.querySelector('#brandschool'), skip=document.querySelector('.skip');
 const external=(url,label,cls='text-link')=>`<a class="${cls}" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(label)}</a>`;
 const primary=(url,label,symbol,kind='primary')=>`<a class="btn ${kind}" href="${e(url)}">${icon(symbol,17)}${e(label)}</a>`;
 const other=s=>`<div class="container page-body"><div class="empty-state"><h2>${e(s.title)}</h2><p>${e(s.text)}</p></div></div>`;
-let cleanups=[], active='', lang=useLang(initialLang());
+let cleanups=[], active='', lang=useLang(initialLang()), pubFilters=emptyFilters(), publicationDetail='';
 
 const menu=document.querySelector('#menu-toggle');
 function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label',S().openNav);menu.innerHTML=icon('menu',23);nav.classList.remove('open');}
@@ -97,7 +98,41 @@ function research(detail){
   if(item)return `<div class="subhead"><div class="container"><h1>${e(pick(item.title))}</h1><p>${e(pick(item.short))}</p></div></div><div class="container reading"><a href="#/research" class="text-link">${e(L.link.allDirections)}</a><div class="reading-art">${researchArt(item.icon)}</div><h2>${e(pick(item.question))}</h2><p>${e(pick(item.detail))}</p><h3 class="minor-title">${e(L.heading.relatedPublication)}</h3>${site.publications.filter(p=>p.id===item.paper).map(paper).join('')}${primary('#/simulation',L.link.trySimulation,'network')}</div>`;
   return pageHead('research')+`<div class="container page-body">${cards()}<div class="feature-band"><div><h2>${e(L.heading.localUpdates)}</h2><p>${e(L.text.localUpdates)}</p></div>${primary('#/simulation',L.link.openPlayground,'network')}</div></div>`;
 }
-function publications(){const L=S();return pageHead('publications')+`<div class="container page-body"><div class="source-line source-line-end">${external(site.contact.profile,L.link.facultyPublications)}</div>${site.publications.map(paper).join('')}</div>`;}
+function filterOptions(items,valueOf,labelOf,current){
+  return items.map(item=>{const value=valueOf(item);return `<option value="${e(value)}"${current===value?' selected':''}>${e(labelOf(item))}</option>`;}).join('');
+}
+// Options come from the publications in site.config.js, so new BibTeX entries
+// and newly linked lab members show up without touching the interface code.
+function publicationFilterPanel(){
+  const L=S(),F=L.filters,f=buildPublicationFacets(site.publications,site.people,site.alumni,site.research);
+  const years=filterOptions(f.years,y=>String(y),y=>String(y),pubFilters.year);
+  const members=filterOptions(f.members,p=>memberValue(p.id),p=>pick(p.name),pubFilters.person);
+  const authors=filterOptions(f.authors,n=>authorValue(n),n=>n,pubFilters.person);
+  const areas=filterOptions(f.research,r=>r.id,r=>pick(r.title),pubFilters.research);
+  const kinds=filterOptions(f.kinds,k=>k,k=>pick(F.types[k])||k,pubFilters.kind);
+  const count=filterPublications(site.publications,pubFilters).length;
+  return `<div class="publication-filters" role="group" aria-label="${e(F.label)}"><div class="filter-field"><label for="pub-filter-year">${e(F.year)}</label><select id="pub-filter-year" data-pub-filter="year"><option value="">${e(F.allYears)}</option>${years}</select></div><div class="filter-field"><label for="pub-filter-person">${e(F.person)}</label><select id="pub-filter-person" data-pub-filter="person"><option value="">${e(F.allPeople)}</option>${members?`<optgroup label="${e(F.members)}">${members}</optgroup>`:''}${authors?`<optgroup label="${e(F.coauthors)}">${authors}</optgroup>`:''}</select></div><div class="filter-field"><label for="pub-filter-research">${e(F.research)}</label><select id="pub-filter-research" data-pub-filter="research"><option value="">${e(F.allResearch)}</option>${areas}</select></div><div class="filter-field"><label for="pub-filter-kind">${e(F.type)}</label><select id="pub-filter-kind" data-pub-filter="kind"><option value="">${e(F.allTypes)}</option>${kinds}</select></div><div class="filter-meta"><p class="filter-count" id="publication-count" role="status" aria-live="polite">${e(fill(F.showing,{shown:count,total:site.publications.length}))}</p><button type="button" class="filter-reset" data-pub-reset${hasActiveFilters(pubFilters)?'':' hidden'}>${e(F.reset)}</button></div></div>`;
+}
+function syncPublicationList(){
+  const list=document.querySelector('#publication-list');
+  if(!list)return;
+  const L=S(),items=filterPublications(site.publications,pubFilters);
+  list.innerHTML=items.map(paper).join('');
+  const empty=document.querySelector('#publication-empty');
+  if(empty)empty.hidden=items.length>0;
+  const count=document.querySelector('#publication-count');
+  if(count)count.textContent=fill(L.filters.showing,{shown:items.length,total:site.publications.length});
+  const reset=document.querySelector('[data-pub-reset]');
+  if(reset)reset.hidden=!hasActiveFilters(pubFilters);
+}
+function resetPublicationFilters(){
+  pubFilters=emptyFilters();
+  for(const select of main.querySelectorAll('[data-pub-filter]'))select.value='';
+}
+function publications(){
+  const L=S(),items=filterPublications(site.publications,pubFilters);
+  return pageHead('publications')+`<div class="container page-body"><div class="source-line source-line-end">${external(site.contact.profile,L.link.facultyPublications)}</div>${publicationFilterPanel()}<div class="publication-list" id="publication-list">${items.map(paper).join('')}</div><div class="empty-state publication-empty" id="publication-empty"${items.length?' hidden':''}><h2>${e(L.filters.emptyTitle)}</h2><p>${e(L.filters.emptyText)}</p></div></div>`;
+}
 function people(){
   const L=S();
   const groups=[['pi',L.heading.principalInvestigators],['students',L.heading.students]];
@@ -199,6 +234,10 @@ function render(){
   const view=id+'/'+(detail||'')+'/'+lang;
   if(view!==active){
     for(const cleanup of cleanups)cleanup();cleanups=[];
+    // A specific paper opened from search must be visible: clear any filters
+    // that could hide it. Language switches keep the current selections.
+    if(id==='publications'&&detail&&detail!==publicationDetail)pubFilters=emptyFilters();
+    publicationDetail=id==='publications'?(detail||''):'';
     const pages={home,research:()=>research(detail),publications,people,alumni,gallery,news,honors,contact};
     main.innerHTML=pages[id]();
     if(id==='home')cleanups=[trackDescent(),mountExperiment()];
@@ -232,5 +271,18 @@ main.addEventListener('error',event=>{
   box.classList.remove('has-photo');
   img.remove();
 },true);
+main.addEventListener('change',ev=>{
+  const select=ev.target.closest('[data-pub-filter]');
+  if(!select)return;
+  pubFilters[select.dataset.pubFilter]=select.value;
+  syncPublicationList();
+});
+main.addEventListener('click',ev=>{
+  if(!ev.target.closest('[data-pub-reset]'))return;
+  resetPublicationFilters();
+  syncPublicationList();
+  const first=main.querySelector('[data-pub-filter]');
+  if(first)first.focus();
+});
 mountSearch();
 render();

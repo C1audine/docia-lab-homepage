@@ -70,6 +70,27 @@ const ui = {
       honorsText: "Prizes and recognitions received by the lab will be listed here.",
       missingPhoto: "Photo coming soon"
     },
+    filters: {
+      label: "Filter publications",
+      year: "Year",
+      person: "Author",
+      research: "Research area",
+      type: "Type",
+      allYears: "All years",
+      allPeople: "All authors",
+      allResearch: "All research areas",
+      allTypes: "All types",
+      members: "Lab members",
+      coauthors: "Co-authors",
+      reset: "Reset filters",
+      showing: "Showing {shown} of {total}",
+      emptyTitle: "No publications match",
+      emptyText: "Try another year, author, research area, or type.",
+      types: {
+        article: "Journal article",
+        inproceedings: "Conference paper"
+      }
+    },
     labels: {
       graduation: "Graduation",
       degreeSuffix: "graduate",
@@ -207,6 +228,27 @@ const ui = {
       honorsTitle: "暂无获奖信息",
       honorsText: "课题组获得的奖项与荣誉会在这里列出。",
       missingPhoto: "照片即将上线"
+    },
+    filters: {
+      label: "筛选论文",
+      year: "年份",
+      person: "作者",
+      research: "研究方向",
+      type: "类型",
+      allYears: "全部年份",
+      allPeople: "全部作者",
+      allResearch: "全部研究方向",
+      allTypes: "全部类型",
+      members: "课题组成员",
+      coauthors: "合作者",
+      reset: "清除筛选",
+      showing: "显示 {shown} / {total} 篇",
+      emptyTitle: "没有符合条件的论文",
+      emptyText: "试试其他年份、作者、研究方向或类型。",
+      types: {
+        article: "期刊论文",
+        inproceedings: "会议论文"
+      }
     },
     labels: {
       graduation: "毕业年份",

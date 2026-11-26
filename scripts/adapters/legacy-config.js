@@ -1,4 +1,5 @@
 import { DEGREE_LABELS, ROLE_LABELS } from '../lib/content.js';
+import { formatAuthorName } from '../loaders/bibtex.js';
 
 const DEFAULT_WEBSITE_LABEL = { en: 'Personal website', zh: '个人主页' };
 
@@ -7,6 +8,7 @@ const DEFAULT_WEBSITE_LABEL = { en: 'Personal website', zh: '个人主页' };
 export function toLegacySite(model) {
   const { site, presentation, home, public: content } = model;
   const contact = buildContact(site.contact);
+  const memberIndex = buildMemberIndex(content.people);
 
   return {
     brand: site.name,
@@ -27,15 +29,7 @@ export function toLegacySite(model) {
       detail: item.detail,
       paper: item.paper || ''
     })),
-    publications: content.publications.map(entry => ({
-      id: entry.key,
-      year: entry.year,
-      title: entry.title,
-      authors: entry.authors,
-      venue: entry.venue,
-      url: entry.url || (entry.doi ? `https://doi.org/${entry.doi}` : ''),
-      selected: entry.selected === true
-    })),
+    publications: content.publications.map(entry => toLegacyPublication(entry, memberIndex)),
     people: content.people
       .filter(person => person.status === 'current')
       .map(person => toLegacyPerson(person, site)),
@@ -69,8 +63,75 @@ export function toLegacySite(model) {
   };
 }
 
+function toLegacyPublication(entry, memberIndex) {
+  const authorList = (entry.authorNames || []).map(name => {
+    const author = { name: formatAuthorName(name) };
+    const member = matchMember(name, memberIndex);
+    if (member) author.member = member;
+    return author;
+  });
+  const heuristicMembers = authorList.map(author => author.member).filter(Boolean);
+  const explicitMembers = Array.isArray(entry.members) ? entry.members : [];
+  return {
+    id: entry.key,
+    year: entry.year,
+    title: entry.title,
+    authors: entry.authors,
+    venue: entry.venue,
+    url: entry.url || (entry.doi ? `https://doi.org/${entry.doi}` : ''),
+    selected: entry.selected === true,
+    kind: entry.type,
+    research: Array.isArray(entry.researchIds) ? entry.researchIds : [],
+    members: [...new Set([...explicitMembers, ...heuristicMembers])],
+    authorList
+  };
+}
+
+// 按英文名建立“首字母 + 姓氏”索引，覆盖全部公开成员（含校友）。
+// 同一键对应多个成员时视为歧义，存 null，宁可漏配也不猜测。
+function buildMemberIndex(people) {
+  const index = new Map();
+  for (const person of people) {
+    const key = personNameKey(person.name?.en);
+    if (!key) continue;
+    index.set(key, index.has(key) ? null : person.id);
+  }
+  return index;
+}
+
+function matchMember(name, memberIndex) {
+  const key = authorNameKey(name);
+  return key ? memberIndex.get(key) || '' : '';
+}
+
+function personNameKey(englishName) {
+  const tokens = normalizeNameTokens(englishName);
+  if (!tokens.length) return '';
+  return `${tokens[0][0]}-${tokens[tokens.length - 1]}`;
+}
+
+function authorNameKey(name) {
+  if (!name || typeof name !== 'object') return '';
+  const firstTokens = normalizeNameTokens(name.firstName);
+  const lastTokens = normalizeNameTokens(name.lastName);
+  if (!firstTokens.length || !lastTokens.length) return '';
+  return `${firstTokens[0][0]}-${lastTokens[lastTokens.length - 1]}`;
+}
+
+function normalizeNameTokens(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter(Boolean);
+}
+
 function toLegacyPerson(person, site) {
   return {
+    id: person.id,
     name: person.name,
     group: person.role === 'faculty' ? 'pi' : 'students',
     role: person.title || ROLE_LABELS[person.role] || person.role,
@@ -85,6 +146,7 @@ function toLegacyPerson(person, site) {
 
 function toLegacyAlumni(person) {
   return {
+    id: person.id,
     name: person.name,
     degree: person.degree || DEGREE_LABELS[person.role] || { en: 'Alumni', zh: '校友' },
     year: person.graduation_year,

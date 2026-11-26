@@ -27,7 +27,7 @@ function lineOfKey(source, key) {
   return match ? source.slice(0, match.index).split('\n').length : 0;
 }
 
-function nameToText(name) {
+export function formatAuthorName(name) {
   if (typeof name === 'string') return name.trim();
   if (!name || typeof name !== 'object') return '';
   if (name.name) return String(name.name).trim();
@@ -39,7 +39,7 @@ function nameToText(name) {
 }
 
 export function formatAuthors(names) {
-  const list = (names || []).map(nameToText).filter(Boolean);
+  const list = (names || []).map(formatAuthorName).filter(Boolean);
   const hasOthers = list.some(name => /^others$/i.test(name));
   const people = list.filter(name => !/^others$/i.test(name));
   if (!people.length) return '';
@@ -137,7 +137,7 @@ function normalizeEntry(entry, key, file, line, report) {
 
   const authorField = fields.author;
   const authorNames = Array.isArray(authorField) ? authorField : (authorField ? [authorField] : []);
-  if (!authorNames.length || !authorNames.some(name => nameToText(name))) {
+  if (!authorNames.length || !authorNames.some(name => formatAuthorName(name))) {
     report.error('必填字段 author 缺失', { ...where, field: 'author', fix: '在 BibTeX 条目中添加 author = {姓, 名 and ...}' });
   }
   const authors = formatAuthors(authorNames);

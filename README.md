@@ -162,9 +162,10 @@ cp tools/deploy.env.example tools/deploy.env   # 填主机/用户/目录；该�
 
 ## 迁移状态
 
-P0（内容层拆分、BibTeX、校验、兼容构建、模板、文档、CI）已落地。P1/P2
-（论文筛选与引用复制、关联展示、前端组件拆分、首页自动复用新闻、CMS、项目页、
-更多 SEO）尚未实施。对照验收标准的结果与已知差异见 [docs/MIGRATION-REPORT.md](docs/MIGRATION-REPORT.md)。
+P0（内容层拆分、BibTeX、校验、兼容构建、模板、文档、CI）已落地。P1 中的论文列表筛选
+（年份、作者、研究方向、类型，选项由内容自动生成）已完成。P1/P2 其余项（BibTeX 引用复制、
+跨页关联展示、前端组件拆分、首页自动复用新闻、CMS、项目页、更多 SEO）尚未实施。
+对照验收标准的结果与已知差异见 [docs/MIGRATION-REPORT.md](docs/MIGRATION-REPORT.md)。
 
 ## 文档索引
 

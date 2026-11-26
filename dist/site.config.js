@@ -261,7 +261,23 @@ export const site = {
       "authors": "Z. Deng and J. Lu",
       "venue": "IEEE Control Systems Letters",
       "url": "https://doi.org/10.1109/LCSYS.2026.3706922",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "zhicheng-deng",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "Z. Deng",
+          "member": "zhicheng-deng"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "liu2026unified",
@@ -270,7 +286,33 @@ export const site = {
       "authors": "Z. Liu, X. Wu, D. Wang, and J. Lu",
       "venue": "IEEE Transactions on Control of Network Systems",
       "url": "https://doi.org/10.1109/TCNS.2025.3649114",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "zixuan-liu",
+        "xuyang-wu",
+        "dandan-wang",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "Z. Liu",
+          "member": "zixuan-liu"
+        },
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "D. Wang",
+          "member": "dandan-wang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "ou2026robust",
@@ -279,7 +321,23 @@ export const site = {
       "authors": "Z. Ou and J. Lu",
       "venue": "2026 American Control Conference (ACC)",
       "url": "https://arxiv.org/abs/2602.22670",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "zichong-ou",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "Z. Ou",
+          "member": "zichong-ou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wang2026globally",
@@ -288,7 +346,33 @@ export const site = {
       "authors": "D. Wang, X. Wu, Z. Ou, and J. Lu",
       "venue": "IEEE Transactions on Automatic Control",
       "url": "https://doi.org/10.1109/TAC.2025.3629001",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "dandan-wang",
+        "xuyang-wu",
+        "zichong-ou",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "D. Wang",
+          "member": "dandan-wang"
+        },
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "Z. Ou",
+          "member": "zichong-ou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "deng2025delay",
@@ -297,7 +381,28 @@ export const site = {
       "authors": "Z. Deng, X. Wu, and J. Lu",
       "venue": "IEEE Control Systems Letters",
       "url": "https://doi.org/10.1109/LCSYS.2025.3650105",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "zhicheng-deng",
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "Z. Deng",
+          "member": "zhicheng-deng"
+        },
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "zhu2025deep",
@@ -306,7 +411,28 @@ export const site = {
       "authors": "D. Zhu, T. Xu, and J. Lu",
       "venue": "IEEE Transactions on Control of Network Systems",
       "url": "https://doi.org/10.1109/TCNS.2025.3587331",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "daokuan-zhu",
+        "tianqi-xu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "D. Zhu",
+          "member": "daokuan-zhu"
+        },
+        {
+          "name": "T. Xu",
+          "member": "tianqi-xu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "hu2024design",
@@ -315,7 +441,32 @@ export const site = {
       "authors": "B. Hu, X. Song, Z. Ou, X. Liu, and J. Lu",
       "venue": "2024 43rd Chinese Control Conference (CCC)",
       "url": "https://doi.org/10.23919/CCC63176.2024.10662840",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "zichong-ou",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "B. Hu"
+        },
+        {
+          "name": "X. Song"
+        },
+        {
+          "name": "Z. Ou",
+          "member": "zichong-ou"
+        },
+        {
+          "name": "X. Liu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "ou2024mixing",
@@ -324,7 +475,33 @@ export const site = {
       "authors": "Z. Ou, C. Qiu, D. Wang, and J. Lu",
       "venue": "2024 American Control Conference (ACC)",
       "url": "https://doi.org/10.23919/ACC60939.2024.10644289",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "zichong-ou",
+        "chenyang-qiu",
+        "dandan-wang",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "Z. Ou",
+          "member": "zichong-ou"
+        },
+        {
+          "name": "C. Qiu",
+          "member": "chenyang-qiu"
+        },
+        {
+          "name": "D. Wang",
+          "member": "dandan-wang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wang2024distributed",
@@ -333,7 +510,34 @@ export const site = {
       "authors": "D. Wang, H. Zhu, C. Qiu, Y. Zhou, and J. Lu",
       "venue": "IEEE Transactions on Vehicular Technology",
       "url": "https://doi.org/10.1109/TVT.2024.3363034",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "dandan-wang",
+        "chenyang-qiu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "D. Wang",
+          "member": "dandan-wang"
+        },
+        {
+          "name": "H. Zhu"
+        },
+        {
+          "name": "C. Qiu",
+          "member": "chenyang-qiu"
+        },
+        {
+          "name": "Y. Zhou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wang2024zeroth",
@@ -342,7 +546,28 @@ export const site = {
       "authors": "C. Wang, Z. Ou, and J. Lu",
       "venue": "2024 IEEE 63rd Conference on Decision and Control (CDC)",
       "url": "https://doi.org/10.1109/CDC56724.2024.10886308",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "chengan-wang",
+        "zichong-ou",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "C. Wang",
+          "member": "chengan-wang"
+        },
+        {
+          "name": "Z. Ou",
+          "member": "zichong-ou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "stochastic",
@@ -351,7 +576,33 @@ export const site = {
       "authors": "C. Qiu, S. Zhu, Z. Ou, and J. Lu",
       "venue": "IEEE Control Systems Letters",
       "url": "https://ieeexplore.ieee.org/document/10044149",
-      "selected": true
+      "selected": true,
+      "kind": "article",
+      "research": [
+        "optimization-algorithms"
+      ],
+      "members": [
+        "jie-lu",
+        "chenyang-qiu",
+        "zichong-ou"
+      ],
+      "authorList": [
+        {
+          "name": "C. Qiu",
+          "member": "chenyang-qiu"
+        },
+        {
+          "name": "S. Zhu"
+        },
+        {
+          "name": "Z. Ou",
+          "member": "zichong-ou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "constraints",
@@ -360,7 +611,30 @@ export const site = {
       "authors": "X. Wu, H. Wang, and J. Lu",
       "venue": "IEEE Transactions on Automatic Control",
       "url": "https://ieeexplore.ieee.org/document/9762539",
-      "selected": true
+      "selected": true,
+      "kind": "article",
+      "research": [
+        "distributed-optimization"
+      ],
+      "members": [
+        "jie-lu",
+        "xuyang-wu",
+        "he-wang"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "H. Wang",
+          "member": "he-wang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wang2023distributed-buffering",
@@ -369,7 +643,33 @@ export const site = {
       "authors": "D. Wang, D. Zhu, Z. Ou, and J. Lu",
       "venue": "IEEE Control Systems Letters",
       "url": "https://doi.org/10.1109/LCSYS.2023.3345694",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "dandan-wang",
+        "daokuan-zhu",
+        "zichong-ou",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "D. Wang",
+          "member": "dandan-wang"
+        },
+        {
+          "name": "D. Zhu",
+          "member": "daokuan-zhu"
+        },
+        {
+          "name": "Z. Ou",
+          "member": "zichong-ou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wang2023distributed-online",
@@ -378,7 +678,31 @@ export const site = {
       "authors": "D. Wang, D. Zhu, K. C. Sou, and J. Lu",
       "venue": "2023 62nd IEEE Conference on Decision and Control (CDC)",
       "url": "https://doi.org/10.1109/CDC49753.2023.10383341",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "dandan-wang",
+        "daokuan-zhu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "D. Wang",
+          "member": "dandan-wang"
+        },
+        {
+          "name": "D. Zhu",
+          "member": "daokuan-zhu"
+        },
+        {
+          "name": "K. C. Sou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2023fenchel",
@@ -387,7 +711,26 @@ export const site = {
       "authors": "X. Wu, K. C. Sou, and J. Lu",
       "venue": "Optimization Methods and Software",
       "url": "https://doi.org/10.1080/10556788.2023.2189713",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "K. C. Sou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2023unifying",
@@ -396,7 +739,23 @@ export const site = {
       "authors": "X. Wu and J. Lu",
       "venue": "IEEE Transactions on Automatic Control",
       "url": "https://doi.org/10.1109/TAC.2022.3173171",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "gao2022learning",
@@ -405,7 +764,27 @@ export const site = {
       "authors": "L. Gao, X. Song, X. Liu, and J. Lu",
       "venue": "2022 European Control Conference (ECC)",
       "url": "https://doi.org/10.23919/ECC55457.2022.9837997",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "L. Gao"
+        },
+        {
+          "name": "X. Song"
+        },
+        {
+          "name": "X. Liu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "sou2022relaxed",
@@ -414,7 +793,21 @@ export const site = {
       "authors": "K. C. Sou and J. Lu",
       "venue": "IEEE Transactions on Control of Network Systems",
       "url": "https://doi.org/10.1109/TCNS.2022.3165088",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "K. C. Sou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "proximal",
@@ -423,7 +816,30 @@ export const site = {
       "authors": "X. Wu, Z. Qu, and J. Lu",
       "venue": "IEEE Transactions on Automatic Control",
       "url": "https://ieeexplore.ieee.org/document/9097872",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [
+        "multi-agent-control"
+      ],
+      "members": [
+        "jie-lu",
+        "xuyang-wu",
+        "zhihai-qu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "Z. Qu",
+          "member": "zhihai-qu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wang2021decentralized",
@@ -432,7 +848,38 @@ export const site = {
       "authors": "H. Wang, Y. Shen, Z. Wang, D. Li, J. Zhang, K. B. Letaief, and J. Lu",
       "venue": "2021 60th IEEE Conference on Decision and Control (CDC)",
       "url": "https://doi.org/10.1109/CDC45484.2021.9682857",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "he-wang",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "H. Wang",
+          "member": "he-wang"
+        },
+        {
+          "name": "Y. Shen"
+        },
+        {
+          "name": "Z. Wang"
+        },
+        {
+          "name": "D. Li"
+        },
+        {
+          "name": "J. Zhang"
+        },
+        {
+          "name": "K. B. Letaief"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wei2021decentralized",
@@ -441,7 +888,36 @@ export const site = {
       "authors": "H. Wei, Z. Qu, X. Wu, H. Wang, and J. Lu",
       "venue": "IEEE Transactions on Control of Network Systems",
       "url": "https://doi.org/10.1109/TCNS.2021.3070663",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "zhihai-qu",
+        "xuyang-wu",
+        "he-wang",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "H. Wei"
+        },
+        {
+          "name": "Z. Qu",
+          "member": "zhihai-qu"
+        },
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "H. Wang",
+          "member": "he-wang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wang2020inexact",
@@ -450,7 +926,23 @@ export const site = {
       "authors": "H. Wang and J. Lu",
       "venue": "2020 IEEE 16th International Conference on Control & Automation (ICCA)",
       "url": "https://doi.org/10.1109/ICCA51439.2020.9264365",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "he-wang",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "H. Wang",
+          "member": "he-wang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2020distributed-optimization",
@@ -459,7 +951,23 @@ export const site = {
       "authors": "X. Wu and J. Lu",
       "venue": "IEEE Control Systems Letters",
       "url": "https://doi.org/10.1109/LCSYS.2020.2971835",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2020distributed-proximal",
@@ -468,7 +976,28 @@ export const site = {
       "authors": "X. Wu, H. Wang, and J. Lu",
       "venue": "2020 59th IEEE Conference on Decision and Control (CDC)",
       "url": "https://doi.org/10.1109/CDC42340.2020.9303937",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "he-wang",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "H. Wang",
+          "member": "he-wang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "qu2019finite",
@@ -477,7 +1006,28 @@ export const site = {
       "authors": "Z. Qu, X. Wu, and J. Lu",
       "venue": "2019 Chinese Control Conference (CCC)",
       "url": "https://doi.org/10.23919/ChiCC.2019.8865722",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "zhihai-qu",
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "Z. Qu",
+          "member": "zhihai-qu"
+        },
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2019fenchel",
@@ -486,7 +1036,23 @@ export const site = {
       "authors": "X. Wu and J. Lu",
       "venue": "IEEE Transactions on Automatic Control",
       "url": "https://doi.org/10.1109/TAC.2019.2901829",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2019improved",
@@ -495,7 +1061,23 @@ export const site = {
       "authors": "X. Wu and J. Lu",
       "venue": "2019 IEEE 15th International Conference on Control and Automation (ICCA)",
       "url": "https://doi.org/10.1109/ICCA.2019.8899909",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "lu2018distributed",
@@ -504,7 +1086,21 @@ export const site = {
       "authors": "J. Lu and C. Y. Tang",
       "venue": "IEEE Transactions on Control of Network Systems",
       "url": "https://doi.org/10.1109/TCNS.2016.2594487",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        },
+        {
+          "name": "C. Y. Tang"
+        }
+      ]
     },
     {
       "id": "wei2018approximately",
@@ -513,7 +1109,36 @@ export const site = {
       "authors": "H. Wei, Z. Qu, X. Wu, H. Wang, and J. Lu",
       "venue": "2018 15th International Conference on Control, Automation, Robotics and Vision (ICARCV)",
       "url": "https://doi.org/10.1109/ICARCV.2018.8581380",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "zhihai-qu",
+        "xuyang-wu",
+        "he-wang",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "H. Wei"
+        },
+        {
+          "name": "Z. Qu",
+          "member": "zhihai-qu"
+        },
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "H. Wang",
+          "member": "he-wang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2018distributed",
@@ -522,7 +1147,26 @@ export const site = {
       "authors": "X. Wu, K. C. Sou, and J. Lu",
       "venue": "2018 IEEE Conference on Decision and Control (CDC)",
       "url": "https://doi.org/10.1109/CDC.2018.8619031",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "K. C. Sou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "sou2017relaxed",
@@ -531,7 +1175,21 @@ export const site = {
       "authors": "K. C. Sou and J. Lu",
       "venue": "2017 American Control Conference (ACC)",
       "url": "https://doi.org/10.23919/ACC.2017.7963674",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "K. C. Sou"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2017deterministic",
@@ -540,7 +1198,23 @@ export const site = {
       "authors": "X. Wu and J. Lu",
       "venue": "2017 IEEE 56th Annual Conference on Decision and Control (CDC)",
       "url": "https://doi.org/10.1109/CDC.2017.8263744",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "wu2017fenchel",
@@ -549,7 +1223,23 @@ export const site = {
       "authors": "X. Wu and J. Lu",
       "venue": "2017 IEEE 56th Annual Conference on Decision and Control (CDC)",
       "url": "https://doi.org/10.1109/CDC.2017.8264079",
-      "selected": false
+      "selected": false,
+      "kind": "inproceedings",
+      "research": [],
+      "members": [
+        "xuyang-wu",
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "X. Wu",
+          "member": "xuyang-wu"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        }
+      ]
     },
     {
       "id": "yang2017distributed",
@@ -558,11 +1248,41 @@ export const site = {
       "authors": "T. Yang, J. Lu, D. Wu, J. Wu, G. Shi, Z. Meng, and K. H. Johansson",
       "venue": "IEEE Transactions on Industrial Electronics",
       "url": "https://doi.org/10.1109/TIE.2016.2617832",
-      "selected": false
+      "selected": false,
+      "kind": "article",
+      "research": [],
+      "members": [
+        "jie-lu"
+      ],
+      "authorList": [
+        {
+          "name": "T. Yang"
+        },
+        {
+          "name": "J. Lu",
+          "member": "jie-lu"
+        },
+        {
+          "name": "D. Wu"
+        },
+        {
+          "name": "J. Wu"
+        },
+        {
+          "name": "G. Shi"
+        },
+        {
+          "name": "Z. Meng"
+        },
+        {
+          "name": "K. H. Johansson"
+        }
+      ]
     }
   ],
   "people": [
     {
+      "id": "jie-lu",
       "name": {
         "en": "Jie Lu",
         "zh": "陆疌"
@@ -589,6 +1309,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "zichong-ou",
       "name": {
         "en": "Zichong Ou",
         "zh": "欧子翀"
@@ -615,6 +1336,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "daokuan-zhu",
       "name": {
         "en": "Daokuan Zhu"
       },
@@ -636,6 +1358,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "tianqi-xu",
       "name": {
         "en": "Tianqi Xu"
       },
@@ -657,6 +1380,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "chengan-wang",
       "name": {
         "en": "Chengan Wang",
         "zh": "王成安"
@@ -679,6 +1403,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "zhicheng-deng",
       "name": {
         "en": "Zhicheng Deng"
       },
@@ -702,6 +1427,7 @@ export const site = {
   ],
   "alumni": [
     {
+      "id": "xuyang-wu",
       "name": {
         "en": "Xuyang Wu",
         "zh": "吴旭阳"
@@ -729,6 +1455,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "dandan-wang",
       "name": {
         "en": "Dandan Wang"
       },
@@ -743,6 +1470,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "zixuan-liu",
       "name": {
         "en": "Zixuan Liu"
       },
@@ -769,6 +1497,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "chenyang-qiu",
       "name": {
         "en": "Chenyang Qiu"
       },
@@ -782,6 +1511,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "he-wang",
       "name": {
         "en": "He Wang"
       },
@@ -795,6 +1525,7 @@ export const site = {
       "photo": ""
     },
     {
+      "id": "zhihai-qu",
       "name": {
         "en": "Zhihai Qu"
       },
