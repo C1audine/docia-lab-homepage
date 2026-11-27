@@ -13,7 +13,7 @@ const main=document.querySelector('main'), nav=document.querySelector('nav'), he
 const external=(url,label,cls='text-link')=>`<a class="${cls}" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(label)}</a>`;
 const primary=(url,label,symbol,kind='primary')=>`<a class="btn ${kind}" href="${e(url)}">${icon(symbol,17)}${e(label)}</a>`;
 const other=s=>`<div class="container page-body"><div class="empty-state"><h2>${e(s.title)}</h2><p>${e(s.text)}</p></div></div>`;
-let cleanups=[], active='', lang=useLang(initialLang()), pubFilters=emptyFilters(), publicationDetail='';
+let cleanups=[], active='', lang=useLang(initialLang()), pubFilters=emptyFilters(), publicationDetail='', pendingDemo='';
 
 const menu=document.querySelector('#menu-toggle');
 function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label',S().openNav);menu.innerHTML=icon('menu',23);nav.classList.remove('open');}
@@ -50,7 +50,13 @@ const researchDemos={
   distributed:{render:renderDistributedDemo,mount:root=>mountDistributedDemo(root)},
   optimizer:{render:renderOptimizerDemo,mount:root=>mountOptimizerDemo(root)}
 };
-function cards(){return `<div class="research-grid">${site.research.map(r=>`<a href="#/research/${e(r.id)}" class="research-card">${researchArt(r.icon)}<div><h3>${e(pick(r.title))}</h3><p>${e(pick(r.short))}</p></div></a>`).join('')}</div>`;}
+function cards(withDemos=false){
+  const demoLabel=S().researchDemo.cardJump;
+  return `<div class="research-grid">${site.research.map(r=>{
+    const demo=researchDemos[r.demo];
+    return `<div class="research-cell"><a href="#/research/${e(r.id)}" class="research-card">${researchArt(r.icon)}<div><h3>${e(pick(r.title))}</h3><p>${e(pick(r.short))}</p></div></a>${withDemos&&demo?`<a class="card-demo-link" href="#/research/${e(r.id)}" data-demo-jump="${e(r.id)}" aria-label="${e(demoLabel)}: ${e(pick(r.title))}">${icon('play',12)}${e(demoLabel)}</a>`:''}</div>`;
+  }).join('')}</div>`;
+}
 function paper(p){return `<article class="paper-row" id="paper-${e(p.id)}"><span class="paper-year">${e(p.year)}</span><div><p class="venue">${e(p.venue)}</p><h3>${external(p.url,p.title,'paper-title')}</h3><p class="authors">${e(p.authors)}</p></div>${external(p.url,S().link.viewPaper,'paper-link')}</article>`;}
 function portrait(person){
   const src=mediaUrl(person.photo,site.media?.people);
@@ -110,7 +116,7 @@ function research(detail){
     const jump=demo?`<button type="button" class="jump-link" data-scroll-to="demo">${e(L.researchDemo.jump)}${icon('arrow',14)}</button>`:'';
     return `<div class="subhead"><div class="container subhead-inner"><div><h1>${e(pick(item.title))}</h1><p>${e(pick(item.short))}</p></div>${jump}</div></div><div class="container page-body"><div class="reading"><a href="#/research" class="text-link">${e(L.link.allDirections)}</a><div class="reading-art">${researchArt(item.icon)}</div><h2>${e(pick(item.question))}</h2><p>${e(pick(item.detail))}</p><h3 class="minor-title">${e(L.heading.relatedPublication)}</h3>${site.publications.filter(p=>p.id===item.paper).map(paper).join('')}</div>${demo?`<div class="research-demo-band" id="demo">${demo.render()}</div>`:''}</div>`;
   }
-  return pageHead('research')+`<div class="container page-body">${cards()}<div class="feature-band"><div><h2>${e(L.heading.localUpdates)}</h2><p>${e(L.text.localUpdates)}</p></div>${primary('#/research/multi-agent-control',L.link.openPlayground,'network')}</div></div>`;
+  return pageHead('research')+`<div class="container page-body">${cards(true)}</div>`;
 }
 function filterOptions(items,valueOf,labelOf,current){
   return items.map(item=>{const value=valueOf(item);return `<option value="${e(value)}"${current===value?' selected':''}>${e(labelOf(item))}</option>`;}).join('');
@@ -269,6 +275,10 @@ function render(){
     }
     if(active)main.focus({preventScroll:true});active=view;
   }
+  if(pendingDemo&&part==='research'&&detail===pendingDemo){
+    pendingDemo='';
+    requestAnimationFrame(scrollToDemo);
+  }
   const item=id==='research'?site.research.find(r=>r.id===detail):null;
   document.title=id==='home'
     ? (lang==='zh'?'DOCIA Lab · 分布式优化与控制 | 上海科技大学':'DOCIA Lab · Distributed Optimization & Control | ShanghaiTech')
@@ -309,17 +319,32 @@ main.addEventListener('click',ev=>{
   const first=main.querySelector('[data-pub-filter]');
   if(first)first.focus();
 });
-// Research pages put their experiment at the bottom. The jump button scrolls
-// there without touching location.hash, which is reserved for the router.
-main.addEventListener('click',ev=>{
-  const jump=ev.target.closest('[data-scroll-to]');
-  if(!jump)return;
-  const target=document.getElementById(jump.dataset.scrollTo);
+// Research pages put their experiment at the bottom. Jump links scroll there
+// without changing location.hash, which is reserved for the router.
+function scrollToDemo(){
+  const target=document.getElementById('demo');
   if(!target)return;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   target.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
   const heading=target.querySelector('h2');
   if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});}
+}
+main.addEventListener('click',ev=>{
+  if(!ev.target.closest('[data-scroll-to]'))return;
+  scrollToDemo();
+});
+// The experiment link under a research card navigates to that direction and
+// then scrolls down once the detail page has been rendered.
+document.addEventListener('click',ev=>{
+  if(ev.defaultPrevented||ev.button!==0||ev.metaKey||ev.ctrlKey||ev.shiftKey||ev.altKey)return;
+  const link=ev.target.closest('[data-demo-jump]');
+  if(!link)return;
+  if(location.hash===link.hash){
+    ev.preventDefault();
+    scrollToDemo();
+    return;
+  }
+  pendingDemo=link.dataset.demoJump;
 });
 mountSearch();
 render();

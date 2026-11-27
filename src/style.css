@@ -834,6 +834,44 @@ select:hover {
   margin-top:24px;
 }
 
+.research-cell {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.research-cell > .research-card {
+  flex:1;
+}
+
+.card-demo-link {
+  align-self:flex-end;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:10px;
+  padding:6px 11px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fbfdfb;
+  color:var(--em);
+  font:600 .62rem var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:border-color .2s,background .2s,color .2s;
+}
+
+.card-demo-link:hover {
+  border-color:#7eac96;
+  background:#f1f8f3;
+  color:var(--ink);
+}
+
+.card-demo-link .icon {
+  flex:none;
+}
+
 .research-card {
   display:flex;
   flex-direction:column;

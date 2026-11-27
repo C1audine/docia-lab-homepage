@@ -154,8 +154,10 @@ content/ + config/presentation.yaml
 - 首页根据 `site.home` 的开关/条数渲染：research、selected_publications、moments；
 - 交互实验不再由首页控制：`research[].demo` 决定研究方向详情页挂载哪个实验，
   `#/simulation` 旧链接会重定向到 `#/research/multi-agent-control`；
+- 研究方向列表每张卡片（`.research-cell`）下方按 `demo` 渲染 `.card-demo-link[data-demo-jump]`，
+  点击后先导航到详情页，再由 `pendingDemo` 在渲染完成后的 rAF 中调用同一个 `scrollToDemo()`；
 - 研究方向详情页顶部渲染「跳到交互实验」按钮（`data-scroll-to="demo"`），点击后平滑滚动
-  到实验区并把焦点移到实验标题；按钮只在存在 `demo` 时出现，且不修改 `location.hash`；
+  到实验区并把焦点移到实验标题；入口只在存在 `demo` 时出现，且不修改 `location.hash`；
 - 精选论文在存在 `selected` 字段时只取 `selected: true`；没有该字段时保持旧行为（全部）；
 - Publications 顶部先渲染 `renderPublicationStats()` 的年度统计，再渲染筛选条；
   统计始终基于全部论文，不随筛选变化；

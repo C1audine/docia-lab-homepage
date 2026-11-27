@@ -181,7 +181,8 @@ English text.
 - `icon` 可选 `network`、`agents`、`contour`；
 - `demo` 可选 `network`、`distributed`、`optimizer`，会在该方向详情页正文下方嵌入对应的交互实验；
   不写则不显示实验。目前三个方向分别使用 network / distributed / optimizer；
-- 有实验的方向，详情页顶部会自动出现「跳到交互实验」按钮，一键滚动到页面底部的实验区；
+- 有实验的方向，研究方向列表的卡片下方会出现「试试交互实验」入口；详情页顶部也会出现
+  「跳到交互实验」按钮，两者都会直接滚动到页面底部的实验区；
 - 关联论文不写在这里：在论文 metadata 的 `research` 里写方向 ID，页面会自动反向显示。
 
 ### 荣誉

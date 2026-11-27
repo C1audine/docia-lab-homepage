@@ -30,7 +30,6 @@ const ui = {
       alumni: "Alumni",
       writeToLab: "Write to the lab",
       findUs: "Find us on campus",
-      localUpdates: "Local updates in action",
       relatedPublication: "Related publication",
       latestNews: "Latest news",
       awards: "Awards and honors",
@@ -44,7 +43,6 @@ const ui = {
       viewAllMoments: "View all moments",
       allDirections: "All research directions",
       viewPaper: "View paper",
-      openPlayground: "Try an experiment",
       alumniDestinations: "Alumni destinations",
       facultyPublications: "Faculty publication list",
       facultyHomepage: "Faculty homepage",
@@ -56,7 +54,6 @@ const ui = {
     text: {
       formerMembers: "Explore where DOCIA graduates went after the lab.",
       selectedPapers: "Selected journal articles",
-      localUpdates: "Each direction includes a small interactive experiment. Start with load balancing on a network.",
       newsIntro: "Graduations, accepted papers, and other lab updates.",
       honorsIntro: "Awards, prizes, and recognitions received by the lab.",
       contactIntro: "Write to the lab about research, collaboration, and graduate study."
@@ -134,6 +131,7 @@ const ui = {
     researchDemo: {
       kicker: "Interactive demo",
       jump: "Jump to the experiment",
+      cardJump: "Try the experiment",
       distributed: {
         title: "Distributed gradient descent",
         intro: "Eight agents hold local quadratic objectives. They take local gradient steps and exchange values with their neighbors; watch them approach a shared optimum.",
@@ -253,7 +251,6 @@ const ui = {
       alumni: "校友",
       writeToLab: "邮件联系",
       findUs: "到访地址",
-      localUpdates: "局部更新如何起作用",
       relatedPublication: "相关论文",
       latestNews: "最新动态",
       awards: "奖项与荣誉",
@@ -267,7 +264,6 @@ const ui = {
       viewAllMoments: "查看全部合影",
       allDirections: "全部研究方向",
       viewPaper: "查看论文",
-      openPlayground: "打开实验",
       alumniDestinations: "校友去向",
       facultyPublications: "教师论文列表",
       facultyHomepage: "教师主页",
@@ -279,7 +275,6 @@ const ui = {
     text: {
       formerMembers: "看看课题组的毕业生都去了哪里。",
       selectedPapers: "代表性期刊论文",
-      localUpdates: "每个研究方向都配有一个小型交互实验。先从网络上的负载均衡开始。",
       newsIntro: "毕业、论文录用以及课题组的其他消息。",
       honorsIntro: "课题组获得的奖项与荣誉。",
       contactIntro: "欢迎就科研合作、招生等事宜联系实验室。"
@@ -357,6 +352,7 @@ const ui = {
     researchDemo: {
       kicker: "交互实验",
       jump: "跳到交互实验",
+      cardJump: "试试交互实验",
       distributed: {
         title: "分布式梯度下降",
         intro: "八个智能体各自持有局部二次目标。它们做局部梯度步，并与邻居交换数值；观察它们如何逼近共同的最优解。",
