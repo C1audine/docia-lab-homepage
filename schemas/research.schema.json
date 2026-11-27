@@ -8,6 +8,7 @@
     "title": { "$ref": "common.schema.json#/$defs/bilingual" },
     "order": { "$ref": "common.schema.json#/$defs/order" },
     "icon": { "type": "string" },
+    "demo": { "type": "string", "enum": ["network", "distributed", "optimizer"] },
     "summary": { "$ref": "common.schema.json#/$defs/bilingual" },
     "question": { "$ref": "common.schema.json#/$defs/bilingual" },
     "image": { "$ref": "common.schema.json#/$defs/relativePath" },

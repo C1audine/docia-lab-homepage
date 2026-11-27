@@ -75,8 +75,8 @@ function buildIndex() {
     }
     page(item.id, meta.title, meta.desc, body, extra);
   }
-  // The playground lives on the home page but is not a navigation item.
-  page('simulation', L.experiment.title, L.experiment.intro, '', ['simulation']);
+  // Interactive demos are part of the research pages, so their text is indexed
+  // through the research entries below instead of a standalone playground page.
 
   for (const item of site.research || []) {
     const related = (site.publications || []).find(paper => paper.id === item.paper);

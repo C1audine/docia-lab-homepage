@@ -4,8 +4,10 @@ title:
   en: <Research direction>
   zh: <研究方向>
 order: 10
-# 首页卡片图标：network | agents | contour（沿用现有图形）
+# 卡片图标：network | agents | contour（沿用现有图形）
 icon: network
+# 可选：详情页正文下方的交互实验
+# demo: network | distributed | optimizer
 summary:
   en: <One-sentence summary shown on cards.>
   zh: <卡片上显示的一句话介绍。>

@@ -3,6 +3,7 @@ title:
   en: Optimization algorithms
   zh: 优化算法
 order: 3
+demo: optimizer
 icon: contour
 summary:
   en: Designing scalable methods and analyzing the conditions under which they converge.

@@ -3,6 +3,7 @@ title:
   en: Distributed optimization
   zh: 分布式优化
 order: 1
+demo: distributed
 icon: network
 summary:
   en: Solving a shared problem through local computation and neighbor-to-neighbor communication.

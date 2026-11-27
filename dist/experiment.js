@@ -5,9 +5,12 @@ import {layouts,edgesFor,mean,simulate} from './model.js';
 const options=site.experiment;
 const names=Object.keys(layouts);
 const nodeName=i=>'N'+String(i+1).padStart(2,'0');
-export function experiment(){
+// The load-balancing experiment used to sit on the home page. It now lives on
+// the multi-agent coordination research page, so `container` is optional: the
+// research page already provides the outer container.
+export function experiment({container=true}={}){
   const L=S().experiment;
-  return `<section class="experiment-section container" id="simulation">
+  return `<section class="experiment-section${container?' container':''}" id="simulation">
    <div class="section-head"><div><h2>${L.title}</h2></div><div class="sim-actions"><button id="run" class="btn primary"></button><button id="reset" class="square-btn" aria-label="${L.restart}" title="${L.restart}">${icon('reset')}</button></div></div>
    <p class="section-intro">${L.intro}</p>
    <div class="console"><div class="network-pane">

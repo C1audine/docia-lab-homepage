@@ -950,6 +950,135 @@ select:hover {
   white-space:nowrap;
 }
 
+/* Publication statistics — a compact stacked bar chart above the filters. */
+.pub-stats {
+  margin:0 0 14px;
+  padding:16px 18px 12px;
+  background:linear-gradient(120deg,#fbfdfb,#f3f9f5);
+  border:1px solid var(--line);
+  border-radius:7px;
+}
+
+.pub-stats-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px 18px;
+}
+
+.pub-stats-head h2 {
+  margin:0;
+  font-family:var(--display);
+  font-size:1.22rem;
+  letter-spacing:-.015em;
+  color:var(--ink);
+}
+
+.pub-stats-head p {
+  margin:4px 0 0;
+  font-size:.83rem;
+  color:#4b695d;
+}
+
+.pub-stats-totals {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.pub-stats-chip {
+  padding:4px 9px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  color:#3d6557;
+  font:500 .71rem var(--mono);
+  white-space:nowrap;
+}
+
+.pub-stats-chart {
+  margin:12px 0 4px;
+  overflow-x:auto;
+}
+
+.pub-stats-svg {
+  display:block;
+  width:100%;
+  max-width:720px;
+  height:auto;
+  margin:0 auto;
+  color:var(--ink);
+  overflow:visible;
+}
+
+.pub-stats-svg .gridline {
+  stroke:currentColor;
+  stroke-opacity:.14;
+}
+
+.pub-stats-svg .bar-journal {
+  fill:var(--green);
+}
+
+.pub-stats-svg .bar-conference {
+  fill:var(--sky);
+}
+
+.pub-stats-svg .bar-total {
+  fill:#3d6557;
+  font-family:var(--mono);
+  font-weight:600;
+}
+
+.pub-stats-svg .bar-year {
+  fill:#6b877b;
+  font-family:var(--mono);
+}
+
+.pub-stats-legend {
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  padding-top:2px;
+  font-size:.78rem;
+  color:#4b695d;
+}
+
+.pub-stats-legend-item {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+.swatch {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  border-radius:2px;
+}
+
+.swatch.journal {
+  background:var(--green);
+}
+
+.swatch.conference {
+  background:var(--sky);
+}
+
+.sr-only {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+  border:0;
+}
+
 /* Publications filter bar — options are generated from publications.bib. */
 .publication-filters {
   display:flex;
@@ -1118,6 +1247,201 @@ select:hover {
 .reading>.btn {
   display:inline-flex;
   margin-top:15px;
+}
+
+/* A research detail page can embed one interactive demo below the text. */
+.research-demo-band {
+  margin-top:38px;
+  border-top:1px solid var(--line);
+}
+
+.research-demo-band .experiment-section {
+  padding-block:34px 0;
+}
+
+/* Interactive demos on research detail pages (shared by all three). */
+.research-demo {
+  max-width:1000px;
+  margin:0 auto;
+  padding-bottom:6px;
+}
+
+.demo-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:14px 24px;
+  margin-bottom:18px;
+}
+
+.demo-kicker {
+  margin:0 0 5px;
+  font:600 .66rem var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#4b695d;
+}
+
+.demo-head h2 {
+  margin:0;
+  font-family:var(--display);
+  font-size:1.5rem;
+  letter-spacing:-.02em;
+  color:var(--ink);
+}
+
+.demo-intro {
+  margin:8px 0 0;
+  max-width:64ch;
+  color:var(--body);
+  font-size:.96rem;
+}
+
+.demo-panel {
+  padding:16px 18px 18px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:#fbfdfb;
+}
+
+.demo-toolbar {
+  display:flex;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:12px 20px;
+  padding-bottom:13px;
+  border-bottom:1px solid var(--line);
+}
+
+.demo-toolbar .round {
+  margin-left:auto;
+}
+
+.demo-field {
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  min-width:0;
+}
+
+.demo-field label {
+  font:600 .66rem var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#4b695d;
+}
+
+.demo-field select {
+  min-width:140px;
+}
+
+.demo-range {
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.demo-range input[type="range"] {
+  width:clamp(110px,16vw,170px);
+  accent-color:var(--green);
+}
+
+.demo-range output {
+  min-width:2.6em;
+  text-align:right;
+  font:.78rem var(--mono);
+  color:#3d6557;
+}
+
+.demo-visual {
+  margin-top:10px;
+}
+
+.demo-chart-title {
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:0 0 2px;
+  font:600 .8rem var(--sans);
+  color:#41695c;
+}
+
+.demo-chart-title span {
+  font:400 .72rem var(--mono);
+  color:#6b877b;
+}
+
+.demo-visual .curve-legend {
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  gap:6px 14px;
+}
+
+.demo-visual svg {
+  display:block;
+  width:100%;
+  max-width:720px;
+  height:auto;
+  margin:0 auto;
+  overflow:visible;
+}
+
+.demo-stats {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 26px;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+}
+
+.demo-stats>div {
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:110px;
+}
+
+.demo-stats span {
+  font:600 .64rem var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#6b877b;
+}
+
+.demo-stats strong {
+  font:500 1.02rem var(--mono);
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+
+.opt-contour {
+  vector-effect:non-scaling-stroke;
+}
+
+.opt-plot-bg {
+  vector-effect:non-scaling-stroke;
+}
+
+.math-label,
+.axis-text {
+  fill:#3d6557;
+  font:italic 12px var(--mono);
+}
+
+.axis-text {
+  font-style:normal;
+  font-size:11px;
+}
+
+.opt-key {
+  display:inline-block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--ink);
 }
 
 .directory-heading {
@@ -2704,6 +3028,20 @@ body.search-open {
     flex:1 1 100%;
     justify-content:space-between;
     margin-left:0;
+  }
+  .pub-stats {
+    padding:14px 15px 11px;
+  }
+  .pub-stats-totals {
+    justify-content:flex-start;
+  }
+}
+
+@media(max-width:650px) {
+  .pub-stats-svg {
+    width:640px;
+    max-width:none;
+    margin:0;
   }
 }
 

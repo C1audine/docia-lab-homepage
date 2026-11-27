@@ -17,11 +17,6 @@
         "count": { "type": "integer", "minimum": 0 }
       }
     },
-    "interactive_experiment": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": { "enabled": { "type": "boolean" } }
-    },
     "moments": {
       "type": "object",
       "additionalProperties": false,

@@ -16,7 +16,6 @@ const NEWS_FILE_PATTERN = /^(\d{4}-\d{2}-\d{2})-(.+)\.md$/;
 const HOME_DEFAULTS = {
   research: { enabled: true },
   selected_publications: { enabled: true, count: 2 },
-  interactive_experiment: { enabled: true },
   moments: { enabled: true, count: 3 }
 };
 
@@ -28,7 +27,7 @@ const PERSON_FIELDS = [
 const PUBLICATION_METADATA_FIELDS = [
   'selected', 'order', 'members', 'research', 'projects', 'links', 'status'
 ];
-const RESEARCH_FIELDS = ['title', 'order', 'icon', 'summary', 'question', 'image', 'draft'];
+const RESEARCH_FIELDS = ['title', 'order', 'icon', 'demo', 'summary', 'question', 'image', 'draft'];
 const NEWS_FIELDS = [
   'date', 'display_date', 'title', 'summary', 'order', 'image', 'featured', 'draft',
   'url', 'related_publications'
@@ -297,7 +296,6 @@ async function loadHome(report) {
   return {
     research: { ...HOME_DEFAULTS.research, ...(data.research || {}) },
     selected_publications: { ...HOME_DEFAULTS.selected_publications, ...(data.selected_publications || {}) },
-    interactive_experiment: { ...HOME_DEFAULTS.interactive_experiment, ...(data.interactive_experiment || {}) },
     moments: { ...HOME_DEFAULTS.moments, ...(data.moments || {}) }
   };
 }

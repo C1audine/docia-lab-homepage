@@ -23,6 +23,7 @@ export function toLegacySite(model) {
     research: content.research.map(item => ({
       id: item.id,
       icon: item.icon || 'network',
+      demo: item.demo || '',
       title: item.title,
       short: item.summary,
       question: item.question || { en: '', zh: '' },
@@ -54,7 +55,6 @@ export function toLegacySite(model) {
         enabled: home.selected_publications.enabled !== false,
         count: home.selected_publications.count
       },
-      interactive_experiment: { enabled: home.interactive_experiment.enabled !== false },
       moments: {
         enabled: home.moments.enabled !== false,
         count: home.moments.count

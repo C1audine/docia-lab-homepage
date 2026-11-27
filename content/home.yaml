@@ -6,8 +6,9 @@
 # P0 只实现当前首页已有的区块：
 #   research               研究方向卡片
 #   selected_publications  精选论文（读取 publications 的 metadata selected: true）
-#   interactive_experiment 交互实验（算法参数在 config/presentation.yaml）
 #   moments                合影（读取 gallery，按日期从新到旧）
+#
+# 交互实验已经移到研究方向详情页（research/*.md 对应的页面），不再由首页控制。
 #
 # latest_news / people / join_us 属于 P1（首页复用新闻、成员、招生信息），
 # 当前网站没有这些首页区块，因此本文件暂不接受这些键。
@@ -18,9 +19,6 @@ research:
 selected_publications:
   enabled: true
   count: 2
-
-interactive_experiment:
-  enabled: true
 
 moments:
   enabled: true

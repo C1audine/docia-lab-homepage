@@ -2,6 +2,9 @@ import {site} from './site.config.js';
 import {icon,escapeHtml as e,initials,mediaUrl,targetId} from './ui.js';
 import {terrain,trackDescent} from './terrain.js';
 import {experiment,mountExperiment} from './experiment.js';
+import {renderDistributedDemo,mountDistributedDemo} from './experiment-distributed.js';
+import {renderOptimizerDemo,mountOptimizerDemo} from './experiment-optimizer.js';
+import {renderPublicationStats} from './publication-stats.js';
 import {LANGS,LABEL,S,pick,currentLang,useLang,initialLang,rememberLang,fill} from './i18n.js';
 import {mountSearch,syncSearchChrome} from './search.js';
 import {authorValue,buildPublicationFacets,emptyFilters,filterPublications,hasActiveFilters,memberValue} from './publication-filters.js';
@@ -40,6 +43,13 @@ function researchArt(type){
   return `<svg class="research-art art-${type}" viewBox="0 0 335 118" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.15">${shapes}</g></svg>`;
 }
 const portraitAlt=person=>fill(S().labels.portraitAlt,{name:pick(person.name)});
+// A research direction opts into a demo with `demo:` in its Markdown front
+// matter. The load-balancing experiment moved here from the home page.
+const researchDemos={
+  network:{render:()=>experiment({container:false}),mount:()=>mountExperiment()},
+  distributed:{render:renderDistributedDemo,mount:root=>mountDistributedDemo(root)},
+  optimizer:{render:renderOptimizerDemo,mount:root=>mountOptimizerDemo(root)}
+};
 function cards(){return `<div class="research-grid">${site.research.map(r=>`<a href="#/research/${e(r.id)}" class="research-card">${researchArt(r.icon)}<div><h3>${e(pick(r.title))}</h3><p>${e(pick(r.short))}</p></div></a>`).join('')}</div>`;}
 function paper(p){return `<article class="paper-row" id="paper-${e(p.id)}"><span class="paper-year">${e(p.year)}</span><div><p class="venue">${e(p.venue)}</p><h3>${external(p.url,p.title,'paper-title')}</h3><p class="authors">${e(p.authors)}</p></div>${external(p.url,S().link.viewPaper,'paper-link')}</article>`;}
 function portrait(person){
@@ -69,8 +79,8 @@ function home(){
   const homePapers=(hasSelection?selected:site.publications).slice(0,(options.selected_publications&&options.selected_publications.count!=null)?options.selected_publications.count:2);
   const researchBlock=enabled('research')?`<section class="research-section"><div class="container"><div class="section-head"><div><h2>${e(L.heading.whatWeStudy)}</h2></div><a href="#/research" class="text-link">${e(L.link.exploreAll)}</a></div>${cards()}</div></section>`:'';
   const papersBlock=(enabled('selected_publications')&&homePapers.length)?`<section class="container home-pubs"><div class="section-head"><div><h2>${e(L.heading.selectedPublications)}</h2></div><a href="#/publications" class="text-link">${e(L.link.allPublications)}</a></div>${homePapers.map(paper).join('')}</section>`:'';
-  return `<section class="hero"><div class="container hero-inner"><div class="hero-copy"><h1>${lines.map((l,i)=>i===lines.length-1?`<em>${e(l)}</em>`:`<span>${e(l)}</span>`).join('')}</h1><p>${e(pick(site.hero.description))}</p><div class="hero-actions">${primary('#/simulation',L.link.trySimulation,'network','outline')}${primary('#/research',L.link.exploreResearch,'book')}</div></div>${terrain()}</div></section>
-    ${enabled('interactive_experiment')?experiment():''}${researchBlock}
+  return `<section class="hero"><div class="container hero-inner"><div class="hero-copy"><h1>${lines.map((l,i)=>i===lines.length-1?`<em>${e(l)}</em>`:`<span>${e(l)}</span>`).join('')}</h1><p>${e(pick(site.hero.description))}</p><div class="hero-actions">${primary('#/research/multi-agent-control',L.link.trySimulation,'network','outline')}${primary('#/research',L.link.exploreResearch,'book')}</div></div>${terrain()}</div></section>
+    ${researchBlock}
     ${papersBlock}${homeMoments()}`;
 }
 function homeMoments(){
@@ -95,8 +105,11 @@ function honors(){
 }
 function research(detail){
   const L=S(), item=site.research.find(r=>r.id===detail);
-  if(item)return `<div class="subhead"><div class="container"><h1>${e(pick(item.title))}</h1><p>${e(pick(item.short))}</p></div></div><div class="container reading"><a href="#/research" class="text-link">${e(L.link.allDirections)}</a><div class="reading-art">${researchArt(item.icon)}</div><h2>${e(pick(item.question))}</h2><p>${e(pick(item.detail))}</p><h3 class="minor-title">${e(L.heading.relatedPublication)}</h3>${site.publications.filter(p=>p.id===item.paper).map(paper).join('')}${primary('#/simulation',L.link.trySimulation,'network')}</div>`;
-  return pageHead('research')+`<div class="container page-body">${cards()}<div class="feature-band"><div><h2>${e(L.heading.localUpdates)}</h2><p>${e(L.text.localUpdates)}</p></div>${primary('#/simulation',L.link.openPlayground,'network')}</div></div>`;
+  if(item){
+    const demo=researchDemos[item.demo];
+    return `<div class="subhead"><div class="container"><h1>${e(pick(item.title))}</h1><p>${e(pick(item.short))}</p></div></div><div class="container page-body"><div class="reading"><a href="#/research" class="text-link">${e(L.link.allDirections)}</a><div class="reading-art">${researchArt(item.icon)}</div><h2>${e(pick(item.question))}</h2><p>${e(pick(item.detail))}</p><h3 class="minor-title">${e(L.heading.relatedPublication)}</h3>${site.publications.filter(p=>p.id===item.paper).map(paper).join('')}</div>${demo?`<div class="research-demo-band" id="demo">${demo.render()}</div>`:''}</div>`;
+  }
+  return pageHead('research')+`<div class="container page-body">${cards()}<div class="feature-band"><div><h2>${e(L.heading.localUpdates)}</h2><p>${e(L.text.localUpdates)}</p></div>${primary('#/research/multi-agent-control',L.link.openPlayground,'network')}</div></div>`;
 }
 function filterOptions(items,valueOf,labelOf,current){
   return items.map(item=>{const value=valueOf(item);return `<option value="${e(value)}"${current===value?' selected':''}>${e(labelOf(item))}</option>`;}).join('');
@@ -131,7 +144,7 @@ function resetPublicationFilters(){
 }
 function publications(){
   const L=S(),items=filterPublications(site.publications,pubFilters);
-  return pageHead('publications')+`<div class="container page-body"><div class="source-line source-line-end">${external(site.contact.profile,L.link.facultyPublications)}</div>${publicationFilterPanel()}<div class="publication-list" id="publication-list">${items.map(paper).join('')}</div><div class="empty-state publication-empty" id="publication-empty"${items.length?' hidden':''}><h2>${e(L.filters.emptyTitle)}</h2><p>${e(L.filters.emptyText)}</p></div></div>`;
+  return pageHead('publications')+`<div class="container page-body"><div class="source-line source-line-end">${external(site.contact.profile,L.link.facultyPublications)}</div>${renderPublicationStats(site.publications)}${publicationFilterPanel()}<div class="publication-list" id="publication-list">${items.map(paper).join('')}</div><div class="empty-state publication-empty" id="publication-empty"${items.length?' hidden':''}><h2>${e(L.filters.emptyTitle)}</h2><p>${e(L.filters.emptyText)}</p></div></div>`;
 }
 function people(){
   const L=S();
@@ -222,8 +235,15 @@ function syncSeo(title,description){
 }
 
 function render(){
-  const L=S(), [part='home',detail]=location.hash.replace(/^#\/?/,'').split('/');
-  const inHome=['home','simulation',''].includes(part), id=inHome?'home':(part in site.pages?part:'home');
+  const L=S();
+  let [part='home',detail]=location.hash.replace(/^#\/?/,'').split('/');
+  // The old #/simulation URL pointed at the home-page experiment. Keep old
+  // bookmarks working by forwarding them to the demo's new research page.
+  if(part==='simulation'&&!detail){
+    history.replaceState(null,'','#/research/multi-agent-control');
+    part='research';detail='multi-agent-control';
+  }
+  const inHome=['home',''].includes(part), id=inHome?'home':(part in site.pages?part:'home');
   closeMenu();
   skip.textContent=L.skip;
   nav.setAttribute('aria-label',L.navLabel);
@@ -240,7 +260,12 @@ function render(){
     publicationDetail=id==='publications'?(detail||''):'';
     const pages={home,research:()=>research(detail),publications,people,alumni,gallery,news,honors,contact};
     main.innerHTML=pages[id]();
-    if(id==='home')cleanups=[trackDescent(),mountExperiment()];
+    if(id==='home')cleanups=[trackDescent()];
+    else if(id==='research'){
+      const direction=site.research.find(r=>r.id===detail);
+      const demo=direction&&researchDemos[direction.demo];
+      if(demo)cleanups=[demo.mount(main)];
+    }
     if(active)main.focus({preventScroll:true});active=view;
   }
   const item=id==='research'?site.research.find(r=>r.id===detail):null;
@@ -252,8 +277,7 @@ function render(){
   if(description)description.setAttribute('content',desc);
   syncSeo(document.title,desc);
   syncSearchChrome();
-  if(part==='simulation')requestAnimationFrame(()=>document.querySelector('#simulation').scrollIntoView({behavior:'instant'}));
-  else if(detail&&['publications','people','alumni','gallery','news','honors'].includes(id))requestAnimationFrame(()=>revealTarget(detail));
+  if(detail&&['publications','people','alumni','gallery','news','honors'].includes(id))requestAnimationFrame(()=>revealTarget(detail));
   else window.scrollTo({top:0,behavior:'instant'});
 }
 window.addEventListener('hashchange',render);

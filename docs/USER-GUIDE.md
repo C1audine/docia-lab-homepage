@@ -144,6 +144,9 @@ Publications 页面顶部有四个下拉框，选项全部由已有数据自动�
 新增论文或成员后重新构建，下拉选项会自动更新；若某研究方向不出现，检查对应
 metadata 的 `research` 是否写了该方向 ID。
 
+Publications 页顶部的年度统计图同样由 `publications.bib` 自动生成：总篇数、每年
+期刊/会议堆叠、平均每年篇数都会随内容更新，不需要手工维护。
+
 ## 6. 添加新闻
 
 1. 复制 `templates/news.md`。
@@ -176,6 +179,8 @@ English text.
 
 - `title.en`、`summary.en`、正文英文必填；
 - `icon` 可选 `network`、`agents`、`contour`；
+- `demo` 可选 `network`、`distributed`、`optimizer`，会在该方向详情页正文下方嵌入对应的交互实验；
+  不写则不显示实验。目前三个方向分别使用 network / distributed / optimizer；
 - 关联论文不写在这里：在论文 metadata 的 `research` 里写方向 ID，页面会自动反向显示。
 
 ### 荣誉

@@ -27,8 +27,12 @@ content/ + config/presentation.yaml
 - **唯一前端源码**：`src/`。`dist/` 是生成物，不手改。
 - **兼容层**：`src/app.js`、`src/search.js`、`src/i18n.js` 仍按旧的 `site` 对象渲染；
   适配器负责把新模型映射成旧结构，避免一次性重写页面。
-- **筛选逻辑**：`src/publication-filters.js` 是不碰 DOM 的纯函数模块，从兼容数据生成
-  年份/作者/研究方向/类型选项并执行筛选；`src/app.js` 只负责渲染面板和事件。
+- **筛选与统计**：`src/publication-filters.js` 是不碰 DOM 的纯函数模块，从兼容数据生成
+  年份/作者/研究方向/类型选项并执行筛选；`src/publication-stats.js` 同样是纯模块，
+  生成年度堆叠柱状图与无障碍表格；`src/app.js` 只负责渲染和事件。
+- **研究实验**：`src/experiment.js`（网络负载均衡）、`src/experiment-distributed.js`
+  （分布式梯度下降）和 `src/experiment-optimizer.js`（梯度下降/动量/Nesterov）各自导出
+  `render*` 与 `mount*`，由研究方向 Markdown 的 `demo:` 字段选择挂载。
 - **表现层配置**：配色、导航、页面标题、首屏、SEO 文案、交互实验默认参数在
   `config/presentation.yaml`。它们不是日常内容，因此不放在 `content/site.yaml`。
 
@@ -145,8 +149,12 @@ content/ + config/presentation.yaml
 `src/app.js` 的改动保持最小：
 
 - 姓名在 `initials()` / `escapeHtml()` 之前先 `pick()`；
-- 首页根据 `site.home` 的开关/条数渲染：research、selected_publications、interactive_experiment、moments；
+- 首页根据 `site.home` 的开关/条数渲染：research、selected_publications、moments；
+- 交互实验不再由首页控制：`research[].demo` 决定研究方向详情页挂载哪个实验，
+  `#/simulation` 旧链接会重定向到 `#/research/multi-agent-control`；
 - 精选论文在存在 `selected` 字段时只取 `selected: true`；没有该字段时保持旧行为（全部）；
+- Publications 顶部先渲染 `renderPublicationStats()` 的年度统计，再渲染筛选条；
+  统计始终基于全部论文，不随筛选变化；
 - Publications 筛选：`publicationFilterPanel()` 用 `buildPublicationFacets()` 生成四个下拉框，
   `change` 事件委托写入模块级 `pubFilters`，`syncPublicationList()` 重绘列表、结果计数和
   空状态；语言切换保留筛选，打开单篇论文深链接时清空筛选以便定位目标。
@@ -197,6 +205,9 @@ npm run build
   然后在适配器中决定是否映射到旧前端；不要直接在页面里解析文件。
 - 新图片目录：在 `content.js` 校验路径，在 `collectMedia()` 加入复制规则。
 - 新首页区块：在 `home.yaml` 增加开关/条数，`app.js` 读取 `site.home`，并同步文档。
+- 新研究实验：新增 `src/experiment-<name>.js`（导出 render/mount），在
+  `schemas/research.schema.json` 的 `demo` 枚举与 `app.js` 的 `researchDemos` 注册类型，
+  再在研究方向的 front matter 写 `demo: <name>`。
 - 新增字段：更新 schema、模板、用户手册；如果是展示字段，再改适配器。
 - 新增论文筛选维度：适配器先输出所需字段，再扩展 `src/publication-filters.js` 的
   `buildPublicationFacets()` / `filterPublications()`，在 `app.js` 的 `publicationFilterPanel()`
@@ -209,6 +220,7 @@ npm run build
 - 前端仍是单页 hash 路由，未拆成 `src/pages/components/layouts` 组件树（P1）。
 - 搜索深链接仍使用数组索引，不是稳定内容 ID（P1）。
 - 首页不自动展示新闻、不自动选择精选论文（P1）。
+- 研究方向详情页最多挂一个交互实验；新增实验需要同时扩展 schema 枚举与 `app.js`。
 - 论文列表已支持按年份、作者、研究方向、类型筛选；BibTeX/引用复制仍未做（P1）。
 - 荣誉/相册页当前无真实数据；页面代码保留，添加记录后即可显示。
 - 项目页、CMS、Issue 表单、更多 SEO 属于 P2，未实施。
