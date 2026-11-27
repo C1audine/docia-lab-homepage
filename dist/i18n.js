@@ -101,7 +101,7 @@ const ui = {
       portraitAlt: "{name} portrait"
     },
     experiment: {
-      title: "Interactive experiment",
+      title: "Load balancing on a network",
       intro: "Change the topology and see how eight edge servers balance their workloads.",
       run: "Run simulation",
       pause: "Pause",
@@ -133,6 +133,7 @@ const ui = {
     },
     researchDemo: {
       kicker: "Interactive demo",
+      jump: "Jump to the experiment",
       distributed: {
         title: "Distributed gradient descent",
         intro: "Eight agents hold local quadratic objectives. They take local gradient steps and exchange values with their neighbors; watch them approach a shared optimum.",
@@ -323,7 +324,7 @@ const ui = {
       portraitAlt: "{name} 的照片"
     },
     experiment: {
-      title: "交互实验",
+      title: "网络上的负载均衡",
       intro: "切换网络拓扑，观察八台边缘服务器如何均衡负载。",
       run: "运行模拟",
       pause: "暂停",
@@ -355,6 +356,7 @@ const ui = {
     },
     researchDemo: {
       kicker: "交互实验",
+      jump: "跳到交互实验",
       distributed: {
         title: "分布式梯度下降",
         intro: "八个智能体各自持有局部二次目标。它们做局部梯度步，并与邻居交换数值；观察它们如何逼近共同的最优解。",

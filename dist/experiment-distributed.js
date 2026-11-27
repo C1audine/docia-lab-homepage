@@ -67,11 +67,11 @@ function legendHtml() {
 export function renderDistributedDemo() {
   const {kicker, distributed: L} = S().researchDemo;
   const options = Object.keys(layouts).map(name => `<option value="${name}">${name}</option>`).join('');
-  return `<section class="research-demo" id="demo-distributed">
+  return `<section class="research-demo" id="demo-distributed" aria-labelledby="distributed-title">
   <div class="demo-head">
     <div>
       <p class="demo-kicker">${kicker}</p>
-      <h2>${L.title}</h2>
+      <h2 id="distributed-title">${L.title}</h2>
       <p class="demo-intro">${L.intro}</p>
     </div>
     <div class="sim-actions"><button type="button" id="dgd-run" class="btn primary">${icon('play',15)}${L.run}</button><button type="button" id="dgd-reset" class="square-btn" aria-label="${L.reset}" title="${L.reset}">${icon('reset')}</button></div>

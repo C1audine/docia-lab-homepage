@@ -1379,7 +1379,7 @@ select:hover {
   gap:6px 14px;
 }
 
-.demo-visual svg {
+.demo-visual > svg {
   display:block;
   width:100%;
   max-width:720px;
@@ -3048,6 +3048,181 @@ body.search-open {
 @media(max-width:410px) {
   .filter-field {
     flex-basis:100%;
+  }
+}
+
+/* Unified research-demo shell: the network demo splits into two panes. */
+.demo-field-wide {
+  flex:1 1 240px;
+}
+
+.demo-field-wide .demo-range {
+  flex:1;
+}
+
+.demo-field-wide .demo-range input[type="range"] {
+  flex:1;
+  width:auto;
+  min-width:140px;
+}
+
+.demo-visual:not(.demo-split) {
+  margin-top:12px;
+  padding:12px 16px 10px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:#fff;
+}
+
+.demo-visual:not(.demo-split) .demo-chart-title,
+.demo-visual:not(.demo-split) .curve-legend {
+  max-width:720px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.demo-split {
+  display:grid;
+  grid-template-columns:1.08fr 1fr;
+  margin-top:12px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.demo-pane {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
+.demo-pane+.demo-pane {
+  border-left:1px solid var(--line);
+}
+
+.demo-pane-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  min-height:46px;
+  padding:8px 16px;
+  border-bottom:1px solid var(--line);
+  background:#fbfdfb;
+}
+
+.demo-pane-head h3 {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:0;
+  font-family:var(--sans);
+  font-size:.92rem;
+  font-weight:600;
+  letter-spacing:-.01em;
+  color:var(--ink);
+}
+
+.demo-pane-head .icon {
+  color:var(--em);
+}
+
+.demo-split .net-board {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.demo-split .network-svg {
+  height:clamp(190px,17vw,232px);
+}
+
+.demo-split .chart-wrap {
+  flex:1;
+  padding:11px 16px 12px;
+}
+
+.demo-split .chart-wrap svg {
+  height:clamp(150px,12.5vw,180px);
+}
+
+.demo-split .demo-chart-title {
+  margin-bottom:2px;
+}
+
+.demo-split .curve-legend {
+  margin-top:6px;
+}
+
+.research-demo-band {
+  scroll-margin-top:104px;
+}
+
+/* Research detail pages put the experiment last; this returns readers to it. */
+.subhead-inner {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:18px 32px;
+  flex-wrap:wrap;
+}
+
+.jump-link {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  font:600 .7rem var(--mono);
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--em);
+  cursor:pointer;
+  transition:border-color .18s,color .18s,transform .18s;
+}
+
+.jump-link:hover {
+  border-color:#82ae98;
+  color:var(--ink);
+  transform:translateY(-1px);
+}
+
+.jump-link .icon {
+  transform:rotate(90deg);
+}
+
+.jump-link:focus-visible {
+  outline:2px solid #1ba784;
+  outline-offset:2px;
+}
+
+@media(max-width:780px) {
+  .demo-split {
+    grid-template-columns:1fr;
+  }
+  .demo-pane+.demo-pane {
+    border-left:0;
+    border-top:1px solid var(--line);
+  }
+  .subhead-inner {
+    align-items:flex-start;
+  }
+  .jump-link {
+    padding:8px 12px;
+  }
+}
+
+@media(max-width:410px) {
+  .demo-field-wide {
+    flex-basis:100%;
+  }
+  .jump-link {
+    width:100%;
+    justify-content:space-between;
   }
 }
 

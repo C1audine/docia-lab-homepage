@@ -46,7 +46,7 @@ const portraitAlt=person=>fill(S().labels.portraitAlt,{name:pick(person.name)});
 // A research direction opts into a demo with `demo:` in its Markdown front
 // matter. The load-balancing experiment moved here from the home page.
 const researchDemos={
-  network:{render:()=>experiment({container:false}),mount:()=>mountExperiment()},
+  network:{render:experiment,mount:()=>mountExperiment()},
   distributed:{render:renderDistributedDemo,mount:root=>mountDistributedDemo(root)},
   optimizer:{render:renderOptimizerDemo,mount:root=>mountOptimizerDemo(root)}
 };
@@ -107,7 +107,8 @@ function research(detail){
   const L=S(), item=site.research.find(r=>r.id===detail);
   if(item){
     const demo=researchDemos[item.demo];
-    return `<div class="subhead"><div class="container"><h1>${e(pick(item.title))}</h1><p>${e(pick(item.short))}</p></div></div><div class="container page-body"><div class="reading"><a href="#/research" class="text-link">${e(L.link.allDirections)}</a><div class="reading-art">${researchArt(item.icon)}</div><h2>${e(pick(item.question))}</h2><p>${e(pick(item.detail))}</p><h3 class="minor-title">${e(L.heading.relatedPublication)}</h3>${site.publications.filter(p=>p.id===item.paper).map(paper).join('')}</div>${demo?`<div class="research-demo-band" id="demo">${demo.render()}</div>`:''}</div>`;
+    const jump=demo?`<button type="button" class="jump-link" data-scroll-to="demo">${e(L.researchDemo.jump)}${icon('arrow',14)}</button>`:'';
+    return `<div class="subhead"><div class="container subhead-inner"><div><h1>${e(pick(item.title))}</h1><p>${e(pick(item.short))}</p></div>${jump}</div></div><div class="container page-body"><div class="reading"><a href="#/research" class="text-link">${e(L.link.allDirections)}</a><div class="reading-art">${researchArt(item.icon)}</div><h2>${e(pick(item.question))}</h2><p>${e(pick(item.detail))}</p><h3 class="minor-title">${e(L.heading.relatedPublication)}</h3>${site.publications.filter(p=>p.id===item.paper).map(paper).join('')}</div>${demo?`<div class="research-demo-band" id="demo">${demo.render()}</div>`:''}</div>`;
   }
   return pageHead('research')+`<div class="container page-body">${cards()}<div class="feature-band"><div><h2>${e(L.heading.localUpdates)}</h2><p>${e(L.text.localUpdates)}</p></div>${primary('#/research/multi-agent-control',L.link.openPlayground,'network')}</div></div>`;
 }
@@ -307,6 +308,18 @@ main.addEventListener('click',ev=>{
   syncPublicationList();
   const first=main.querySelector('[data-pub-filter]');
   if(first)first.focus();
+});
+// Research pages put their experiment at the bottom. The jump button scrolls
+// there without touching location.hash, which is reserved for the router.
+main.addEventListener('click',ev=>{
+  const jump=ev.target.closest('[data-scroll-to]');
+  if(!jump)return;
+  const target=document.getElementById(jump.dataset.scrollTo);
+  if(!target)return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  target.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  const heading=target.querySelector('h2');
+  if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});}
 });
 mountSearch();
 render();

@@ -6,22 +6,38 @@ const options=site.experiment;
 const names=Object.keys(layouts);
 const nodeName=i=>'N'+String(i+1).padStart(2,'0');
 // The load-balancing experiment used to sit on the home page. It now lives on
-// the multi-agent coordination research page, so `container` is optional: the
-// research page already provides the outer container.
-export function experiment({container=true}={}){
+// the multi-agent coordination research page and shares the same demo shell as
+// the other research experiments.
+export function experiment(){
   const L=S().experiment;
-  return `<section class="experiment-section${container?' container':''}" id="simulation">
-   <div class="section-head"><div><h2>${L.title}</h2></div><div class="sim-actions"><button id="run" class="btn primary"></button><button id="reset" class="square-btn" aria-label="${L.restart}" title="${L.restart}">${icon('reset')}</button></div></div>
-   <p class="section-intro">${L.intro}</p>
-   <div class="console"><div class="network-pane">
-    <div class="panel-head"><h3>${icon('network',20)}${L.networkTitle}</h3><select id="topology" aria-label="${L.topologyLabel}">${names.map(n=>`<option>${n}</option>`).join('')}</select></div>
-    <div class="net-board"><svg class="network-svg" id="network" viewBox="0 0 480 235" role="group" aria-label="${L.networkAria}"></svg><div class="board-foot"><span><i class="dot-key"></i>${L.edgeServer}</span><span><i class="line-key"></i>${L.link}</span></div></div>
-    <div class="load-controls"><label for="node-pick">${L.initialLoad}</label><select id="node-pick" aria-label="${L.selectedServer}">${options.initialLoads.map((_,i)=>`<option value="${i}">${nodeName(i)}</option>`).join('')}</select><input id="load" type="range" min="0" max="${Math.round(options.capacity*1.5)}" step="1" aria-label="${L.loadLabel}"><output id="load-val" for="load"></output></div>
-   </div><div class="curve-pane">
-    <div class="panel-head"><h3>${icon('chart',20)}${L.convergence}</h3><span class="round" id="round"></span></div>
-    <div class="chart-wrap"><p class="chart-title">${L.chartTitle} <span>${L.chartUnit}</span></p><svg viewBox="0 0 430 173" id="curve" role="img" aria-label="${L.chartAria}"></svg><div class="curve-legend" id="curve-legend"></div></div>
-    <div class="stats"><div><span>${L.efficiency}</span><strong id="efficiency"></strong></div><div><span>${L.withinCapacity}</span><strong id="capacity"></strong></div><div><span>${L.roundsToBalance}</span><strong id="balanced"></strong></div></div>
-   </div></div>
+  return `<section class="research-demo" id="simulation" aria-labelledby="simulation-title">
+   <div class="demo-head">
+    <div>
+     <p class="demo-kicker">${S().researchDemo.kicker}</p>
+     <h2 id="simulation-title">${L.title}</h2>
+     <p class="demo-intro">${L.intro}</p>
+    </div>
+    <div class="sim-actions"><button id="run" class="btn primary"></button><button id="reset" class="square-btn" aria-label="${L.restart}" title="${L.restart}">${icon('reset')}</button></div>
+   </div>
+   <div class="demo-panel">
+    <div class="demo-toolbar">
+     <div class="demo-field"><label for="topology">${L.topologyLabel}</label><select id="topology">${names.map(n=>`<option>${n}</option>`).join('')}</select></div>
+     <div class="demo-field"><label for="node-pick">${L.selectedServer}</label><select id="node-pick">${options.initialLoads.map((_,i)=>`<option value="${i}">${nodeName(i)}</option>`).join('')}</select></div>
+     <div class="demo-field demo-field-wide"><label for="load">${L.initialLoad}</label><div class="demo-range"><input id="load" type="range" aria-label="${L.loadLabel}" min="0" max="${Math.round(options.capacity*1.5)}" step="1"><output id="load-val" for="load"></output></div></div>
+     <span class="round" id="round"></span>
+    </div>
+    <div class="demo-visual demo-split">
+     <div class="demo-pane">
+      <div class="demo-pane-head"><h3>${icon('network',18)}${L.networkTitle}</h3></div>
+      <div class="net-board"><svg class="network-svg" id="network" viewBox="0 0 480 235" role="group" aria-label="${L.networkAria}"></svg><div class="board-foot"><span><i class="dot-key"></i>${L.edgeServer}</span><span><i class="line-key"></i>${L.link}</span></div></div>
+     </div>
+     <div class="demo-pane">
+      <div class="demo-pane-head"><h3>${icon('chart',18)}${L.convergence}</h3></div>
+      <div class="chart-wrap"><p class="demo-chart-title">${L.chartTitle} <span>${L.chartUnit}</span></p><svg viewBox="0 0 430 173" id="curve" role="img" aria-label="${L.chartAria}"></svg><div class="curve-legend" id="curve-legend"></div></div>
+     </div>
+    </div>
+    <div class="demo-stats" aria-live="polite"><div><span>${L.efficiency}</span><strong id="efficiency"></strong></div><div><span>${L.withinCapacity}</span><strong id="capacity"></strong></div><div><span>${L.roundsToBalance}</span><strong id="balanced"></strong></div></div>
+   </div>
    <details class="method"><summary>${L.howTitle}</summary><div><p>${fill(L.howP1,{capacity:options.capacity})}</p><p>${fill(L.howP2,{i:'<i>i</i>',j:'<i>j</i>',d:'<i>d</i>'})}</p><p>${fill(L.howP3,{tolerance:options.tolerance,capacity:options.capacity})}</p></div></details>
   </section>`;
 }

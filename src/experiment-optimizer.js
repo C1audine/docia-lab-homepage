@@ -122,11 +122,11 @@ export function renderOptimizerDemo() {
   const startLoss = OBJECTIVE.f(START[0], START[1]);
   const startDistance = Math.hypot(START[0], START[1]);
   const iteration = iterationLabel(L.round);
-  return `<section class="research-demo" id="demo-optimizer">
+  return `<section class="research-demo" id="demo-optimizer" aria-labelledby="optimizer-title">
   <div class="demo-head">
     <div>
       <p class="demo-kicker">${S().researchDemo.kicker}</p>
-      <h2>${L.title}</h2>
+      <h2 id="optimizer-title">${L.title}</h2>
       <p class="demo-intro">${L.intro}</p>
     </div>
     <div class="sim-actions"><button id="opt-run" class="btn primary">${icon('play', 15)}${L.run}</button><button id="opt-reset" class="square-btn" aria-label="${L.reset}" title="${L.reset}">${icon('reset')}</button></div>
@@ -142,7 +142,7 @@ export function renderOptimizerDemo() {
       <svg id="opt-chart" viewBox="0 0 720 300" role="img" aria-label="${L.chartAria}"></svg>
       <div class="curve-legend" id="opt-legend"><span><i class="line-key"></i>${L.contours}</span><span><i class="line-key strong"></i>${L.path}</span><span><i class="opt-key"></i>${L.optimum}</span></div>
     </div>
-    <div class="demo-stats">
+    <div class="demo-stats" aria-live="polite">
       <div><span>${L.loss}</span><strong id="opt-loss">${formatStat(startLoss)}</strong></div>
       <div><span>${L.distance}</span><strong id="opt-distance">${formatStat(startDistance)}</strong></div>
       <div><span>${iteration}</span><strong id="opt-iterations">0</strong></div>

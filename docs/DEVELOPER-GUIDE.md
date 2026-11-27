@@ -32,7 +32,9 @@ content/ + config/presentation.yaml
   生成年度堆叠柱状图与无障碍表格；`src/app.js` 只负责渲染和事件。
 - **研究实验**：`src/experiment.js`（网络负载均衡）、`src/experiment-distributed.js`
   （分布式梯度下降）和 `src/experiment-optimizer.js`（梯度下降/动量/Nesterov）各自导出
-  `render*` 与 `mount*`，由研究方向 Markdown 的 `demo:` 字段选择挂载。
+  `render*` 与 `mount*`，由研究方向 Markdown 的 `demo:` 字段选择挂载。三者共用
+  `.research-demo` 外壳（`demo-head`、`demo-toolbar`、`demo-visual`、`demo-stats`），
+  新实验应复用这些类，避免再出现一套独立样式。
 - **表现层配置**：配色、导航、页面标题、首屏、SEO 文案、交互实验默认参数在
   `config/presentation.yaml`。它们不是日常内容，因此不放在 `content/site.yaml`。
 
@@ -152,6 +154,8 @@ content/ + config/presentation.yaml
 - 首页根据 `site.home` 的开关/条数渲染：research、selected_publications、moments；
 - 交互实验不再由首页控制：`research[].demo` 决定研究方向详情页挂载哪个实验，
   `#/simulation` 旧链接会重定向到 `#/research/multi-agent-control`；
+- 研究方向详情页顶部渲染「跳到交互实验」按钮（`data-scroll-to="demo"`），点击后平滑滚动
+  到实验区并把焦点移到实验标题；按钮只在存在 `demo` 时出现，且不修改 `location.hash`；
 - 精选论文在存在 `selected` 字段时只取 `selected: true`；没有该字段时保持旧行为（全部）；
 - Publications 顶部先渲染 `renderPublicationStats()` 的年度统计，再渲染筛选条；
   统计始终基于全部论文，不随筛选变化；
